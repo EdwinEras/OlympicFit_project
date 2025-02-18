@@ -8,16 +8,16 @@
     - Create a separate **Client Component** inside the same folder and import it.
 ****/
 
+import PricingBanner from './PricingBanner';
+
 export const metadata = {
   title: 'Olympic Fit - Pricing',
 }
 
 export default function Pricing() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-mulish)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        This is the Pricing Page
+      <main className="min-h-screen">
+        <PricingBanner />
       </main>
-    </div>
   );
 }

@@ -1,161 +1,145 @@
-const NavBar = () => {
+"use client";
+
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { User, ChevronDown, ChevronUp, Menu, X } from "lucide-react";
+
+const Navbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setDropdownOpen(false);
+    setMenuOpen(false);
+  }, [pathname]);
+
   return (
-    <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a
-          href="https://flowbite.com/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8"
-            alt="Flowbite Logo"
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap  dark:text-white">
-            OlympicFit
-          </span>
-        </a>
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <a href="/login">
-            <button
-              type="button"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Login
-            </button>
-          </a>
+    <header className="bg-[#232a2c] shadow-md sticky w-full z-50 flex items-center justify-center">
+      <nav className="container flex justify-between items-center py-6 px-4 2xl:px-8">
+        {/* Wrapper for Hamburger and Logo */}
+        <div className="flex items-center space-x-4">
+          {/* Hamburger Menu Button */}
           <button
-            data-collapse-toggle="navbar-sticky"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-sticky"
-            aria-expanded="false"
+            className="lg:hidden text-white"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+
+          {/* Logo */}
+          <Link href="/" className="relative h-[42px] w-[140px] xl:w-[200px]">
+            <Image
+              src="/images/olympicfit-logo.png"
+              alt="Olympic Logo"
+              fill
+              priority
+              className="object-cover sm:object-contain"
+            />
+          </Link>
         </div>
-        <div
-          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-          id="navbar-sticky"
+
+        {/* Nav Links */}
+        <ul
+          className={`lg:flex lg:space-x-4 xl:space-x-8 text-white ${
+            menuOpen
+              ? "flex flex-col space-y-4 absolute top-20 left-0 w-full bg-[#232a2c] px-6 py-4 z-50 min-h-screen"
+              : "hidden"
+          }`}
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <a
-                href="/"
-                className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                aria-current="page"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="/about"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="/classes"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Classes
-              </a>
-            </li>
-            <li>
-              <a
-                href="/pricing"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="/contact"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Contact Us
-              </a>
-            </li>
-            <li>
-              <a
-                href="/faq"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a
-                href="/gallery"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Gallery
-              </a>
-            </li>
-            <li>
-              <a
-                href="/myaccount"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                My Account
-              </a>
-            </li>
-            <li>
-              <a
-                href="/dash_admin"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Dash Admin
-              </a>
-            </li>
-            <li>
-              <a
-                href="/dash_trainer"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Dash Trainer
-              </a>
-            </li>
-            <li>
-              <a
-                href="/dash_member"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Dash Member
-              </a>
-            </li>
-            <li>
-              <a
-                href="/register"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Register
-              </a>
-            </li>
-          </ul>
+          <li>
+            <Link href="/classes" className="uppercase text-sm">
+              Classes
+            </Link>
+          </li>
+          <li>
+            <Link href="/classes-plan" className="uppercase text-sm">
+              Classes Plan
+            </Link>
+          </li>
+          <li>
+            <Link href="/pricing" className="uppercase text-sm">
+              Pricing
+            </Link>
+          </li>
+          <li>
+            <Link href="/about" className="uppercase text-sm">
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link href="/gallery" className="uppercase text-sm">
+              Gallery
+            </Link>
+          </li>
+          <li>
+            <Link href="/faqs" className="uppercase text-sm">
+              FAQs
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className="uppercase text-sm">
+              Contact Us
+            </Link>
+          </li>
+        </ul>
+
+        {/* User Dropdown & Language Switch */}
+        <div className="flex items-center space-x-6">
+          {/* Login Dropdown */}
+          <div className="relative">
+            <button
+              className="flex items-center space-x-2 text-white"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <User size={20} />
+              <div className="text-left">
+                <span className="text-sm block opacity-50">Welcome</span>
+                <span className="text-sm font-semibold">Sign In / Sign Up</span>
+              </div>
+              {dropdownOpen ? (
+                <ChevronUp size={16} />
+              ) : (
+                <ChevronDown size={16} />
+              )}
+            </button>
+
+            {/* Dropdown Menu */}
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md">
+                <Link
+                  href="/login"
+                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/logout"
+                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                >
+                  Sign Out
+                </Link>
+                <Link
+                  href="/myaccount"
+                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                >
+                  My Profile
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Language Switch */}
+          <div className="text-white">
+            <span className="cursor-pointer text-sm font-semibold">EN</span> /
+            <span className="cursor-pointer text-sm"> FR</span>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 
-export default NavBar;
+export default Navbar;
