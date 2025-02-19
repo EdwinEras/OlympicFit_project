@@ -9,6 +9,7 @@
 ****/
 
 import PricingBanner from './PricingBanner';
+import MembershipList from "./MembershipList";
 
 export const metadata = {
   title: 'Olympic Fit - Pricing',
@@ -18,6 +19,7 @@ export default function Pricing() {
   return (
       <main className="min-h-screen">
         <PricingBanner />
+        <MembershipList />
       </main>
   );
 }

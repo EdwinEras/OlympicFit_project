@@ -10,6 +10,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'off-white': '#f5f4f2',
+        'brand-200': '#dcd5cf',
+        'old-black': '#2c2b2a',
+        'midnights': '#232a2c',
+        'silver-slate': '#5b838f',
+        'ocean-blue': '#205771',
+        'red': '#a42220',
       },
     },
   },
