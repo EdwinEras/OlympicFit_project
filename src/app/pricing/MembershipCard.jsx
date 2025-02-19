@@ -13,7 +13,7 @@ export default function MembershipCard({ price, title, features }) {
           </li>
         ))}
       </ul>
-      <button className="mt-8 justify-self-center bg-red px-4 py-2 rounded flex items-center justify-center gap-2 text-white">
+      <button className="mt-8 flex justify-self-center bg-red px-4 py-2 rounded gap-2 text-white">
         Subscribe
       </button>
     </div>
