@@ -19,8 +19,7 @@ const Navbar = () => {
   return (
     <header className="bg-[#232a2c] shadow-md sticky w-full z-50 flex items-center justify-center">
       <nav className="container flex justify-between items-center py-6 px-4 2xl:px-8">
-        <div className="flex items-center space-x-4">
-          {/* Hamburger Menu Button */}
+        <div className="flex items-center">
           <button
             className="lg:hidden text-white"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -29,13 +28,13 @@ const Navbar = () => {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="relative h-[42px] w-[140px] xl:w-[200px]">
+          <Link href="/" className="relative h-[42px] w-[96px] md:w-[140px] xl:w-[200px]">
             <Image
               src="/images/olympicfit-logo.png"
               alt="Olympic Logo"
               fill
               priority
-              className="object-cover sm:object-contain"
+              className="object-contain"
             />
           </Link>
         </div>
@@ -86,7 +85,7 @@ const Navbar = () => {
         </ul>
 
         {/* User Dropdown & Language Switch */}
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center md:space-x-6 space-x-2">
           {/* Login Dropdown */}
           <div className="relative">
             <button
