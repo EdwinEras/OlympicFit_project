@@ -52,4 +52,6 @@ nav ul li a:after {
   transition: transform 250ms ease-in-out;
 }
 
-nav a:hover:after { transform: scaleX(1); }
+nav a:hover:after { 
+  transform: scaleX(1);
+}

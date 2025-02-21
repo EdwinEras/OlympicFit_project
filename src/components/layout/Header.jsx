@@ -28,7 +28,10 @@ const Navbar = () => {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="relative h-[42px] w-[105px] md:w-[140px] xl:w-[200px]">
+          <Link
+            href="/"
+            className="relative h-[42px] w-[105px] md:w-[140px] xl:w-[200px]"
+          >
             <Image
               src="/images/olympicfit-logo.png"
               alt="Olympic Logo"
@@ -53,7 +56,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link href="/classes-plan" className="uppercase text-sm">
+            <Link href="/classesplan" className="uppercase text-sm">
               Classes Plan
             </Link>
           </li>
@@ -106,7 +109,7 @@ const Navbar = () => {
 
             {/* Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md">
+              <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-50">
                 <Link
                   href="/login"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
