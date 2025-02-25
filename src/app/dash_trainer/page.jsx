@@ -7,6 +7,7 @@
     - Keep **page.jsx** as a Server Component.
     - Create a separate **Client Component** inside the same folder and import it.
 ****/
+import Banner from "../../components/ui/Banner";
 
 export default function DashTrainer() {
   return (
