@@ -41,7 +41,7 @@ const CardEditClass = ({setShow, editClass}) => {
                         <button 
                             onClick={()=>{setDropdown(!dropdown)}}
                             className="flex rounded bg-gray-300 rounded p-1 mx-2 hover:bg-gray-400 hover:text-white"
-                        >Dropdown {dropdown ? <ArrowUp /> : <ArrowDown />}
+                        >{editClass.difficulty} {dropdown ? <ArrowUp /> : <ArrowDown />}
                         </button>
                         {dropdown &&
                             <div className="flex flex-col">

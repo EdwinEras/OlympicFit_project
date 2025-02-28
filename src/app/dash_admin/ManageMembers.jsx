@@ -4,6 +4,8 @@ import CardEditClass from "./CardEditClass";
 import ConfirmDelete from "../../components/ui/ConfirmDelete";
 import CardCreateClass from "./CardCreateClass";
 import { useState } from "react";
+import CardCreateMember from "./CardCreateMember";
+import CardEditMember from "./CardEditMember";
 
 
 const ManageMembers = ({arrMembers}) => {
@@ -28,23 +30,23 @@ const ManageMembers = ({arrMembers}) => {
               className="bg-green-600 px-4 py-2 mt-2 rounded text-white hover:bg-green-700">
               Add Member
             </button>
-            {show==="create_m" && (<CardCreateClass setShow={setShow}/>)}
+            {show==="create_m" && (<CardCreateMember setShow={setShow}/>)}
             {arrMembers.map((m) => (
               <div key={m.id} className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
-                <p className="text-sm">{m.id} - {m.name} - {m.start_time} - {m.end_time} - {m.active}</p>
+                <p className="text-sm">{m.id} - {m.first_name} {m.last_name} - {m.dob} - {m.membership}</p>
                 <div className="flex gap-2">
                   <button 
                   onClick={() => {setShow(`edit_m${m.id}`)}}
                   className="bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500">
                     <Pencil />
                   </button>
-                  {show===`edit_m${m.id}` && (<CardEditClass setShow={setShow} editClass={m}/>)}
+                  {show===`edit_m${m.id}` && (<CardEditMember setShow={setShow} editMember={m}/>)}
                   <button 
                   onClick={() => {setShow(`del_m${m.id}`)}}
                   className="bg-pink-500 px-2 py-1 rounded hover:bg-pink-600">
                     <X />
                   </button>
-                  {show===`del_m${m.id}` && (<ConfirmDelete setShow={setShow} text={m.name} setAns={setAns} />)}
+                  {show===`del_m${m.id}` && (<ConfirmDelete setShow={setShow} text={`${m.first_name} ${m.last_name}`} setAns={setAns} />)}
                 </div>
               </div>
             ))}
