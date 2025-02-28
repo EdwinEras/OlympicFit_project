@@ -17,7 +17,7 @@ const Navbar = () => {
   }, [pathname]);
 
   return (
-    <header className="bg-[#232a2c] shadow-md sticky w-full z-50 flex items-center justify-center">
+    <header className="bg-[#232a2c] shadow-md sticky w-full z-50 flex items-center justify-center fixed">
       <nav className="container flex justify-between items-center py-6 px-4 2xl:px-8">
         <div className="flex items-center">
           <button
@@ -50,6 +50,11 @@ const Navbar = () => {
               : "hidden"
           }`}
         >
+          <li>
+            <Link href="/" className="uppercase text-sm block lg:hidden">
+              Home
+            </Link>
+          </li>
           <li>
             <Link href="/classes" className="uppercase text-sm">
               Classes

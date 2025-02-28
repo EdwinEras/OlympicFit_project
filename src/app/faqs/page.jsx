@@ -7,17 +7,17 @@
     - Keep **page.jsx** as a Server Component.
     - Create a separate **Client Component** inside the same folder and import it.
 ****/
+import Banner from "../../components/ui/Banner";
+import bannerImages from "../../lib/bannerImages";
 
 export const metadata = {
-  title: 'Olympic Fit - Faqs',
-}
+  title: "Olympic Fit - Faqs",
+};
 
 export default function FaQ() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-mulish)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        This is the FaQ Page
-      </main>
-    </div>
+    <main className="min-h-screen">
+      <Banner bgImage={bannerImages.faqs} title="Faqs" />;
+    </main>
   );
 }
