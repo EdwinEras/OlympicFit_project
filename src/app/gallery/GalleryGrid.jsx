@@ -134,12 +134,12 @@ export default function GalleryGrid() {
     <div className="container mx-auto p-10 lg:p-20">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((image) => (
-          <div key={image.id} className="w-full h-[300px] relative">
+          <div key={image.id} className="w-full h-[300px] rounded-lg relative overflow-hidden group">
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div>
             <img
               src={image.imgURL}
               alt={image.alt}
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full object-cover rounded-lg transform transition duration-300 ease-in-out group-hover:scale-105"
             />
           </div>
         ))}
