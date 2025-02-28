@@ -38,3 +38,25 @@ nav ul li a:after {
 nav a:hover:after { 
   transform: scaleX(1);
 }
+
+
+.card {
+  perspective: 800px;
+}
+
+.card__content {
+  transform-style: preserve-3d;
+}
+
+.card__front,
+.card__back {
+  backface-visibility: hidden;
+}
+
+.card__back {
+  transform: rotateY(180deg);
+}
+
+.card__content:hover {
+  transform: rotateY(180deg);
+}
