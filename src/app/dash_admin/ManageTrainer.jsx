@@ -1,11 +1,11 @@
 "use client";
 import { ArrowDown, ArrowUp, Pencil, X } from "lucide-react";
-import CardEditClass from "./CardEditClass";
 import ConfirmDelete from "../../components/ui/ConfirmDelete";
-import CardCreateClass from "./CardCreateClass";
 import { useState } from "react";
+import CardCreateTrainer from "./CardCreateTrainer";
+import CardEditTrainer from "./CardEditTrainer";
 
-const ManageTrainner = ({arrTrainners}) => {
+const ManageTrainner = ({arrTrainers}) => {
     const [trainerUp, setTrainerUp] = useState(false);
     const [show, setShow] = useState();
     const [ans, setAns] = useState();
@@ -27,23 +27,23 @@ const ManageTrainner = ({arrTrainners}) => {
               className="bg-green-600 px-4 py-2 mt-2 rounded text-white hover:bg-green-700">
               Add Trainner
             </button>
-            {show==="create_t" && (<CardCreateClass setShow={setShow}/>)}
-            {arrTrainners.map((t) => (
+            {show==="create_t" && (<CardCreateTrainer setShow={setShow}/>)}
+            {arrTrainers.map((t) => (
               <div key={t.id} className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
-                <p className="text-sm">{t.id} - {t.name} - {t.start_time} - {t.end_time} - {t.active}</p>
+                <p className="text-sm">{t.id} - {t.first_name} {t.last_name} - {t.dob} - {t.salary}</p>
                 <div className="flex gap-2">
                   <button 
                   onClick={() => {setShow(`edit_t${t.id}`)}}
                   className="bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500">
                     <Pencil />
                   </button>
-                  {show===`edit_t${t.id}` && (<CardEditClass setShow={setShow} editClass={t}/>)}
+                  {show===`edit_t${t.id}` && (<CardEditTrainer setShow={setShow} editTrainer={t}/>)}
                   <button 
                   onClick={() => {setShow(`del_t${t.id}`)}}
                   className="bg-pink-500 px-2 py-1 rounded hover:bg-pink-600">
                     <X />
                   </button>
-                  {show===`del_t${t.id}` && (<ConfirmDelete setShow={setShow} text={t.name} setAns={setAns} />)}
+                  {show===`del_t${t.id}` && (<ConfirmDelete setShow={setShow} text={`${t.first_name} ${t.last_name}`} setAns={setAns} />)}
                 </div>
               </div>
             ))}

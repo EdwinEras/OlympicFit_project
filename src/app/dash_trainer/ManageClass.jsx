@@ -1,14 +1,13 @@
 "use client";
 import { ArrowDown, ArrowUp, Pencil, X } from "lucide-react";
-import CardEditClass from "./CardEditClass";
-import ConfirmDelete from "../../components/ui/ConfirmDelete";
-import CardCreateClass from "./CardCreateClass";
+import CardEditClass from "../dash_admin/CardEditClass";
+import CardCreateClass from "../dash_admin/CardCreateClass";
 import { useState } from "react";
 
+
 const ManageClass = ({arrClasses}) => {
-    const [classUp, setClassUp] = useState(false);
+    const [classUp, setClassUp] = useState(true);
     const [show, setShow] = useState();
-    const [ans, setAns] = useState();
 
     return(
         <div className="relative m-4 mx-auto w-[85%] bg-gray-300 p-6 rounded-lg">
@@ -38,12 +37,6 @@ const ManageClass = ({arrClasses}) => {
                     <Pencil />
                   </button>
                   {show===`edit_c${c.id}` && (<CardEditClass setShow={setShow} editClass={c}/>)}
-                  <button 
-                  onClick={() => {setShow(`del_c${c.id}`)}}
-                  className="bg-pink-500 px-2 py-1 rounded hover:bg-pink-600">
-                    <X />
-                  </button>
-                  {show===`del_c${c.id}` && (<ConfirmDelete setShow={setShow} text={c.name} setAns={setAns} />)}
                 </div>
               </div>
             ))}
