@@ -8,7 +8,8 @@
     - Create a separate **Client Component** inside the same folder and import it.
 ****/
 
-import PricingBanner from './PricingBanner';
+import Banner from "../../components/ui/Banner";
+import bannerImages from "../../lib/bannerImages";
 import MembershipList from "./MembershipList";
 
 export const metadata = {
@@ -18,7 +19,7 @@ export const metadata = {
 export default function Pricing() {
   return (
       <main className="min-h-screen">
-        <PricingBanner />
+        <Banner bgImage={bannerImages.pricing} title="Pricing" />;
         <MembershipList />
       </main>
   );

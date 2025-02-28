@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .scrollbar::-webkit-scrollbar {
-    width: 8px;
-    height: auto;
-  }
-
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: transparent;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    border: 4px solid var(--midnights);
-  }
-}
-
 :root {
   --off-white: #f5f4f2;
   --brand--200: #dcd5cf;
