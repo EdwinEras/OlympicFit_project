@@ -11,7 +11,7 @@ const CardEditClass = ({setShow, editClass}) => {
         <div 
             className='p-2 bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8'>
             <div className="flex justify-between items-center">
-                <h2 className="text-lg sm:text-2xl font-semibold">Edit Class</h2>
+                <h2 className="text-lg sm:text-2xl font-semibold">Edit class</h2>
                 <button 
                 onClick={() => {setShow("")}}
                 className="bg-pink-500 px-2 py-1 rounded hover:bg-pink-600"
