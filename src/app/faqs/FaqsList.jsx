@@ -13,9 +13,6 @@ export default function FaqList() {
 
   return (
     <div className="container mx-auto py-20 px-8 md:p-20">
-      <h2 className="text-2xl sm:text-4xl font-bold text-center mb-8">
-        Frequently Asked Questions
-      </h2>
       <div className="space-y-6">
         {faqs.map((faq, index) => (
           <div

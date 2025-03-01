@@ -23,7 +23,7 @@ export default function ClassCard({ classData, mediaInfo }) {
             </h3>
             <Link
               href={`/classes/${classData.class_code}`}
-              className="text-md  cursor-pointer font-bold px-6 py-3 text-gray-200 border border-gray-800 rounded-lg focus:outline-none uppercase focus:shadow-outline bg-gradient-to-b from-silver-slate to-black transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+              className="text-md cursor-pointer font-bold px-6 py-3 text-gray-200 border border-gray-800 rounded-lg focus:outline-none uppercase focus:shadow-outline bg-gradient-to-b from-silver-slate to-black transition-opacity duration-300 opacity-100 group-hover:opacity-100 md:opacity-0"
             >
               Learn More
             </Link>

@@ -18,7 +18,7 @@ export const metadata = {
 export default function FaQ() {
   return (
     <main className="min-h-screen">
-      <Banner bgImage={bannerImages.faqs} title="Faqs" />
+      <Banner bgImage={bannerImages.faqs} title="Frequently Asked Questions" />
       <FaqList />  {}
     </main>
   );
