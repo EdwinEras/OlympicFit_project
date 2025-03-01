@@ -7,7 +7,7 @@ export const users = [
     phone_number: "123-456-7890",
     username: "edwina",
     password_hash: "hashedpassword",
-    role: "trainer", 
+    role: "trainer",
     gender: "male",
     address: "123 St, City, Country",
     date_joined: "2021-01-01",
@@ -15,15 +15,15 @@ export const users = [
     image: "Edwin.jpg",
     employee: {
       specialties: {
-        employee_type: "Trainer",
+        employee_type: "Kickboxing Instructor",
         hourly_rate: 50,
         employment_status: "full-time",
         monthly_salary: 4000,
       },
     },
     trainer_details: {
-      description: "An expert in strength training and nutrition, Edwin has over 15 years of experience in designing personalized fitness programs.",
-      assigned_classes: ["kickboxing"], 
+      description: "Edwin is a skilled kickboxing instructor who helps clients build strength and endurance.",
+      assigned_classes: ["kickboxing"],
     },
   },
   {
@@ -34,7 +34,7 @@ export const users = [
     phone_number: "987-654-3210",
     username: "paris",
     password_hash: "hashedpassword",
-    role: "trainer", 
+    role: "trainer",
     gender: "female",
     address: "456 Ave, City, Country",
     date_joined: "2021-06-01",
@@ -42,15 +42,15 @@ export const users = [
     image: "pari.jpg",
     employee: {
       specialties: {
-        employee_type: "Trainer",
+        employee_type: "Yoga Instructor",
         hourly_rate: 45,
         employment_status: "part-time",
         monthly_salary: 2500,
       },
     },
     trainer_details: {
-      description: "With a deep passion for flexibility and mindfulness, Pari has been teaching yoga for over 8 years.",
-      assigned_classes: ["yoga"], 
+      description: "Pari guides students in improving flexibility, balance, and mindfulness through yoga.",
+      assigned_classes: ["yoga"],
     },
   },
   {
@@ -69,14 +69,14 @@ export const users = [
     image: "nigh.avif",
     employee: {
       specialties: {
-        employee_type: "Trainer",
+        employee_type: "Strength Training",
         hourly_rate: 60,
         employment_status: "part-time",
         monthly_salary: 2000,
       },
     },
     trainer_details: {
-      description: "Passionate about healthy eating and meal planning, Nigh uses evidence-based strategies to help clients develop sustainable eating habits.",
+      description: "Nigh specializes in strength training, helping clients build muscle and improve performance.",
       assigned_classes: ["strength"],
     },
   },
@@ -96,15 +96,15 @@ export const users = [
     image: "Kozeta.jpg",
     employee: {
       specialties: {
-        employee_type: "Trainer",
+        employee_type: "Dance Instructor",
         hourly_rate: 55,
         employment_status: "full-time",
         monthly_salary: 4000,
       },
     },
     trainer_details: {
-      description: "Certified personal trainer with 10 years of experience, Kozeta specializes in creating customized workout routines that help clients reach their fitness goals.",
-      assigned_classes: ["dance"], 
+      description: "Kozeta brings energy and creativity to dance classes, helping students refine their skills.",
+      assigned_classes: ["dance"],
     },
   },
   {
@@ -123,14 +123,14 @@ export const users = [
     image: "Teddy.jpg",
     employee: {
       specialties: {
-        employee_type: "Trainer",
+        employee_type: "Cycling Instructor",
         hourly_rate: 50,
         employment_status: "full-time",
         monthly_salary: 3500,
       },
     },
     trainer_details: {
-      description: "Teddy helps clients improve their endurance and heart health through tailored cardiovascular training programs.",
+      description: "Teddy helps clients enhance endurance and cardiovascular health through cycling.",
       assigned_classes: ["cycling"],
     },
   },
@@ -150,15 +150,15 @@ export const users = [
     image: "Aug.jpg",
     employee: {
       specialties: {
-        employee_type: "Trainer",
+        employee_type: "Cardio Instructor",
         hourly_rate: 50,
         employment_status: "part-time",
         monthly_salary: 2500,
       },
     },
     trainer_details: {
-      description: "Augustine is a Pilates instructor with a focus on core strength and stability.",
-      assigned_classes: ["cardio"], 
+      description: "Augustine focuses on improving stamina and heart health through cardio workouts.",
+      assigned_classes: ["cardio"],
     },
   },
 ];

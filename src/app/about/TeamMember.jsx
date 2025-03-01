@@ -1,4 +1,10 @@
-export default function TeamMember({ name, role, description, image }) {
+export default function TeamMember({
+  first_name,
+  last_name,
+  employee,
+  trainer_details,
+  image,
+}) {
   return (
     <div className="card w-full h-[560px] perspective">
       <div className="card__content relative w-full h-full transform-style-preserve-3d transition-transform duration-1000 hover:rotate-y-180">
@@ -7,11 +13,11 @@ export default function TeamMember({ name, role, description, image }) {
           <div className="relative w-full h-full">
             <img
               src={`/images/${image}`}
-              alt={name}
+              alt={`${first_name} ${last_name}`}
               className="w-full h-full object-cover rounded-2xl mb-4 opacity-90"
             />
             <h2 className="absolute uppercase bottom-8 pl-4 text-2xl font-bold text-left text-white">
-              {name}
+              {first_name} {last_name}
             </h2>
           </div>
         </div>
@@ -21,12 +27,18 @@ export default function TeamMember({ name, role, description, image }) {
           <div className="w-full h-full flex flex-col items-start justify-center">
             <img
               src={`/images/${image}`}
-              alt={name}
+              alt={`${first_name} ${last_name}`}
               className="w-full h-full object-cover mb-4 rounded-2xl"
             />
-            <h2 className="text-2xl font-bold uppercase">{name}</h2>
-            <h3 className="text-md my-2 text-[#ffffffc2]">{role}</h3>
-            <p className="text-md text-[#ffffffc2]">{description}</p>
+            <h2 className="text-2xl font-bold uppercase">
+              {first_name} {last_name}
+            </h2>
+            <h3 className="text-md my-2 text-[#ffffffc2]">
+              {employee?.specialties?.employee_type}
+            </h3>
+            <p className="text-md text-[#ffffffc2]">
+              {trainer_details?.description}
+            </p>
           </div>
         </div>
       </div>
