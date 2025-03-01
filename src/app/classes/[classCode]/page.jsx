@@ -6,25 +6,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { classesData } from "../../../lib/classesData";
 import { mediaData } from "../../../lib/mediaData";
+import { users } from "../../../lib/userData";
 
 export default function ClassDetailsPage() {
   const { classCode } = useParams();
-
   const classDetails = classesData.find(
     (item) => item.class_code === classCode
   );
-
-  if (!classDetails) {
+  if (!classDetails)
     return <div className="p-6 text-red-500">Class not found!</div>;
-  }
 
   const mediaInfo = mediaData.find(
     (media) => media.media_code === classDetails.media_code
   );
-
   const imagePath = mediaInfo
     ? `/images/${mediaInfo.media_path}`
     : "/images/default.jpg";
+
+  const trainer = users.find(
+    (user) =>
+      user.role === "trainer" &&
+      Array.isArray(user.trainer_details?.assigned_classes) &&
+      user.trainer_details.assigned_classes.some((classItem) =>
+        typeof classItem === "string"
+          ? classItem.toLowerCase() === classDetails.class_name.toLowerCase()
+          : classItem.name?.toLowerCase() ===
+            classDetails.class_name.toLowerCase()
+      )
+  );
 
   return (
     <main className="min-h-screen">
@@ -63,18 +72,28 @@ export default function ClassDetailsPage() {
             <div className="rounded-lg shadow flex flex-col items-center text-center">
               <div className="w-32 h-32 rounded-full overflow-hidden">
                 <Image
-                  src="/images/default.jpg"
-                  alt="Trainer"
+                  src={
+                    trainer?.image
+                      ? `/images/${trainer.image}`
+                      : "/images/default.jpg"
+                  }
+                  alt={trainer ? trainer.first_name : "Trainer"}
                   width={80}
                   height={80}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-lg font-bold p-4 uppercase">Trainer Name</h3>
-              <p className="bg-old-black py-6 px-4 text-off-white text-sm">
-                Solicitat homines non sunt nisi quam formae rerum principiis
-                opiniones. Mors enim.
-              </p>
+              <div className="w-full">
+                <h3 className="text-lg font-bold p-4 uppercase">
+                  {trainer
+                    ? `${trainer.first_name} ${trainer.last_name}`
+                    : "Trainer Name"}
+                </h3>
+                <p className="bg-old-black py-6 px-4 text-off-white text-left text-sm">
+                  {trainer?.trainer_details?.description ||
+                    "Trainer Description"}
+                </p>
+              </div>
             </div>
 
             <div className="rounded-lg shadow">

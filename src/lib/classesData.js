@@ -14,6 +14,7 @@ export const classesData = [
       status: "Scheduled",
     },
     media_code: "kickboxing324",
+    trainer_id: "user_1",  
   },
   {
     class_name: "Yoga",
@@ -21,7 +22,7 @@ export const classesData = [
     class_code: "yoga",
     capacity: 18,
     difficulty_level: "Beginner",
-    description: "Yoga is the evolution of meditation meant for anyone of any age.  Through a daily practice of proven techniques, you awaken your own strength, qualities and energy that lies dormant within you. ",
+    description: "Yoga is the evolution of meditation meant for anyone of any age.  Through a daily practice of proven techniques, you awaken your own strength, qualities and energy that lies dormant within you.",
     is_active: true,
     schedule: {
       start_time: "08:00 AM",
@@ -30,6 +31,7 @@ export const classesData = [
       status: "Scheduled",
     },
     media_code: "yoga567",
+    trainer_id: "user_2", 
   },
   {
     class_name: "Cycling",
@@ -46,6 +48,7 @@ export const classesData = [
       status: "Scheduled",
     },
     media_code: "cycling679",
+    trainer_id: "user_5", 
   },
   {
     class_name: "Strength Training",
@@ -53,7 +56,7 @@ export const classesData = [
     class_code: "strength",
     capacity: 25,
     difficulty_level: "Advanced",
-    description: "Rise to the challenge with GoodLife’s Strength Classes. Build muscle, achieve your weight loss goals and maintain bone density, no matter your fitness level..",
+    description: "Rise to the challenge with GoodLife’s Strength Classes. Build muscle, achieve your weight loss goals and maintain bone density, no matter your fitness level.",
     is_active: true,
     schedule: {
       start_time: "06:00 PM",
@@ -62,6 +65,7 @@ export const classesData = [
       status: "Scheduled",
     },
     media_code: "strength439",
+    trainer_id: "user_3",  
   },
   {
     class_name: "Cardio",
@@ -78,6 +82,7 @@ export const classesData = [
       status: "Scheduled",
     },
     media_code: "cardio765",
+    trainer_id: "user_6", 
   },
   {
     class_name: "Dance",
@@ -94,5 +99,6 @@ export const classesData = [
       status: "Scheduled",
     },
     media_code: "dance296",
+    trainer_id: "user_4",  
   },
 ];
