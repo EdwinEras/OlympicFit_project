@@ -9,7 +9,7 @@
 ****/
 import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
-import FaqList from "../faqs/faqqstn";  
+import FaqList from "../faqs/FaqsList";  
 
 export const metadata = {
   title: "Olympic Fit - Faqs",
