@@ -9,6 +9,7 @@
 ****/
 import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
+import ClassesSchedule from "./ClassesSchedule";
 
 export const metadata = {
   title: "Olympic Fit - Classes",
@@ -18,6 +19,7 @@ export default function Classes() {
   return (
     <main className="min-h-screen">
       <Banner bgImage={bannerImages.classesplan} title="Classes Plan" />;
+      <ClassesSchedule />
     </main>
   );
 }
