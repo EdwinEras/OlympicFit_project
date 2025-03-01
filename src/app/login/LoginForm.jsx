@@ -1,57 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm({ onReset }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Logging in with:", email, password);
-  };
+  const router = useRouter();
 
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2">Login</h2>
-      <p className="text-gray-600 mb-4">Log in to access your account.</p>
+      <p className="text-gray-600 mb-4">Log in or create an account to access.</p>
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <form className="space-y-4">
         <div>
           <label className="block font-medium">Email</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border p-2 rounded mt-1"
-            required
-          />
+          <input type="email" className="w-full border p-2 rounded mt-1" />
         </div>
 
         <div>
           <label className="block font-medium">Password</label>
-          <input
-            type="password"
-            placeholder="********"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border p-2 rounded mt-1"
-            required
-          />
+          <input type="password" className="w-full border p-2 rounded mt-1" />
         </div>
 
         <div className="flex justify-between items-center text-sm">
-          <label className="flex items-center space-x-2">
-            <input type="checkbox" className="accent-blue-500" />
-            <span>Remember Me</span>
-          </label>
           <button type="button" onClick={onReset} className="text-blue-500 hover:underline">
             Reset Password
           </button>
         </div>
 
-        <button className="bg-[#232a2c] text-white border border-[#1d2325] px-4 py-2 rounded hover:bg-[#1d2325]">
+        <button className="w-full bg-[#232a2c] text-white px-4 py-2 rounded hover:bg-[#1d2325]">
           Login
         </button>
       </form>
