@@ -1,9 +1,9 @@
 export const mediaData = [
   {
-    media_code: "boxing324",            
+    media_code: "kickboxing324",            
     media_path: "boxing.avif", 
     uploaded_at: "2025-02-28T12:00:00Z",  
-    description: "Image for Boxing class",
+    description: "Image for Kickboxing class",
   },
   {
     media_code: "yoga567",

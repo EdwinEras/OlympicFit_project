@@ -1,11 +1,11 @@
 export const classesData = [
   {
-    class_name: "Boxing",
+    class_name: "Kickboxing",
     category: "Fitness",
-    class_code: "boxing",
+    class_code: "kickboxing",
     capacity: 20,
     difficulty_level: "Intermediate",
-    description: "High-intensity boxing class for fitness.",
+    description: "Improve your skills and fitness with professional kickboxing classes. Learn powerful striking techniques and defensive moves while enjoying a full-body workout that enhances strength, coordination, and flexibility.",
     is_active: true,
     schedule: {
       start_time: "07:00 AM",
@@ -13,7 +13,7 @@ export const classesData = [
       location: "Gym A - Room 1",
       status: "Scheduled",
     },
-    media_code: "boxing324",
+    media_code: "kickboxing324",
   },
   {
     class_name: "Yoga",
@@ -21,7 +21,7 @@ export const classesData = [
     class_code: "yoga",
     capacity: 18,
     difficulty_level: "Beginner",
-    description: "A relaxing yoga class focusing on flexibility and mindfulness.",
+    description: "Yoga is the evolution of meditation meant for anyone of any age.  Through a daily practice of proven techniques, you awaken your own strength, qualities and energy that lies dormant within you. ",
     is_active: true,
     schedule: {
       start_time: "08:00 AM",
@@ -37,7 +37,7 @@ export const classesData = [
     class_code: "cycling",
     capacity: 25,
     difficulty_level: "Intermediate",
-    description: "An energetic indoor cycling class with music.",
+    description: "Our dynamic, low-impact Cycling Classes are set to motivating music and take you through a variety of sprints, hills and valleys designed to build endurance and burn calories.",
     is_active: true,
     schedule: {
       start_time: "07:30 AM",
@@ -53,7 +53,7 @@ export const classesData = [
     class_code: "strength",
     capacity: 25,
     difficulty_level: "Advanced",
-    description: "A high-intensity class focused on building strength.",
+    description: "Rise to the challenge with GoodLife’s Strength Classes. Build muscle, achieve your weight loss goals and maintain bone density, no matter your fitness level..",
     is_active: true,
     schedule: {
       start_time: "06:00 PM",
@@ -69,7 +69,7 @@ export const classesData = [
     class_code: "cardio",
     capacity: 22,
     difficulty_level: "Intermediate",
-    description: "A high-energy cardio workout to boost endurance.",
+    description: "Our energetic Cardio Classes work your entire body and get your heart pumping. Get motivated, push past your limits and torch calories with a wide variety of endurance-building classes.",
     is_active: true,
     schedule: {
       start_time: "05:30 PM",
@@ -85,7 +85,7 @@ export const classesData = [
     class_code: "dance",
     capacity: 20,
     difficulty_level: "Beginner",
-    description: "A fun dance class to improve coordination and fitness.",
+    description: "Move and groove your way to a healthier body and mind. GoodLife’s Dance Fitness Classes are a combination of high-energy music and easy-to-follow dance moves that’ll leave you wanting more.",
     is_active: true,
     schedule: {
       start_time: "09:00 AM",

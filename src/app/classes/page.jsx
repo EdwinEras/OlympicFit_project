@@ -24,8 +24,21 @@ export default async function Classes() {
   return (
     <main className="min-h-screen">
       <Banner bgImage={bannerImages.classes} title="Classes" />
-      <div className="container mx-auto p-10 lg:p-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="container mx-auto p-10 lg:p-20 flex flex-col items-center">
+        <div className="text-center max-w-lg">
+          <h2 className="text-2xl sm:text-4xl font-semibold mb-6">
+            Our Classes
+          </h2>
+          <p className="text-base">
+            At our gym, we offer a wide range of classes designed to cater to
+            all fitness levels and interests. Whether you're looking to boost
+            your strength, improve your flexibility, or get your heart pumping
+            with some cardio, we have something for everyone. <br /> <br />
+            From high-energy boxing and cycling to relaxing yoga and dance, our
+            expert instructors are here to guide you every step of the way.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full mt-20">
           {data.map((classItem) => {
             const mediaInfo = mediaData.find(
               (media) => media.media_code === classItem.media_code
