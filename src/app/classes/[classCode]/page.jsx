@@ -31,12 +31,12 @@ export default function ClassDetailsPage() {
       <div className="container mx-auto py-32 px-6 lg:p-32">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 flex flex-col gap-6">
-            <div className="rounded-lg relative w-full h-[400]">
+            <div className="relative w-full h-[400px]">
               <Image
                 src={imagePath}
                 alt={classDetails.class_name}
                 fill
-                className="w-full h-64 object-cover"
+                className="w-full h-64 object-cover rounded-lg"
               />
             </div>
 
