@@ -9,6 +9,7 @@
 ****/
 import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
+import FaqList from "../faqs/faqqstn";  
 
 export const metadata = {
   title: "Olympic Fit - Faqs",
@@ -17,7 +18,8 @@ export const metadata = {
 export default function FaQ() {
   return (
     <main className="min-h-screen">
-      <Banner bgImage={bannerImages.faqs} title="Faqs" />;
+      <Banner bgImage={bannerImages.faqs} title="Faqs" />
+      <FaqList />  {}
     </main>
   );
 }
