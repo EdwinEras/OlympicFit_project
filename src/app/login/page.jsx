@@ -8,9 +8,7 @@
     - Create a separate **Client Component** inside the same folder and import it.
 ****/
 
-export const metadata = {
-  title: "Olympic Fit - Sign In",
-};
+
 
 "use client";
 import AuthForm from "./AuthForm";
