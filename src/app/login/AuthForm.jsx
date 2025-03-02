@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoginForm from "./LoginForm";
 import ResetPasswordForm from "./ResetPasswordForm";
 import Link from "next/link";
 
 export default function AuthForm() {
   const [showReset, setShowReset] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log("Router initialized on client side", router);
+  }, [router]); 
 
   return (
     <div className="bg-white shadow-lg container mx-auto rounded-lg p-8 mx-6 w-full md:max-w-5xl flex flex-col md:flex-row  mb-8 mt-28">
@@ -34,6 +39,9 @@ export default function AuthForm() {
           <Link
             href="/register"
             className="bg-midnights text-white border border-[#1d2325] px-4 py-2 rounded hover:bg-[#1d2325] inline-block text-center w-full md:w-auto"
+          <button
+            className="bg-[#232a2c] text-white border border-[#1d2325] px-4 py-2 rounded hover:bg-[#1d2325]"
+            onClick={() => router.push("/register")}
           >
             Register
           </Link>

@@ -12,6 +12,7 @@ export const metadata = {
   title: "Olympic Fit - Sign In",
 };
 
+"use client";
 import AuthForm from "./AuthForm";
 
 export default function Login() {

@@ -1,3 +1,4 @@
+
 export const metadata = {
   title: "Olympic Fit - Contact Us",
 };
@@ -5,16 +6,15 @@ export const metadata = {
 import ContactForm from "./ContactForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faYoutube, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gray-100 pt-20"> 
-      <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="min-h-screen bg-gray-100 pt-20"> {/* Added padding-top to prevent content from hiding under navbar */}
+      {/* Contact Section */}
+      <div className="max-w-6xl mx-auto px-6 py-6">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">FEEL FREE TO ASK US!</h2>
         <p className="text-gray-600 mb-6">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>Proin elementum blandit sapien in placerat.<br />
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br /> Proin elementum blandit sapien in placerat.
         </p>
 
         {/* Contact Form & Address Section */}
@@ -42,7 +42,7 @@ export default function ContactPage() {
       <div className="bg-blue-100 py-8">
         <div className="max-w-6xl mx-auto text-center">
           <h3 className="text-xl font-semibold mb-4">Connect With Us</h3>
-          <div className="flex justify-center gap-16 text-4xl">
+          <div className="flex justify-center gap-20 text-5xl"> {/* Increased space and icon size */}
             <a href="#" className="text-gray-700 hover:text-gray-900">
               <FontAwesomeIcon icon={faFacebook} />
             </a>
