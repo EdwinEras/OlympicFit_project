@@ -21,7 +21,7 @@ export default function LoginForm({ onReset }) {
         </div>
 
         <div className="flex justify-between items-center text-sm">
-          <button type="button" onClick={onReset} className="text-blue-500 hover:underline">
+          <button type="button" onClick={onReset} className="text-silver-slate  hover:underline">
             Reset Password
           </button>
         </div>

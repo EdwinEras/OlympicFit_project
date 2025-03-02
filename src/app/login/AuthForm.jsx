@@ -32,9 +32,9 @@ export default function AuthForm() {
 
       {/* Register */}
       <div className="w-full md:w-1/2 md:pl-4 flex flex-col justify-center items-center mt-6 md:mt-0">
-        <div className="p-4 border border-blue-300 rounded-md text-center bg-blue-50 w-full">
-          <h2 className="text-lg font-semibold">Create an Account</h2>
-          <p className="text-sm text-gray-600 mb-3">
+        <div className="p-4 border border-silver-slate rounded-md text-center bg-gradient-to-b from-silver-slate to-midnights w-full">
+          <h2 className="text-lg font-semibold text-off-white mb-2">Create an Account</h2>
+          <p className="text-sm text-off-white mb-4">
             If you don’t have an account, you can register for one.
           </p>
           <Link

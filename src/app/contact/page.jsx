@@ -1,57 +1,50 @@
+/**** 
+  IMPORTANT: This page is a Server Component by default. 
+  DO NOT add "use client"; unless necessary.
+  Keep this as a Server Component for better performance.
+
+  Best Practice:
+    - Keep **page.jsx** as a Server Component.
+    - Create a separate **Client Component** inside the same folder and import it.
+****/
 
 export const metadata = {
   title: "Olympic Fit - Contact Us",
 };
 
 import ContactForm from "./ContactForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faYoutube, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gray-100 pt-20"> {/* Added padding-top to prevent content from hiding under navbar */}
-      {/* Contact Section */}
-      <div className="max-w-6xl mx-auto px-6 py-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">FEEL FREE TO ASK US!</h2>
-        <p className="text-gray-600 mb-6">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br /> Proin elementum blandit sapien in placerat.
+    <div className="min-h-screen pt-20">
+      <div className="max-w-6xl mx-auto px-6 py-28">
+        <h2 className=" text-3xl md:text-4xl font-bold text-midnights mb-4 text-center">
+          FEEL FREE TO ASK US!
+        </h2>
+        <p className="text-brand-200 mb-8 text-center text-lg text-midnights">
+          We’re happy to help! Drop us a message and we’ll get back to you soon.
         </p>
 
-        {/* Contact Form & Address Section */}
-        <div className="flex flex-wrap md:flex-nowrap">
+        <div className="flex flex-wrap md:flex-nowrap items-start bg-gradient-to-b from-silver-slate to-midnights justify-between bg-white/20 backdrop-blur-none rounded-xl p-8 md:p-16 shadow-md shadow-white">
           {/* Address Section */}
-          <div className="w-full md:w-1/3 pr-6 mb-6 md:mb-0">
-            <h3 className="font-semibold text-lg">Address:</h3>
-            <p className="text-gray-700">1750 Finch Ave E,<br /> North York, ON M2J 2X5</p>
+          <div className="w-full md:w-1/3 text-midnights space-y-2 mb-4">
+            <h3 className="text-lg font-semibold text-white">Address:</h3>
+            <p className="text-sm text-off-white">
+              1750 Finch Ave E,
+              <br /> North York, ON M2J 2X5
+            </p>
 
-            <h3 className="font-semibold text-lg mt-4">Email:</h3>
-            <p className="text-gray-700">theservicehub@senecapolytechnic.ca</p>
+            <h3 className="text-md font-semibold text-white">Email:</h3>
+            <p className="text-sm text-off-white underline cursor-pointer">
+              olympicfit@outlook.com
+            </p>
 
-            <h3 className="font-semibold text-lg mt-4">Phone no:</h3>
-            <p className="text-gray-700">1-627-134-44527</p>
+            <h3 className="text-md font-semibold text-white">Phone:</h3>
+            <p className="text-sm text-off-white">1-627-134-44527</p>
           </div>
 
-          {/* Contact Form */}
-          <div className="w-full md:w-2/3 md:ml-auto md:pl-48 md:pr-10 md:-mt-10">
+          <div className="w-full md:w-2/3 md:pl-12">
             <ContactForm />
-          </div>
-        </div>
-      </div>
-
-      {/* Social Media Section */}
-      <div className="bg-blue-100 py-8">
-        <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-xl font-semibold mb-4">Connect With Us</h3>
-          <div className="flex justify-center gap-20 text-5xl"> {/* Increased space and icon size */}
-            <a href="#" className="text-gray-700 hover:text-gray-900">
-              <FontAwesomeIcon icon={faFacebook} />
-            </a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">
-              <FontAwesomeIcon icon={faYoutube} />
-            </a>
-            <a href="#" className="text-gray-700 hover:text-gray-900">
-              <FontAwesomeIcon icon={faInstagram} />
-            </a>
           </div>
         </div>
       </div>
