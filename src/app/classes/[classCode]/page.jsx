@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { classesData } from "../../../lib/classesData";
@@ -10,6 +10,10 @@ import { users } from "../../../lib/userData";
 
 export default function ClassDetailsPage() {
   const { classCode } = useParams();
+  const searchParams = useSearchParams();
+  const scheduleData = searchParams.get("schedule")
+    ? JSON.parse(searchParams.get("schedule"))
+    : null;
   const classDetails = classesData.find(
     (item) => item.class_code === classCode
   );
@@ -112,14 +116,25 @@ export default function ClassDetailsPage() {
                     <strong>Level:</strong> {classDetails.difficulty_level}
                   </li>
                   <li>
-                    <strong>Time:</strong> {classDetails.schedule.start_time} -{" "}
-                    {classDetails.schedule.end_time}
+                    {scheduleData && (
+                      <ul className="space-y-2 text-off-white">
+                        <li>
+                          <strong>Time:</strong> {scheduleData.start_time} -{" "}
+                          {scheduleData.end_time}
+                        </li>
+                        <li>
+                          <strong>Location:</strong>{" "}
+                          {scheduleData.location || "Not specified"}
+                        </li>
+                        <li>
+                          <strong>Day:</strong>{" "}
+                          {scheduleData.day || "Not available"}
+                        </li>
+                      </ul>
+                    )}
                   </li>
                   <li>
-                    <strong>Time Frame:</strong> Weekends
-                  </li>
-                  <li>
-                    <strong>Duration:</strong> 80min
+                    <strong>Duration:</strong> 60min
                   </li>
                 </ul>
                 <button className="py-2.5 px-4 mt-4 justify-self-center flex text-white rounded uppercase bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black">
