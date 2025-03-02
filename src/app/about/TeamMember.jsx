@@ -8,7 +8,6 @@ export default function TeamMember({
   return (
     <div className="card w-full h-[560px] perspective">
       <div className="card__content relative w-full h-full transform-style-preserve-3d transition-transform duration-1000 hover:rotate-y-180">
-        {/* Front side of the card */}
         <div className="card__front absolute w-full h-full top-0 bottom-0 left-0 right-0 rounded-2xl text-left transform-style-preserve-3d">
           <div className="relative w-full h-full">
             <img
@@ -22,7 +21,6 @@ export default function TeamMember({
           </div>
         </div>
 
-        {/* Back side of the card */}
         <div className="card__back absolute top-0 bottom-0 left-0 text-white bg-[#2c2b2a] p-4 right-0 rounded-2xl transform-style-preserve-3d rotate-y-180">
           <div className="w-full h-full flex flex-col items-start justify-center">
             <img

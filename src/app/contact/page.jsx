@@ -26,7 +26,6 @@ export default function ContactPage() {
         </p>
 
         <div className="flex flex-wrap md:flex-nowrap items-start bg-gradient-to-b from-silver-slate to-midnights justify-between bg-white/20 backdrop-blur-none rounded-xl p-8 md:p-16 shadow-md shadow-white">
-          {/* Address Section */}
           <div className="w-full md:w-1/3 text-midnights space-y-2 mb-4">
             <h3 className="text-lg font-semibold text-white">Address:</h3>
             <p className="text-sm text-off-white">

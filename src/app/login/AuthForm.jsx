@@ -12,11 +12,10 @@ export default function AuthForm() {
 
   useEffect(() => {
     console.log("Router initialized on client side", router);
-  }, [router]); // Ensures router is only used on the client side
+  }, [router]);
 
   return (
-    <div className="bg-white shadow-lg container mx-auto rounded-lg p-8 mx-6 w-full md:max-w-5xl flex flex-col md:flex-row mb-8 mt-28">
-      {/* Login */}
+    <div className="bg-white shadow-lg container rounded-lg p-8 mx-8 w-full md:max-w-5xl flex flex-col md:flex-row mb-24 mt-[10rem]">
       <div className="w-full md:w-1/2 md:pr-4 flex flex-col justify-center">
         {showReset ? (
           <ResetPasswordForm onBack={() => setShowReset(false)} />
@@ -30,10 +29,11 @@ export default function AuthForm() {
         <span className="absolute bg-white px-2 text-gray-600 text-sm">OR</span>
       </div>
 
-      {/* Register */}
       <div className="w-full md:w-1/2 md:pl-4 flex flex-col justify-center items-center mt-6 md:mt-0">
         <div className="p-4 border border-silver-slate rounded-md text-center bg-gradient-to-b from-silver-slate to-midnights w-full">
-          <h2 className="text-lg font-semibold text-off-white mb-2">Create an Account</h2>
+          <h2 className="text-lg font-semibold text-off-white mb-2">
+            Create an Account
+          </h2>
           <p className="text-sm text-off-white mb-4">
             If you don’t have an account, you can register for one.
           </p>

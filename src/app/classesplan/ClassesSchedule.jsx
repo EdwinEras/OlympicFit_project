@@ -39,7 +39,6 @@ export default function ClassesSchedule() {
   return (
     <div className="container mx-auto p-6 lg:p-12">
       <div className="overflow-x-auto">
-        {/* Table for larger screens */}
         <table className="min-w-full shadow-md rounded-lg hidden sm:table">
           <thead>
             <tr className="bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black text-white">
@@ -99,7 +98,6 @@ export default function ClassesSchedule() {
           </tbody>
         </table>
 
-        {/* Stack layout for smaller screens */}
         <div className="sm:hidden space-y-4">
           {scheduleData.map((day, index) => (
             <div
