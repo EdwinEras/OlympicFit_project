@@ -128,7 +128,7 @@ const Navbar = () => {
                   Sign Out
                 </Link>
                 <Link
-                  href="/myaccount"
+                  href="/dash_admin"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
                   My Profile

@@ -137,9 +137,12 @@ export default function ClassDetailsPage() {
                     <strong>Duration:</strong> 60min
                   </li>
                 </ul>
-                <button className="py-2.5 px-4 mt-4 justify-self-center flex text-white rounded uppercase bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black">
+                <Link
+                  href="/login"
+                  className="py-2.5 px-4 mt-4 justify-self-center flex text-white rounded uppercase bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black"
+                >
                   Book Now
-                </button>
+                </Link>
               </div>
             </div>
           </div>
