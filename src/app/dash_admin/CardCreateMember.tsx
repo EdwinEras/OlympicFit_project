@@ -15,7 +15,7 @@ const CardCreateMember = ({setShow}) => {
                 <h2 className="text-lg sm:text-2xl font-semibold">New member</h2>
                 <button 
                 onClick={() => {setShow("")}}
-                className="bg-pink-500 px-2 py-1 rounded hover:bg-pink-600">
+                className="bg-red/90 text-white px-2 py-1 rounded hover:bg-red">
                     <X />
                 </button>
             </div>
@@ -117,7 +117,7 @@ const CardCreateMember = ({setShow}) => {
                 type="url" name="media" placeholder="URL Image" required />
                 <button 
                     onClick={() => {}}
-                    className="bg-blue-600 px-4 py-2 mt-2 rounded text-white hover:bg-blue-700">
+                    className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70">
                     Save
                 </button>
             </form>
