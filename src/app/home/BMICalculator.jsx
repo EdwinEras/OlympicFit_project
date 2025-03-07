@@ -37,7 +37,7 @@ const BMICalculator = () => {
   };
  
   return (
-    <div className="container mx-auto mb-28 px-16 md:px-24 text-center flex flex-col items-center">
+    <div className="container mx-auto mb-28 px-8 md:px-24 text-center flex flex-col items-center">
       <h2 className="text-2xl sm:text-4xl font-semibold mb-6">What Is BMI</h2>
       <p className="text-base mb-6 max-w-xl">
         Body mass index (BMI) is a calculation that estimates body fat

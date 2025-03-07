@@ -1,4 +1,3 @@
-import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
 import WhyChooseUs from "./WhyChooseUs";
 import Link from "next/link";
@@ -7,12 +6,13 @@ import { mediaData } from "../../lib/mediaData";
 import ClassCard from "../../components/ui/ClassCard";
 import TestimonialCarousel from "./TestimonialCarousel";
 import BMICalculator from "./BMICalculator";
+import HomeBannner from "./HomeBannner";
  
 export default function Home() {
   const data = classesData;
   return (
     <main className="min-h-screen">
-      <Banner
+      <HomeBannner
         bgImage={bannerImages.home}
         title="Welcome to OlympicFit"
         className="testing"
