@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -26,8 +27,8 @@ export default function RegisterForm() {
             <input type="checkbox" className="accent-blue-500 outline-none" required />
             <label className="text-sm">
               I have read and agree to{" "}
-              <a href="#" className="text-silver-slate underline">Terms of Use</a> and{" "}
-              <a href="#" className="text-silver-slate underline">Privacy Statement</a>
+              <Link href="/terms-of-use" className="text-silver-slate underline">Terms of Use</Link> and{" "}
+              <Link href="/privacy-policy" className="text-silver-slate underline">Privacy Statement</Link>
             </label>
           </div>
           <button className="w-full bg-midnights text-white px-4 py-2 rounded hover:bg-[#1d2325]">

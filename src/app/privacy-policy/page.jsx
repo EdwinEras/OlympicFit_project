@@ -1,70 +1,130 @@
-import Head from "next/head";
+/**** 
+  IMPORTANT: This page is a Server Component by default. 
+  DO NOT add "use client"; unless necessary.
+  Keep this as a Server Component for better performance.
+
+  Best Practice:
+    - Keep **page.jsx** as a Server Component.
+    - Create a separate **Client Component** inside the same folder and import it.
+****/
 
 export default function PrivacyPolicy() {
   return (
-    <>
-      <Head>
-        <title>Privacy Policy | Olympic Fit</title>
-        <meta name="description" content="Privacy Policy of Olympic Fit" />
-      </Head>
+    <div className="container mx-auto py-32 px-8 sm:px-16 bg-white text-gray-800">
+      <h1 className="text-3xl font-bold text-center text-gray-900">Privacy Policy</h1>
+      <p className="text-center text-gray-600 mt-2">Last updated: March 09, 2025</p>
 
-      {/* Outer container: White background with padding to avoid footer touch */}
-      <section className="bg-white text-gray-900 min-h-screen flex flex-col items-center pt-32 pb-20 px-6">
-        <div className="max-w-4xl w-full text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Privacy Policy</h1>
-          <p className="text-sm text-gray-600 mb-10">Last updated: March 6, 2025</p>
-        </div>
-
-        {/* Inner container: Dark background, shorter height */}
-        <div className="max-w-3xl w-full bg-gray-900 text-white shadow-lg rounded-lg p-8 max-h-[80vh] overflow-y-auto">
-          <h2 className="text-2xl font-semibold">1. Introduction</h2>
-          <p className="mt-2 text-gray-300">
-            Welcome to <strong>Olympic Fit</strong>. Your privacy is important to us. This policy explains how we collect, use, and protect your information.
-          </p>
-
-          <h2 className="text-2xl font-semibold mt-6">2. Information We Collect</h2>
-          <p className="mt-2 text-gray-300">
-            We may collect personal information such as your name, email, and payment details when you use our services.
-          </p>
-
-          <h2 className="text-2xl font-semibold mt-6">3. How We Use Your Information</h2>
-          <p className="mt-2 text-gray-300">Your information is used to:</p>
-          <ul className="list-disc ml-6 mt-2 text-gray-300">
-            <li>Provide and improve our services</li>
-            <li>Process transactions</li>
-            <li>Respond to customer support inquiries</li>
-            <li>Send updates and marketing materials (if you opt-in)</li>
-          </ul>
-
-          <h2 className="text-2xl font-semibold mt-6">4. Sharing Your Information</h2>
-          <p className="mt-2 text-gray-300">
-            We do not sell your personal data. Your information may be shared with trusted third parties only when necessary for service fulfillment.
-          </p>
-
-          <h2 className="text-2xl font-semibold mt-6">5. Security Measures</h2>
-          <p className="mt-2 text-gray-300">
-            We implement security measures to protect your personal data from unauthorized access, disclosure, or misuse.
-          </p>
-
-          <h2 className="text-2xl font-semibold mt-6">6. Cookies and Tracking Technologies</h2>
-          <p className="mt-2 text-gray-300">
-            We use cookies to enhance your experience. You can adjust your browser settings to disable cookies.
-          </p>
-
-          <h2 className="text-2xl font-semibold mt-6">7. Changes to This Policy</h2>
-          <p className="mt-2 text-gray-300">
-            We may update this policy periodically. Please review this page regularly for changes.
-          </p>
-
-          <h2 className="text-2xl font-semibold mt-6">8. Contact Us</h2>
-          <p className="mt-2 text-gray-300">
-            If you have any questions, please contact us at  
-            <a href="mailto:olympicfit@outlook.com" className="text-blue-400 hover:underline ml-1">
-              olympicfit@outlook.com
-            </a>.
-          </p>
-        </div>
+      <section className="mt-8">
+        <p className="leading-relaxed">
+          This Privacy Policy describes our policies on the collection, use, and disclosure of your
+          information when you use our service. It also explains your privacy rights and how the law
+          protects you.
+        </p>
+        <p className="mt-4">
+          We use your personal data to provide and improve the service. By using the service, you agree
+          to the collection and use of information in accordance with this Privacy Policy. This Privacy
+          Policy has been created with the help of the{" "}
+          <a
+            href="https://www.termsfeed.com/privacy-policy-generator/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            Privacy Policy Generator
+          </a>.
+        </p>
       </section>
-    </>
+
+      <h2 className="text-2xl font-semibold mt-10">Interpretation and Definitions</h2>
+
+      <h3 className="text-xl font-semibold mt-6">Interpretation</h3>
+      <p className="leading-relaxed">
+        The words with capitalized first letters have meanings defined under the following conditions.
+        The following definitions apply regardless of whether they appear in singular or plural.
+      </p>
+
+      <h3 className="text-xl font-semibold mt-6">Definitions</h3>
+      <p className="mt-2">For the purposes of this Privacy Policy:</p>
+      <ul className="list-disc list-inside mt-4 space-y-3">
+        <li>
+          <strong>Account:</strong> A unique account created for you to access our service.
+        </li>
+        <li>
+          <strong>Affiliate:</strong> Any entity that controls, is controlled by, or is under common
+          control with a party.
+        </li>
+        <li>
+          <strong>Company:</strong> ("We", "Us", "Our") refers to Olympic Fit.
+        </li>
+        <li>
+          <strong>Cookies:</strong> Small files placed on your device that store browsing data.
+        </li>
+        <li>
+          <strong>Country:</strong> Ontario, Canada
+        </li>
+        <li>
+          <strong>Device:</strong> Any device such as a computer, phone, or tablet.
+        </li>
+        <li>
+          <strong>Personal Data:</strong> Any information that relates to an identifiable individual.
+        </li>
+        <li>
+          <strong>Service:</strong> Refers to the website.
+        </li>
+        <li>
+          <strong>Service Provider:</strong> A third-party company or individual that helps provide the service.
+        </li>
+        <li>
+          <strong>Usage Data:</strong> Data collected automatically when using the service.
+        </li>
+        <li>
+          <strong>Website:</strong> Olympic Fit, accessible at{" "}
+          <a
+            href="https://olympic-fit-project.vercel.app/home"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            olympic-fit-project.vercel.app/home
+          </a>
+        </li>
+        <li>
+          <strong>You:</strong> The individual or entity accessing the service.
+        </li>
+      </ul>
+
+      <h2 className="text-2xl font-semibold mt-10">Collecting and Using Your Personal Data</h2>
+
+      <h3 className="text-xl font-semibold mt-6">Types of Data Collected</h3>
+
+      <h4 className="text-lg font-semibold mt-4">Personal Data</h4>
+      <p className="leading-relaxed">
+        While using our service, we may ask you to provide certain personally identifiable information:
+      </p>
+      <ul className="list-disc list-inside mt-4 space-y-2">
+        <li>Email address</li>
+        <li>First name and last name</li>
+        <li>Phone number</li>
+        <li>Address, State, Province, ZIP/Postal code, City</li>
+        <li>Usage Data</li>
+      </ul>
+
+      <h4 className="text-lg font-semibold mt-6">Usage Data</h4>
+      <p className="leading-relaxed">
+        Usage data is collected automatically and may include your device's IP address, browser type,
+        time spent on pages, and other diagnostic data.
+      </p>
+
+      <h4 className="text-lg font-semibold mt-6">Tracking Technologies and Cookies</h4>
+      <p className="leading-relaxed">
+        We use cookies and tracking technologies to improve user experience. You can choose to disable
+        cookies in your browser settings.
+      </p>
+
+      <footer className="border-t mt-12 pt-6 text-center text-gray-500">
+        <p>© 2025 Olympic Fit. All Rights Reserved.</p>
+      </footer>
+    </div>
   );
 }
+
