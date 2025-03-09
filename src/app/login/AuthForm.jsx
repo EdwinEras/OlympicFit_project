@@ -25,7 +25,7 @@ export default function AuthForm() {
       </div>
 
       <div className="hidden md:flex flex-col items-center justify-center mx-4 relative">
-        <div className="w-[1px] bg-gray-300 h-full"></div>
+        <div className="w-[1px] bg-[#9fadb3] h-full"></div>
         <span className="absolute bg-white px-2 text-gray-600 text-sm">OR</span>
       </div>
 

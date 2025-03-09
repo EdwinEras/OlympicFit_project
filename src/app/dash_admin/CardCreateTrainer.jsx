@@ -21,28 +21,28 @@ const CardCreateTrainner = ({ setShow }) => {
         </div>
         <form className="flex flex-col" action="#">
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="first_name"
             placeholder="First name"
             required
           />
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="first_name"
             placeholder="Last name"
             required
           />
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="email"
             name="email"
             placeholder="email@hotmail.com"
             required
           />
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="tel"
             name="phone"
             placeholder="123 456 7890"
@@ -51,7 +51,7 @@ const CardCreateTrainner = ({ setShow }) => {
           <div>
             <label>Salary: </label>
             <input
-              className="bg-gray-300 rounded p-1 my-2 mr-4 hover:bg-gray-400"
+              className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
               name="salary"
               placeholder="1000.00"
@@ -59,7 +59,7 @@ const CardCreateTrainner = ({ setShow }) => {
             />
             <label>Hourly rate: </label>
             <input
-              className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
               name="hourly_rate"
               placeholder="8.5"
@@ -69,7 +69,7 @@ const CardCreateTrainner = ({ setShow }) => {
           <div>
             <label>Password: </label>
             <input
-              className="bg-gray-300 rounded p-1 my-2 mr-4 hover:bg-gray-400"
+              className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="password"
               name="passowrd_1"
               placeholder="**********"
@@ -77,65 +77,40 @@ const CardCreateTrainner = ({ setShow }) => {
             />
             <label>Confirm password: </label>
             <input
-              className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="password"
               name="passowrd_2"
               placeholder="**********"
               required
             />
           </div>
-          <div className="flex">
-            <label>Select Gender: </label>
-            <div className="text-gray-400">
-              <button
-                onClick={() => {
-                  setDropdown(!dropdown);
-                }}
-                className="flex rounded bg-gray-300 rounded p-1 mx-2 hover:bg-gray-400 hover:text-white"
-              >
-                {gender} {dropdown ? <ArrowUp /> : <ArrowDown />}
-              </button>
-              {dropdown && (
-                <div className="flex flex-col">
-                  <button
-                    onClick={() => {
-                      setGender("Male");
-                    }}
-                    className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white"
-                  >
-                    Male
-                  </button>
-                  <button
-                    onClick={() => {
-                      setGender("Female");
-                    }}
-                    className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white"
-                  >
-                    Female
-                  </button>
-                  <button
-                    onClick={() => {
-                      setGender("Other");
-                    }}
-                    className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white"
-                  >
-                    Other
-                  </button>
-                </div>
-              )}
-            </div>
+          <div className="flex items-center text-midnights">
+            <label htmlFor="gender" className="mr-2">
+              Select Gender:
+            </label>
+            <select
+              id="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              className="rounded bg-gray-300 p-2 text-midnights"
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
+
           <div>
             <label>Set active: </label>
             <input
-              className="bg-gray-300 rounded p-1 m-2"
+              className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="employment_status"
               value="yes"
             />
             <label>Yes</label>
             <input
-              className="bg-gray-300 rounded p-1 m-2"
+              className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="employment_status"
               value="no"
@@ -145,7 +120,7 @@ const CardCreateTrainner = ({ setShow }) => {
           <div>
             <label>Date of Birth: </label>
             <input
-              className="bg-gray-300 text-gray-400 rounded p-1 my-2 hover:bg-gray-400"
+              className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="datetime-local"
               min="1920-01-01T00:00"
               max="2015-01-01T00:00"
@@ -154,14 +129,14 @@ const CardCreateTrainner = ({ setShow }) => {
             />
           </div>
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="address"
             placeholder="123 address Ave"
             required
           />
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="url"
             name="media"
             placeholder="URL Image"

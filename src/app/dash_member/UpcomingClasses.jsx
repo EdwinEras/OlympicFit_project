@@ -10,21 +10,21 @@ const UpcomingClasses = ({ arrClasses }) => {
   const [ans, setAns] = useState();
 
   return (
-    <div className="relative m-4 mx-auto w-[85%] bg-gray-300 p-6 rounded-lg">
+    <div className="relative my-12 mx-auto w-[85%] bg-[#9fadb3] p-6 rounded-lg">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg sm:text-2xl font-semibold">Upcoming Classes</h2>
+        <h2 className="text-md sm:text-xl font-semibold uppercase">Upcoming Classes</h2>
         <button
-          className="bg-gray-400 px-2 py-1 rounded hover:bg-gray-500"
+          className="bg-midnights/90 text-white px-2 py-1 rounded hover:bg-midnights"
           onClick={() => setClassUp(!classUp)}
         >
           {classUp ? <ArrowUp /> : <ArrowDown />}
         </button>
       </div>
       {classUp && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-6">
           <a
             href="/classes"
-            className="text-center bg-green-600 px-4 py-2 mt-2 rounded text-white hover:bg-green-700"
+            className="text-center bg-midnights/90 px-4 py-2 mt-8 rounded text-white hover:bg-midnights"
           >
             Add Classes
           </a>
@@ -41,7 +41,7 @@ const UpcomingClasses = ({ arrClasses }) => {
                   onClick={() => {
                     setShow(`det_c${c.id}`);
                   }}
-                  className="bg-blue-400 px-2 py-1 rounded hover:bg-blue-500"
+                  className="bg-blue-400 px-2 py-1 rounded hover:bg-blue-500 text-white"
                 >
                   Details
                 </button>

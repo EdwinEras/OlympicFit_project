@@ -21,76 +21,59 @@ const CardCreateMember = ({setShow}) => {
             </div>
             <form className="flex flex-col" action="#">
                 <input 
-                className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
                 type="text" name="first_name" placeholder="First name" required />
                 <input 
-                className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
                 type="text" name="first_name" placeholder="Last name" required />
                 <input 
-                className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
                 type="email" name="email" placeholder="email@hotmail.com" required />
                 <input 
-                className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
                 type="tel" name="phone" placeholder="123 456 7890" required />
                 <div>
                     <label>Password: </label>
                     <input 
-                    className="bg-gray-300 rounded p-1 my-2 mr-4 hover:bg-gray-400"
+                    className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights"
                     type="password" name="passowrd_1" placeholder="**********" required />
                     <label>Confirm password: </label>
                     <input 
-                    className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+                    className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
                     type="password" name="passowrd_2" placeholder="**********" required />
                 </div>
-                <div className="flex">
-                    <label>Select Gender: </label>
-                    <div className="text-gray-400">
-                        <button 
-                            onClick={()=>{setDropdown(!dropdown)}}
-                            className="flex rounded bg-gray-300 rounded p-1 mx-2 hover:bg-gray-400 hover:text-white"
-                        >{gender} {dropdown ? <ArrowUp /> : <ArrowDown />}
-                        </button>
-                        {dropdown &&
-                            <div className="flex flex-col">
-                                <button 
-                                onClick={()=>{setGender("Male")}}
-                                className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white">
-                                    Male</button>
-                                <button
-                                onClick={()=>{setGender("Female")}}
-                                className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white">
-                                    Female</button>
-                                <button
-                                onClick={()=>{setGender("Other")}}
-                                className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white">
-                                    Other</button>
-                            </div>
-                        }
-                    </div>
-                    <label>Select Membership: </label>
-                    <div className="text-gray-400">
-                        <button 
-                            onClick={()=>{setDropdown2(!dropdown2)}}
-                            className="flex rounded bg-gray-300 rounded p-1 mx-2 hover:bg-gray-400 hover:text-white"
-                        >{mem} {dropdown2 ? <ArrowUp /> : <ArrowDown />}
-                        </button>
-                        {dropdown2 &&
-                            <div className="flex flex-col">
-                                <button 
-                                onClick={()=>{setMem("Basic")}}
-                                className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white">
-                                    Basic</button>
-                                <button
-                                onClick={()=>{setMem("Gold")}}
-                                className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white">
-                                    Gold</button>
-                                <button
-                                onClick={()=>{setMem("Premium")}}
-                                className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white">
-                                    Premium</button>
-                            </div>
-                        }
-                    </div>
+                <div className="flex flex-col sm:flex-row text-midnights gap-4 my-2">
+                <div className="flex items-center">
+                    <label htmlFor="gender" className="mr-2">
+                    Select Gender:
+                    </label>
+                    <select
+                    id="gender"
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    className="rounded bg-gray-300 p-2 text-midnights outline-none"
+                    >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div className="flex items-center">
+                    <label htmlFor="membership" className="mr-2">
+                    Select Membership:
+                    </label>
+                    <select
+                    id="membership"
+                    value={mem}
+                    onChange={(e) => setMem(e.target.value)}
+                    className="rounded bg-gray-300 p-2 text-midnights outline-none"
+                    >
+                    <option value="Basic">Basic</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Premium">Premium</option>
+                    </select>
+                </div>
                 </div>
                 <div>
                     <label>Set active: </label>
@@ -106,14 +89,14 @@ const CardCreateMember = ({setShow}) => {
                 <div>
                     <label>Date of Birth: </label>
                     <input 
-                    className="bg-gray-300 text-gray-400 rounded p-1 my-2 hover:bg-gray-400"
+                    className="bg-gray-300 text-midnights rounded p-2 my-2 outline-none"
                     type="date" min="1920-01-01T00:00" max="2015-01-01T00:00" name="dob" required />
                 </div>
                 <input 
-                className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+                className="bg-gray-300 text-midnights rounded p-2 my-2 outline-none"
                 type="text" name="address" placeholder="123 address Ave" required />
                 <input 
-                className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+                className="bg-gray-300 text-midnights rounded p-2 my-2 outline-none"
                 type="url" name="media" placeholder="URL Image" required />
                 <button 
                     onClick={() => {}}

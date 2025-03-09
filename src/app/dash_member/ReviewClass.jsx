@@ -19,11 +19,11 @@ const ReviewClass = ({ setShow, revClass }) => {
             <X />
           </button>
         </div>
-        <form className="flex flex-col my-4" action="#">
-          <p>{revClass.description}</p>
+        <form className="flex flex-col mb-4 mt-2" action="#">
+          <p className="mb-4">{revClass.description}</p>
           <label>Comment: </label>
           <textarea
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="comment_class"
             id="description_class"

@@ -9,23 +9,23 @@ const ManageClass = ({ arrClasses }) => {
   const [show, setShow] = useState();
 
   return (
-    <div className="relative m-4 mx-auto w-[85%] bg-gray-300 p-6 rounded-lg">
+    <div className="relative my-12 mx-auto w-[85%] bg-[#9fadb3] p-6 rounded-lg">
       <div className="flex justify-between items-center">
         <h2 className="text-lg sm:text-2xl font-semibold">Manage Classes</h2>
         <button
-          className="bg-gray-400 px-2 py-1 rounded hover:bg-gray-500"
+          className="bg-midnights/90 text-white px-2 py-1 rounded hover:bg-midnights"
           onClick={() => setClassUp(!classUp)}
         >
           {classUp ? <ArrowUp /> : <ArrowDown />}
         </button>
       </div>
       {classUp && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-6">
           <button
             onClick={() => {
               setShow("create_class");
             }}
-            className="bg-green-600 px-4 py-2 mt-2 rounded text-white hover:bg-green-700"
+            className="bg-midnights/90 px-4 py-2 mt-8 rounded text-white hover:bg-midnights"
           >
             Add Class
           </button>

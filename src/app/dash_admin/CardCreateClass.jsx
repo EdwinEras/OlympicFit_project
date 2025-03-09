@@ -21,7 +21,7 @@ const CardCreateClass = ({ setShow }) => {
         </div>
         <form className="flex flex-col" action="#">
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="name_class"
             id="name_class"
@@ -30,7 +30,7 @@ const CardCreateClass = ({ setShow }) => {
           />
           <div>
             <input
-              className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="text"
               name="category_class"
               id="category_class"
@@ -39,7 +39,7 @@ const CardCreateClass = ({ setShow }) => {
             />
             <label className="ml-8">Capacity: </label>
             <input
-              className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
               min={0}
               max={15}
@@ -49,49 +49,24 @@ const CardCreateClass = ({ setShow }) => {
               required
             />
           </div>
-          <div className="flex text-gray-400 ">
-            <label>Select Difficulty: </label>
-            <div>
-              <button
-                onClick={() => {
-                  setDropdown(!dropdown);
-                }}
-                className="flex rounded bg-gray-300 rounded p-1 mx-2 hover:bg-gray-400 hover:text-white"
-              >
-                {difficulty} {dropdown ? <ArrowUp /> : <ArrowDown />}
-              </button>
-              {dropdown && (
-                <div className="flex flex-col">
-                  <button
-                    onClick={() => {
-                      setDifficulty("regular");
-                    }}
-                    className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white"
-                  >
-                    Regular
-                  </button>
-                  <button
-                    onClick={() => {
-                      setDifficulty("intermedia");
-                    }}
-                    className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white"
-                  >
-                    Intermedia
-                  </button>
-                  <button
-                    onClick={() => {
-                      setDifficulty("advance");
-                    }}
-                    className="border border-gray-400 rounded bg-gray-300 rounded mx-2 hover:bg-gray-400 hover:text-white"
-                  >
-                    Advance
-                  </button>
-                </div>
-              )}
-            </div>
+          <div className="flex text-gray-400 items-center">
+            <label htmlFor="difficulty" className="mr-2">
+              Select Difficulty:
+            </label>
+            <select
+              id="difficulty"
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+              className="rounded bg-gray-300 p-2 outline-none text-midnights"
+            >
+              <option value="regular">Regular</option>
+              <option value="intermedia">Intermedia</option>
+              <option value="advance">Advance</option>
+            </select>
           </div>
+
           <textarea
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="description_class"
             id="description_class"
@@ -101,7 +76,7 @@ const CardCreateClass = ({ setShow }) => {
           <div>
             <label>Set active: </label>
             <input
-              className="bg-gray-300 rounded p-1 m-2"
+              className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="active"
               id="active_yes"
@@ -109,7 +84,7 @@ const CardCreateClass = ({ setShow }) => {
             />
             <label>Yes</label>
             <input
-              className="bg-gray-300 rounded p-1 m-2"
+              className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="active"
               id="active_no"
@@ -120,7 +95,7 @@ const CardCreateClass = ({ setShow }) => {
           <div>
             <label>Start date: </label>
             <input
-              className="bg-gray-300 text-gray-400 rounded p-1 my-2 mr-8 hover:bg-gray-400"
+              className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="datetime-local"
               min="2025-01-01T00:00"
               max="2029-12-31T00:00"
@@ -131,7 +106,7 @@ const CardCreateClass = ({ setShow }) => {
             />
             <label>End date: </label>
             <input
-              className="bg-gray-300 text-gray-400 rounded p-1 my-2 hover:bg-gray-400"
+              className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="datetime-local"
               min="2025-01-01T00:00"
               max="2029-12-31T00:00"
@@ -142,7 +117,7 @@ const CardCreateClass = ({ setShow }) => {
             />
           </div>
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="location_class"
             id="location_class"
@@ -150,7 +125,7 @@ const CardCreateClass = ({ setShow }) => {
             required
           />
           <input
-            className="bg-gray-300 rounded p-1 my-2 hover:bg-gray-400"
+            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
             type="url"
             name="media_class"
             id="media_class"
