@@ -131,7 +131,19 @@ const Navbar = () => {
                   href="/dash_admin"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
-                  My Profile
+                  Dash Admin
+                </Link>
+                <Link
+                  href="/dash_member"
+                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                >
+                  Dash Member
+                </Link>
+                <Link
+                  href="/dash_trainer"
+                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                >
+                  Dash Trainer
                 </Link>
               </div>
             )}
