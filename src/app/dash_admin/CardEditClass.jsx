@@ -39,7 +39,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               defaultValue={editClass.category}
               required
             />
-            <label className="ml-8">Capacity: </label>
+            <label className="ml-0 sm:ml-8">Capacity: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
@@ -96,7 +96,7 @@ const CardEditClass = ({ setShow, editClass }) => {
             />
             <label>No</label>
           </div>
-          <div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
             <label>Start date: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
