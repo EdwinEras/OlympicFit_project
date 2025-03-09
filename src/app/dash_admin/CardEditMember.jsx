@@ -9,7 +9,7 @@ const CardEditMember = ({ setShow, editMember }) => {
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
-      <div className="p-2 bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
+      <div className="p-2 max-h-[600px] sm:max-h-full overflow-y-auto bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
         <div className="flex justify-between items-center">
           <h2 className="text-lg sm:text-2xl font-semibold">New member</h2>
           <button
