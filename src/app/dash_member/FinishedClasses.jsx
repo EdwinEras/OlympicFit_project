@@ -18,7 +18,7 @@ const FinisedClasses = ({arrClasses}) => {
           </button>
         </div>
         {classUp && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mt-4">
             {arrClasses.map((c) => (
               <div key={c.id} className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
                 <p className="text-sm">{c.id} - {c.name} - {c.start_time} - {c.end_time}</p>
