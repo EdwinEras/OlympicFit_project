@@ -60,3 +60,23 @@ nav a:hover:after {
 .card__content:hover {
   transform: rotateY(180deg);
 }
+
+
+/* Pagination bullet color */
+
+.swiper-pagination-bullet {
+  background-color: #dcd5cf !important;
+  opacity: 0.6 !important;
+}
+ 
+/* Active bullet color */
+
+.swiper-pagination-bullet-active {
+  background-color: #dcd5cf !important;
+  opacity: 1 !important;
+}
+ 
+.cont {
+  animation: move 8s linear infinite alternate;
+}
+ 

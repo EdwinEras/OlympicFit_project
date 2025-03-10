@@ -7,8 +7,7 @@ export default function LoginForm({ onReset }) {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2">Login</h2>
-      <p className="text-gray-600 mb-4">Log in or create an account to access.</p>
+      <h2 className="text-xl font-semibold mb-2 uppercase font-semibold">Login</h2>
 
       <form className="space-y-4">
         <div>
@@ -22,12 +21,12 @@ export default function LoginForm({ onReset }) {
         </div>
 
         <div className="flex justify-between items-center text-sm">
-          <button type="button" onClick={onReset} className="text-blue-500 hover:underline">
+          <button type="button" onClick={onReset} className="text-silver-slate  hover:underline">
             Reset Password
           </button>
         </div>
 
-        <button className="w-full bg-[#232a2c] text-white px-4 py-2 rounded hover:bg-[#1d2325]">
+        <button className="w-full bg-midnights text-white px-4 py-2 rounded hover:bg-[#1d2325]">
           Login
         </button>
       </form>

@@ -60,10 +60,10 @@ export default function Footer() {
             <h3 className="font-bold mb-4">Contact US:</h3>
             <a
               className="text-brand-200 text-base"
-              href="mailto:theservicehub@senecapolytechnic.ca"
+              href="mailto:olympicfit@outlook.com"
               target="_blank"
             >
-              theservicehub@senecapolytechnic.ca
+              olympicfit@outlook.com
             </a>
           </div>
         </div>

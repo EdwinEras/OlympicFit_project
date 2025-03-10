@@ -10,8 +10,6 @@ export const users = [
     role: "trainer",
     gender: "male",
     address: "123 St, City, Country",
-    date_joined: "2021-01-01",
-    last_updated_date: "2023-01-01",
     image: "Edwin.jpg",
     employee: {
       specialties: {
@@ -37,8 +35,6 @@ export const users = [
     role: "trainer",
     gender: "female",
     address: "456 Ave, City, Country",
-    date_joined: "2021-06-01",
-    last_updated_date: "2023-06-01",
     image: "pari.jpg",
     employee: {
       specialties: {
@@ -55,18 +51,16 @@ export const users = [
   },
   {
     user_id: "user_3",
-    first_name: "Nigh",
+    first_name: "Nghi",
     last_name: "G",
-    email: "nighg@example.com",
+    email: "nghig@example.com",
     phone_number: "333-444-5555",
-    username: "nighg",
+    username: "nghig",
     password_hash: "hashedpassword",
     role: "trainer",
-    gender: "male",
+    gender: "female",
     address: "101 Blvd, City, Country",
-    date_joined: "2023-07-01",
-    last_updated_date: "2023-07-01",
-    image: "nigh.avif",
+    image: "nghi.avif",
     employee: {
       specialties: {
         employee_type: "Strength Training",
@@ -76,7 +70,7 @@ export const users = [
       },
     },
     trainer_details: {
-      description: "Nigh specializes in strength training, helping clients build muscle and improve performance.",
+      description: "Nghi specializes in strength training, helping clients build muscle and improve performance.",
       assigned_classes: ["strength"],
     },
   },
@@ -91,8 +85,6 @@ export const users = [
     role: "trainer",
     gender: "female",
     address: "789 Rd, City, Country",
-    date_joined: "2023-03-01",
-    last_updated_date: "2023-06-01",
     image: "Kozeta.jpg",
     employee: {
       specialties: {
@@ -118,8 +110,6 @@ export const users = [
     role: "trainer",
     gender: "male",
     address: "555 St, City, Country",
-    date_joined: "2022-05-01",
-    last_updated_date: "2023-05-01",
     image: "Teddy.jpg",
     employee: {
       specialties: {
@@ -145,8 +135,6 @@ export const users = [
     role: "trainer",
     gender: "male",
     address: "777 Blvd, City, Country",
-    date_joined: "2021-08-01",
-    last_updated_date: "2023-08-01",
     image: "Aug.jpg",
     employee: {
       specialties: {

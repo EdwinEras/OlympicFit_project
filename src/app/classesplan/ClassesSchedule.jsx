@@ -1,97 +1,44 @@
 "use client";
 import React from "react";
+import Link from "next/link";
+import { classesData } from "../../lib/classesData";
+import { users } from "../../lib/userData";
 
-const scheduleData = [
-  {
-    day: "Monday",
-    classes: [
-      {
-        name: "Basic",
-        duration: 60,
-        time: "10:30 - 11:30",
-        trainer: "TrainerName",
-      },
-    ],
-  },
-  {
-    day: "Tuesday",
-    classes: [
-      {
-        name: "Basic",
-        duration: 60,
-        time: "11:30 - 12:30",
-        trainer: "TrainerName",
-      },
-    ],
-  },
-  {
-    day: "Wednesday",
-    classes: [
-      {
-        name: "Intermediate",
-        duration: 60,
-        time: "13:30 - 14:30",
-        trainer: "TrainerName",
-      },
-    ],
-  },
-  {
-    day: "Thursday",
-    classes: [
-      {
-        name: "Basic",
-        duration: 60,
-        time: "12:30 - 13:30",
-        trainer: "TrainerName",
-      },
-    ],
-  },
-  {
-    day: "Friday",
-    classes: [
-      {
-        name: "Advance",
-        duration: 60,
-        time: "10:30 - 11:30",
-        trainer: "TrainerName",
-      },
-    ],
-  },
-  {
-    day: "Saturday",
-    classes: [
-      {
-        name: "Intermediate",
-        duration: 60,
-        time: "11:30 - 12:30",
-        trainer: "TrainerName",
-      },
-      {
-        name: "All Level",
-        duration: 60,
-        time: "12:30 - 13:30",
-        trainer: "TrainerName",
-      },
-    ],
-  },
-  {
-    day: "Sunday",
-    classes: [
-      {
-        name: "Basic",
-        duration: 60,
-        time: "10:30 - 11:30",
-        trainer: "TrainerName",
-      },
-    ],
-  },
-];
+const scheduleData = classesData.reduce((acc, classItem) => {
+  const trainer = users.find((user) => user.user_id === classItem.trainer_id);
+
+  classItem.schedule.forEach((scheduleItem) => {
+    const day = scheduleItem.day || "Unknown";
+
+    const classEntry = {
+      name: classItem.class_name,
+      class_code: classItem.class_code,
+      duration: 60,
+      start_time: scheduleItem.start_time,
+      end_time: scheduleItem.end_time,
+      location: scheduleItem.location,
+      day: scheduleItem.day,
+      time: `${scheduleItem.start_time} - ${scheduleItem.end_time}`,
+      trainer: trainer
+        ? `${trainer.first_name} ${trainer.last_name}`
+        : "Unknown",
+    };
+
+    let dayEntry = acc.find((d) => d.day === day);
+    if (dayEntry) {
+      dayEntry.classes.push(classEntry);
+    } else {
+      acc.push({ day, classes: [classEntry] });
+    }
+  });
+
+  return acc;
+}, []);
 
 export default function ClassesSchedule() {
   return (
-    <div className="container mx-auto p-6 lg:p-10">
+    <div className="container mx-auto p-6 lg:p-12">
       <div className="overflow-x-auto">
-        {/* Table for larger screens */}
         <table className="min-w-full shadow-md rounded-lg hidden sm:table">
           <thead>
             <tr className="bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black text-white">
@@ -112,18 +59,34 @@ export default function ClassesSchedule() {
                   {day.classes.length > 0 ? (
                     <div className="space-y-2">
                       {day.classes.map((cls, idx) => (
-                        <div
+                        <Link
                           key={idx}
-                          className="bg-gradient-to-b from-silver-slate border border-silver-slate to-midnights text-white p-2 rounded-md shadow-sm text-center"
+                          href={{
+                            pathname: `/classes/${cls.class_code}`,
+                            query: {
+                              schedule: JSON.stringify({
+                                start_time: cls.start_time,
+                                end_time: cls.end_time,
+                                day: cls.day,
+                                location: cls.location,
+                              }),
+                            },
+                          }}
+                          className="block"
                         >
-                          <p className="font-semibold text-brand-200 text-sm">
-                            {cls.name} <span>({cls.duration} min)</span>
-                          </p>
-                          <p className="text-sm text-gray-400">{cls.time}</p>
-                          <p className="text-xs text-gray-400">
-                            With: <br /> {cls.trainer}
-                          </p>
-                        </div>
+                          <div className="cursor-pointer bg-gradient-to-b from-silver-slate border border-silver-slate to-midnights text-white p-2 rounded-md shadow-sm text-center">
+                            <p className="font-semibold text-brand-200 text-sm">
+                              {cls.name}{" "}
+                              <span>
+                                <br />({cls.duration} min)
+                              </span>
+                            </p>
+                            <p className="text-sm text-gray-400">{cls.time}</p>
+                            <p className="text-xs text-gray-400">
+                              With: <br /> {cls.trainer}
+                            </p>
+                          </div>
+                        </Link>
                       ))}
                     </div>
                   ) : (
@@ -135,7 +98,6 @@ export default function ClassesSchedule() {
           </tbody>
         </table>
 
-        {/* Stack layout for smaller screens */}
         <div className="sm:hidden space-y-4">
           {scheduleData.map((day, index) => (
             <div
@@ -148,18 +110,34 @@ export default function ClassesSchedule() {
               <div className="mt-2">
                 {day.classes.length > 0 ? (
                   day.classes.map((cls, idx) => (
-                    <div
+                    <Link
                       key={idx}
-                      className="bg-gradient-to-b from-silver-slate border border-silver-slate to-midnights text-white p-3 rounded-md shadow-sm my-4"
+                      href={{
+                        pathname: `/classes/${cls.class_code}`,
+                        query: {
+                          schedule: JSON.stringify({
+                            start_time: cls.start_time,
+                            end_time: cls.end_time,
+                            day: cls.day,
+                            location: cls.location,
+                          }),
+                        },
+                      }}
+                      className="block"
                     >
-                      <p className="font-semibold text-brand-200 text-sm">
-                        {cls.name} <span>({cls.duration} min)</span>
-                      </p>
-                      <p className="text-sm text-gray-400">{cls.time}</p>
-                      <p className="text-xs text-gray-400">
-                        With: <br /> {cls.trainer}
-                      </p>
-                    </div>
+                      <div className="bg-gradient-to-b from-silver-slate border border-silver-slate to-midnights text-white p-3 rounded-md shadow-sm my-4">
+                        <p className="font-semibold text-brand-200 text-sm">
+                          {cls.name}{" "}
+                          <span>
+                            <br />({cls.duration} min)
+                          </span>
+                        </p>
+                        <p className="text-sm text-gray-400">{cls.time}</p>
+                        <p className="text-xs text-gray-400">
+                          With: <br /> {cls.trainer}
+                        </p>
+                      </div>
+                    </Link>
                   ))
                 ) : (
                   <p className="text-gray-400">No classes</p>

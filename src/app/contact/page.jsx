@@ -9,15 +9,44 @@
 ****/
 
 export const metadata = {
-  title: 'Olympic Fit - Contact',
-}
+  title: "Olympic Fit - Contact Us",
+};
 
-export default function Contact() {
+import ContactForm from "./ContactForm";
+
+export default function ContactPage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-mulish)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        This is the Contact Page
-      </main>
+    <div className="min-h-screen pt-20">
+      <div className="max-w-6xl mx-auto px-6 py-28">
+        <h2 className=" text-3xl md:text-4xl font-bold text-midnights mb-4 text-center">
+          FEEL FREE TO ASK US!
+        </h2>
+        <p className="text-brand-200 mb-8 text-center text-lg text-midnights">
+          We’re happy to help! Drop us a message and we’ll get back to you soon.
+        </p>
+
+        <div className="flex flex-wrap md:flex-nowrap items-start bg-gradient-to-b from-silver-slate to-midnights justify-between bg-white/20 backdrop-blur-none rounded-xl p-8 md:p-16 shadow-md shadow-white">
+          <div className="w-full md:w-1/3 text-midnights space-y-2 mb-4">
+            <h3 className="text-lg font-semibold text-white">Address:</h3>
+            <p className="text-sm text-off-white">
+              1750 Finch Ave E,
+              <br /> North York, ON M2J 2X5
+            </p>
+
+            <h3 className="text-md font-semibold text-white">Email:</h3>
+            <p className="text-sm text-off-white underline cursor-pointer">
+              olympicfit@outlook.com
+            </p>
+
+            <h3 className="text-md font-semibold text-white">Phone:</h3>
+            <p className="text-sm text-off-white">1-627-134-44527</p>
+          </div>
+
+          <div className="w-full md:w-2/3 md:pl-12">
+            <ContactForm />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
