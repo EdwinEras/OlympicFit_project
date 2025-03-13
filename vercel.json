@@ -7,6 +7,10 @@
     ],
     "routes": [
       {
+        "src": "/classes/(.*)",
+        "dest": "frontend/classes/$1"
+      },
+      {
         "src": "/(.*)",
         "dest": "frontend/$1"
       }
