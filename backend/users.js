@@ -1,0 +1,32 @@
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require("dotenv").config();
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(process.env.URI, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+const getUsers = async () => {
+    const users = await client.connect()
+    .then(async ()=>{
+        const db = client.db(process.env.DBNAME);
+        const collection = db.collection('users');
+        const json = await collection.find({}).toArray();
+        return json;
+    })
+    .catch(()=>{
+        console.log(err);
+        client.close();
+    })
+    .finally(()=>{
+        console.log('Test completed, closing connection');
+        client.close();
+    })
+    return users;
+}
+
+module.exports = getUsers;
