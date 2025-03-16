@@ -16,12 +16,9 @@ app.listen(PORT, async () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-app.get('/', async (req, res) => {
-  res.send("Hello World");
-});
-
-app.get('/home', (req, res) => {
-  res.send("home");
+app.get('/users', async (req, res) => {
+  const users = await getUsers();
+  res.send(users);
 });
 
 app.get('/classes', async (req, res) => {
@@ -34,19 +31,14 @@ app.get('/faqs', async (req, res) => {
   res.send(faqs);
 });
 
-app.get('/users', async (req, res) => {
-  const users = await getUsers();
-  res.send(users);
+app.get('/reviews', async(req, res) => {
+  const reviews = await getReviews();
+  res.send(reviews);
 });
 
 app.get('/media', async (req, res) => {
   const media = await getMedia();
   res.send(media);
-});
-
-app.get('/reviews', async(req, res) => {
-  const reviews = await getReviews();
-  res.send(reviews);
 });
 
 app.get('/memplans', async(req, res) => {
