@@ -23,8 +23,6 @@ const data = {
     "description":"Fun dance workout 2",
     "is_active":true
 }
-
-
 test('Create and delete class test', async ()=>{ 
     var newClass = await createClass(data); 
     const result = await deleteClass(newClass.insertedId);  
@@ -32,13 +30,4 @@ test('Create and delete class test', async ()=>{
     expect(result.deletedCount).toBe(1);
 })
 
-
-// Parishrama Teat Creating class 
-
-test('create class test', async ()=>{ 
-    const newClass = await createClass(data);
-    expect(newClass.acknowledged).toBe(true);
-    expect(newClass.insertedId).toBeDefined();
-    await deleteClass(newClass.insertedId);
-})
-
+;
