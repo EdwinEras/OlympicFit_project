@@ -4,14 +4,13 @@
  * @author EdwinEras
  * @date 2025/03/18
  * 
- * Test Cases:
- * - create membership plan test
- * - Exmp: create new membershipplan, test the aknowledge and insertedId values then delte the membershipplan to re-run the test.
+ * - Create a new membership plan and delete it to verify that deletion works correctly.
+ * - Ensure that the API returns correct acknowledgment and deletedCount values.
  * 
  **/
 
-//Edwin Eras - Test
 const { createMemPlan, deleteMemPlan } = require('../membershipplans');
+// Sample membership data used for testing
 const data = {
     "plane_name": "GOLD",
     "plan_code": "GOLD004",
@@ -19,8 +18,7 @@ const data = {
     "duration": 12
 }
 
-//Edwin Eras - Test
-test('create membership plan test', async ()=>{
+test('Create and delete membership plan test', async ()=>{
     const result = await createMemPlan(data);
     expect(await result.acknowledged).toBe(true);
     expect(result.insertedId).toBeDefined();

@@ -5,13 +5,15 @@
  * @date 2025/03/18
  * 
  * Test Cases:
- * - delete class test
- * - Exmp: create a new class to re-run the test, then delete the class and test the aknowledge and deletedCount values.
+ * - Create a new class and delete it to verify that deletion works correctly.
+ * - Ensure that the API returns correct acknowledgment and deletedCount values.
  * 
  **/
 
-//Edwin Eras - Test
+
+
 const { createClass, deleteClass } = require('../classes');
+// Sample class data used for testing
 const data = {
     "class_name":"Zumba 2",
     "class_code":"ZUMBA404",
@@ -22,10 +24,10 @@ const data = {
     "is_active":true
 }
 
-//Edwin Eras - Test
-test('delete class test', async ()=>{ 
-    var newClass = await createClass(data);
-    const result = await deleteClass(newClass.insertedId);
+
+test('Create and delete class test', async ()=>{ 
+    var newClass = await createClass(data); 
+    const result = await deleteClass(newClass.insertedId);  
     expect(result.acknowledged).toBe(true);
     expect(result.deletedCount).toBe(1);
 })
