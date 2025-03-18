@@ -29,3 +29,14 @@ test('delete class test', async ()=>{
     expect(result.acknowledged).toBe(true);
     expect(result.deletedCount).toBe(1);
 })
+
+
+// Parishrama Teat Creating class 
+
+test('create class test', async ()=>{ 
+    const newClass = await createClass(data);
+    expect(newClass.acknowledged).toBe(true);
+    expect(newClass.insertedId).toBeDefined();
+    await deleteClass(newClass.insertedId);
+})
+

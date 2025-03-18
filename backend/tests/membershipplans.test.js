@@ -22,7 +22,7 @@ const data = {
 //Edwin Eras - Test
 test('create membership plan test', async ()=>{
     const result = await createMemPlan(data);
-    expect(await result.acknowledged).toBe(true);
+    expect(result.acknowledged).toBe(true);
     expect(result.insertedId).toBeDefined();
     await deleteMemPlan(await result.insertedId);
 })
