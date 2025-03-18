@@ -4,7 +4,7 @@
  * @author EdwinEras
  * @date 2025/03/18
  * 
- * - Create a new membership plan and delete it to verify that deletion works correctly.
+ * - Create a new membership plan to verify that creation works correctly.
  * - Ensure that the API returns correct acknowledgment and deletedCount values.
  * 
  **/
@@ -18,7 +18,7 @@ const data = {
     "duration": 12
 }
 
-test('Create and delete membership plan test', async ()=>{
+test('Create membership plan test', async ()=>{
     const result = await createMemPlan(data);
     expect(result.acknowledged).toBe(true);
     expect(result.insertedId).toBeDefined();

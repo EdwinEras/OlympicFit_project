@@ -4,7 +4,6 @@
  * @author EdwinEras
  * @date 2025/03/18
  * 
- * Test Cases:
  * - Create a new class and delete it to verify that deletion works correctly.
  * - Ensure that the API returns correct acknowledgment and deletedCount values.
  * 
@@ -23,11 +22,20 @@ const data = {
     "description":"Fun dance workout 2",
     "is_active":true
 }
+<<<<<<< HEAD:backend/tests/classes.test.js
 test('Create and delete class test', async ()=>{ 
+=======
+
+
+test('Delete class test', async ()=>{ 
+>>>>>>> 6f017c0a2634a64b0358e322a55b53d2cebb2f62:backend/tests/deleteClasses.test.js
     var newClass = await createClass(data); 
     const result = await deleteClass(newClass.insertedId);  
     expect(result.acknowledged).toBe(true);
     expect(result.deletedCount).toBe(1);
 })
+<<<<<<< HEAD:backend/tests/classes.test.js
 
 ;
+=======
+>>>>>>> 6f017c0a2634a64b0358e322a55b53d2cebb2f62:backend/tests/deleteClasses.test.js
