@@ -23,7 +23,7 @@ const run = async () => {
     })
     .finally(()=>{
         console.log('Test completed, closing connection');
-        client.close();
+        // client.close();
     })
 }
 
