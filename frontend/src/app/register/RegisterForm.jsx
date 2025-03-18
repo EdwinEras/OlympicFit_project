@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
   const router = useRouter();
 
-  // State to track form inputs and errors
+  // State to track form inputs
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -48,13 +48,14 @@ export default function RegisterForm() {
     });
 
     // Email validation
-    if (formData.email && !validateEmail(formData.email)) {
+    if (!validateEmail(formData.email)) {
       validationErrors.email = "Please enter a valid email address.";
     }
 
     // Password match validation
-    if (formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword) {
-      validationErrors.confirmPassword = "Passwords do not match.";
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match! Please check and try again.");
+      return; // Stop form submission
     }
 
     // Terms and conditions validation
@@ -62,7 +63,7 @@ export default function RegisterForm() {
       validationErrors.agreedToTerms = "You must agree to the Terms of Use.";
     }
 
-    // If there are validation errors, set them and stop submission
+    // If there are validation errors, stop submission
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -70,7 +71,7 @@ export default function RegisterForm() {
 
     // Clear errors and proceed with form submission
     setErrors({});
-    alert("Form submitted successfully!");
+    alert("✅ Form submitted successfully!");
   };
 
   return (
@@ -100,7 +101,6 @@ export default function RegisterForm() {
             value={formData.password} onChange={handleChange} />
           <input type="password" name="confirmPassword" placeholder="Confirm Password" className="w-full border p-2 rounded outline-none"
             value={formData.confirmPassword} onChange={handleChange} />
-          {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
 
           <div className="flex items-center space-x-2">
             <input type="checkbox" name="agreedToTerms" className="accent-blue-500 outline-none"
