@@ -17,7 +17,7 @@ const mediaData = {
     "description": "Testing"
   }
 
-test('Create and delete media test item', async () => {         
+test('Delete media test item', async () => {         
     var newMedia = await createMedia(mediaData); 
     const result = await deleteMedia(newMedia.insertedId);
     expect(result.acknowledged).toBe(true);

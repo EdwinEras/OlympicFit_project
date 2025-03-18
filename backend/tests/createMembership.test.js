@@ -18,7 +18,7 @@ const data = {
     "duration": 12
 }
 
-test('Create and delete membership plan test', async ()=>{
+test('Delete membership plan test', async ()=>{
     const result = await createMemPlan(data);
     expect(result.acknowledged).toBe(true);
     expect(result.insertedId).toBeDefined();
