@@ -54,7 +54,7 @@ export default function RegisterForm() {
 
     // Password match validation
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match! Please check and try again.");
+      alert(" Passwords do not match! Please check and try again.");
       return; // Stop form submission
     }
 
@@ -71,7 +71,7 @@ export default function RegisterForm() {
 
     // Clear errors and proceed with form submission
     setErrors({});
-    alert("✅ Form submitted successfully!");
+    alert(" Form submitted successfully!");
   };
 
   return (
@@ -94,24 +94,42 @@ export default function RegisterForm() {
           </div>
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           
-          <input type="date" name="dateOfBirth" className="w-full border p-2 rounded outline-none"
-            value={formData.dateOfBirth} onChange={handleChange} />
+          {/* 🔹 Label for Date of Birth */}
+          <div>
+            <label htmlFor="dateOfBirth" className="block text-gray-700 text-sm font-medium mb-1">Date of Birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" className="w-full border p-2 rounded outline-none"
+              value={formData.dateOfBirth} onChange={handleChange} />
+          </div>
 
           <input type="password" name="password" placeholder="Password" className="w-full border p-2 rounded outline-none"
             value={formData.password} onChange={handleChange} />
           <input type="password" name="confirmPassword" placeholder="Confirm Password" className="w-full border p-2 rounded outline-none"
             value={formData.confirmPassword} onChange={handleChange} />
 
-          <div className="flex items-center space-x-2">
-            <input type="checkbox" name="agreedToTerms" className="accent-blue-500 outline-none"
-              checked={formData.agreedToTerms} onChange={handleChange} />
-            <label className="text-sm">
-              I have read and agree to{" "}
-              <a href="#" className="text-silver-slate underline">Terms of Use</a> and{" "}
-              <a href="#" className="text-silver-slate underline">Privacy Statement</a>
-            </label>
+          {/* 🔹 Terms of Use Checkbox with Error Message */}
+          <div className="flex flex-col">
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="agreedToTerms"
+                className="accent-blue-500 outline-none"
+                checked={formData.agreedToTerms}
+                onChange={handleChange}
+              />
+              <label className="text-sm">
+                I have read and agree to{" "}
+                <a href="#" className="text-silver-slate underline">Terms of Use</a> and{" "}
+                <a href="#" className="text-silver-slate underline">Privacy Statement</a>
+              </label>
+            </div>
+
+            {/* Error Message in Red  */}
+            {errors.agreedToTerms && (
+              <p className="block text-red-700 font-bold text-sm mt-1">
+                {errors.agreedToTerms}
+              </p>
+            )}
           </div>
-          {errors.agreedToTerms && <p className="text-red-500 text-sm">{errors.agreedToTerms}</p>}
 
           <button type="submit" className="w-full bg-midnights text-white px-4 py-2 rounded hover:bg-[#1d2325]">
             Register
