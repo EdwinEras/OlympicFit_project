@@ -1,9 +1,16 @@
 import { ArrowUp, ArrowDown, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CardEditClass = ({ setShow, editClass }) => {
   const [dropdown, setDropdown] = useState(false);
   const [difficulty, setDifficulty] = useState();
+
+  const [minDate, setMinDate] = useState(""); 
+
+  useEffect(() => {
+    const currentDate = new Date().toISOString().slice(0, 16);
+    setMinDate(currentDate);
+  }, []);
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
@@ -101,7 +108,7 @@ const CardEditClass = ({ setShow, editClass }) => {
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="datetime-local"
-              min="2025-01-01T00:00"
+              min={minDate}
               max="2029-12-31T00:00"
               name="start_time"
               id="start_time"
@@ -113,7 +120,7 @@ const CardEditClass = ({ setShow, editClass }) => {
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="datetime-local"
-              min="2025-01-01T00:00"
+              min={minDate}
               max="2029-12-31T00:00"
               name="end_time_class"
               id="end_time"
