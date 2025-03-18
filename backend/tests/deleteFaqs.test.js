@@ -2,7 +2,7 @@
 /**
  * @file faqs.test.js
  * @description This file contains Jest test cases for testing the faqs create functionality of the API.
- * @author Parishrama
+ * @author Kozeta Pajaj
  * @date 2025/03/18
  * 
  * Create a new faqs and delete it to verify that deletion works correctly.
