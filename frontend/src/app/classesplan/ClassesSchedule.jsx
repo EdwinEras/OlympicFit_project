@@ -35,6 +35,10 @@ const scheduleData = classesData.reduce((acc, classItem) => {
   return acc;
 }, []);
 
+const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+scheduleData.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+
 export default function ClassesSchedule() {
   return (
     <div className="container mx-auto p-6 lg:p-12">

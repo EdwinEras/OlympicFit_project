@@ -1,37 +1,137 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function RegisterForm() {
   const router = useRouter();
+
+  // State to track form inputs
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    dateOfBirth: "",
+    password: "",
+    confirmPassword: "",
+    agreedToTerms: false,
+  });
+
+  const [errors, setErrors] = useState({});
+
+  // Function to validate email format
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let validationErrors = {};
+
+    // Validate required fields
+    Object.keys(formData).forEach((field) => {
+      if (!formData[field] && field !== "agreedToTerms") {
+        validationErrors[field] = "This field is required.";
+      }
+    });
+
+    // Email validation
+    if (!validateEmail(formData.email)) {
+      validationErrors.email = "Please enter a valid email address.";
+    }
+
+    // Password match validation
+    if (formData.password !== formData.confirmPassword) {
+      alert(" Passwords do not match! Please check and try again.");
+      return; // Stop form submission
+    }
+
+    // Terms and conditions validation
+    if (!formData.agreedToTerms) {
+      validationErrors.agreedToTerms = "You must agree to the Terms of Use.";
+    }
+
+    // If there are validation errors, stop submission
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    // Clear errors and proceed with form submission
+    setErrors({});
+    alert(" Form submitted successfully!");
+  };
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-5xl flex flex-col md:flex-row mt-28 mb-8 container mx-auto">
       {/* Register Form */}
       <div className="w-full md:w-1/2 pr-0 md:pr-4 border-b md:border-r md:border-b-0 flex flex-col justify-center pb-6 md:pb-0">
         <h2 className="text-2xl mb-4 text-center md:text-left text-midnight">Create an Account</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" placeholder="First Name" className="w-full border p-2 rounded outline-none" required />
-            <input type="text" placeholder="Last Name" className="w-full border p-2 rounded outline-none" required />
+            <input type="text" name="firstName" placeholder="First Name" className="w-full border p-2 rounded outline-none"
+              value={formData.firstName} onChange={handleChange} />
+            <input type="text" name="lastName" placeholder="Last Name" className="w-full border p-2 rounded outline-none"
+              value={formData.lastName} onChange={handleChange} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" placeholder="Phone Number" className="w-full border p-2 rounded outline-none" required />
-            <input type="email" placeholder="Email" className="w-full border p-2 rounded outline-none" required />
+            <input type="text" name="phoneNumber" placeholder="Phone Number" className="w-full border p-2 rounded outline-none"
+              value={formData.phoneNumber} onChange={handleChange} />
+            <input type="email" name="email" placeholder="Email" className="w-full border p-2 rounded outline-none"
+              value={formData.email} onChange={handleChange} />
           </div>
-          <input type="date" className="w-full border p-2 rounded outline-none" required />
-          <input type="password" placeholder="Password" className="w-full border p-2 rounded outline-none" required />
-          <input type="password" placeholder="Confirm Password" className="w-full border p-2 rounded outline-none" required />
-          <div className="flex items-center space-x-2">
-            <input type="checkbox" className="accent-blue-500 outline-none" required />
-            <label className="text-sm">
-              I have read and agree to{" "}
-              <Link href="/terms-of-use" className="text-silver-slate underline">Terms of Use</Link> and{" "}
-              <Link href="/privacy-policy" className="text-silver-slate underline">Privacy Statement</Link>
-            </label>
+          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          
+          {/* 🔹 Label for Date of Birth */}
+          <div>
+            <label htmlFor="dateOfBirth" className="block text-gray-700 text-sm font-medium mb-1">Date of Birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" className="w-full border p-2 rounded outline-none"
+              value={formData.dateOfBirth} onChange={handleChange} />
           </div>
-          <button className="w-full bg-midnights text-white px-4 py-2 rounded hover:bg-[#1d2325]">
+
+          <input type="password" name="password" placeholder="Password" className="w-full border p-2 rounded outline-none"
+            value={formData.password} onChange={handleChange} />
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" className="w-full border p-2 rounded outline-none"
+            value={formData.confirmPassword} onChange={handleChange} />
+
+          {/* 🔹 Terms of Use Checkbox with Error Message */}
+          <div className="flex flex-col">
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="agreedToTerms"
+                className="accent-blue-500 outline-none"
+                checked={formData.agreedToTerms}
+                onChange={handleChange}
+              />
+              <label className="text-sm">
+                I have read and agree to{" "}
+                <a href="#" className="text-silver-slate underline">Terms of Use</a> and{" "}
+                <a href="#" className="text-silver-slate underline">Privacy Statement</a>
+              </label>
+            </div>
+
+            {/* Error Message in Red  */}
+            {errors.agreedToTerms && (
+              <p className="block text-red-700 font-bold text-sm mt-1">
+                {errors.agreedToTerms}
+              </p>
+            )}
+          </div>
+
+          <button type="submit" className="w-full bg-midnights text-white px-4 py-2 rounded hover:bg-[#1d2325]">
             Register
           </button>
         </form>

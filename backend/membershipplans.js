@@ -1,98 +1,71 @@
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
+const { client } = require('./mongodbConnector');
 require("dotenv").config();
-
-const client = new MongoClient(process.env.URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
 
 const createMemPlan = async ( data ) => {
   data._id = new ObjectId();
-  const memplan = await client.connect()
-  .then(async () => {
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('membershipplans');
-    const json = await collection.insertOne(data);
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('membershipplans');
+  const memplan = await collection.insertOne(data)
+  .then((json) => {
     return json;
   })
   .catch((err) => {
     console.log(err);
-  })
-  .finally(() => {
-    console.log('membershipplans creation completed, closing connection');
-    client.close();
+    return { message: "DB ERROR" }
   });
   return memplan;
 };
 
-
 const getMemPlans = async () => {
-  const memplan = await client.connect()
-  .then(async ()=>{
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('membershipplans');
-    const json = await collection.find({}).toArray();
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('membershipplans');
+  const memplan = await collection.find({}).toArray()
+  .then((json)=>{
     return json;
   })
   .catch(()=>{
     console.log(err);
-  })
-  .finally(()=>{
-    console.log('Get completed, closing connection');
-    client.close();
-  })
+    return { message: "DB ERROR" }
+  });
   return memplan;
 }
 
-
 const updateMemPlan = async ( id, data ) => {
-  const memplan = await client.connect()
-  .then(async ()=>{
-    if (!ObjectId.isValid(id)) {
-      return { message: "Invalid request" }
-    }
-    const filter = { _id: new ObjectId(id) };
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('membershipplans');
-    console.log(data);
-    const json = await collection.updateOne(filter, { $set: data });
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('membershipplans');
+  console.log(data);
+  const memplan = await collection.updateOne(filter, { $set: data })
+  .then((json)=>{
     return json;
   })
   .catch(()=>{
     console.log(err);
-  })
-  .finally(()=>{
-    console.log('Update completed, closing connection');
-    client.close();
-  })
+    return { message: "DB ERROR" }
+  });
   return memplan;
 }
 
 const deleteMemPlan = async ( id ) => {
-  const memplan = await client.connect()
-  .then(async () => {
-    if (!ObjectId.isValid(id)) {
-      return { message: "Invalid request" }
-    }
-    const filter = { _id: new ObjectId(id) };
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('membershipplans');
-    const json = await collection.deleteOne(filter);
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('membershipplans');
+  const memplan = await collection.deleteOne(filter)
+  .then((json) => {
     return json;
   })
   .catch((err) => {
     console.log(err);
-  })
-  .finally(() => {
-    console.log('Delete completed, closing connection');
-    client.close();
+    return { message: "DB ERROR" }
   });
   return memplan;
 };
-
 
 module.exports = { createMemPlan, getMemPlans, updateMemPlan, deleteMemPlan };

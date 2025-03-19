@@ -150,6 +150,6 @@ app.put('/memplans/:id', async (req, res) => {
 });
 app.delete('/memplans/:id', async (req, res) => {
   const id = req.params.id;
-  const memplan = await deleteMemPlan(id, data);
+  const memplan = await deleteMemPlan(id);
   res.send(memplan);
 });

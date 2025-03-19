@@ -1,93 +1,68 @@
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
+const { client } = require('./mongodbConnector');
 require("dotenv").config();
-
-const client = new MongoClient(process.env.URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
 
 const createUser = async ( data ) => {
   data._id = new ObjectId();
-  const user = await client.connect()
-  .then(async () => {
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('users');
-    const json = await collection.insertOne(data);
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('users');
+  const user = await collection.insertOne(data)
+  .then((json) => {
     return json;
   })
   .catch((err) => {
     console.log(err);
-  })
-  .finally(() => {
-    console.log('User creation completed, closing connection');
-    client.close();
+    return { message: "DB ERROR" }
   });
   return user;
 };
 
-
 const getUsers = async () => {
-  const users = await client.connect()
-  .then(async ()=>{
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('users');
-    const json = await collection.find({}).toArray();
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('users');
+  const users = await collection.find({}).toArray()
+  .then((json)=>{
     return json;
   })
   .catch(()=>{
     console.log(err);
-  })
-  .finally(()=>{
-    console.log('Get completed, closing connection');
-    client.close();
-  })
+    return { message: "DB ERROR" }
+  });
   return users;
 }
 
 const updateUser = async ( id, data ) => {
-  const users = await client.connect()
-  .then(async ()=>{
-    if (!ObjectId.isValid(id)) {
-      return { message: "Invalid request" }
-    }
-    const filter = { _id: new ObjectId(id) };
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('users');
-    console.log(data);
-    const json = await collection.updateOne(filter, { $set: data });
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('users');
+  const users = await collection.updateOne(filter, { $set: data })
+  .then((json)=>{
     return json;
   })
   .catch(()=>{
     console.log(err);
-  })
-  .finally(()=>{
-    console.log('Update completed, closing connection');
-    client.close();
-  })
+    return { message: "DB ERROR" }
+  });
   return users;
 }
 
 const deleteUser = async ( id ) => {
-  const user = await client.connect()
-  .then(async () => {
-    if (!ObjectId.isValid(id)) {
-      return { message: "Invalid request" }
-    }
-    const filter = { _id: new ObjectId(id) };
-    const db = client.db(process.env.DBNAME);
-    const collection = db.collection('users');
-    const json = await collection.deleteOne(filter);
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('users');
+  const user = await collection.deleteOne(filter)
+  .then((json) => {
     return json;
   })
   .catch((err) => {
     console.log(err);
-  })
-  .finally(() => {
-    console.log('Delete completed, closing connection');
-    client.close();
+    return { message: "DB ERROR" }
   });
   return user;
 };
