@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ArrowRight, User } from "lucide-react";
- 
+
 const BMICalculator = () => {
   const [height, setHeight] = useState(() =>
     typeof window !== "undefined" ? "" : null
@@ -11,20 +11,30 @@ const BMICalculator = () => {
   const [gender, setGender] = useState("");
   const [bmi, setBMI] = useState(null);
   const [status, setStatus] = useState("");
- 
+  const [error, setError] = useState(""); 
+
   const calculateBMI = () => {
-    if (!height || !weight) {
-      setStatus("Please enter valid values for height and weight.");
+    
+    setError("");
+
+   
+    if (!height || !weight || !age || !gender) {
+      setError("All fields are required. Please fill in all fields.");
       return;
     }
- 
+
+    
+    if (height <= 0 || weight <= 0) {
+      setError("Please enter valid positive values for height and weight.");
+      return;
+    }
+
     const heightInMeters = height / 100;
-    const calculatedBMI = (weight / (heightInMeters * heightInMeters)).toFixed(
-      1
-    );
- 
+    const calculatedBMI = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+
     setBMI(calculatedBMI);
- 
+
+    
     if (calculatedBMI < 18.5) {
       setStatus("Underweight");
     } else if (calculatedBMI >= 18.5 && calculatedBMI <= 24.9) {
@@ -35,7 +45,7 @@ const BMICalculator = () => {
       setStatus("Obese");
     }
   };
- 
+
   return (
     <div className="container mx-auto mb-28 px-8 md:px-24 text-center flex flex-col items-center">
       <h2 className="text-2xl sm:text-4xl font-semibold mb-6">What Is BMI</h2>
@@ -44,7 +54,7 @@ const BMICalculator = () => {
         percentage based on height and weight. It's a useful tool for assessing
         weight and health risk.
       </p>
- 
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-16 items-start w-full">
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -81,7 +91,7 @@ const BMICalculator = () => {
               <option value="female">Female</option>
             </select>
           </div>
- 
+
           <button
             className="flex items-center uppercase justify-center bg-midnights text-white/80 py-3 w-full"
             onClick={calculateBMI}
@@ -89,7 +99,7 @@ const BMICalculator = () => {
             Calculate <ArrowRight className="ml-2" size={18} />
           </button>
         </div>
- 
+
         <div>
           <table className="w-full border text-sm">
             <thead>
@@ -122,8 +132,14 @@ const BMICalculator = () => {
           </p>
         </div>
       </div>
- 
-      {bmi && (
+
+      {error && (
+        <div className="mt-6 p-3 text-red-500">
+          <p>{error}</p>
+        </div>
+      )}
+
+      {bmi && !error && (
         <div
           className={`mt-6 flex w-full p-3 text-white/80 ${
             status === "Healthy" ? "bg-[#378c56]" : "bg-red"
@@ -139,5 +155,5 @@ const BMICalculator = () => {
     </div>
   );
 };
- 
+
 export default BMICalculator;
