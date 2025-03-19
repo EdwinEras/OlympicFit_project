@@ -1,5 +1,5 @@
 /**
- * @file media.test.js
+ * @file deleteMedia.test.js
  * @description This file contains Jest test cases for testing the /media functionality of the API.
  * @author Kozeta Pajaj
  * @date 03/18/2025

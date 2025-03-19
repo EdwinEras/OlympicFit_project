@@ -1,5 +1,5 @@
 /**
- * @file classes.test.js
+ * @file createClass.test.js
  * @description This file contains Jest test cases for testing the class create functionality of the API.
  * @author Parishrama
  * @date 2025/03/18

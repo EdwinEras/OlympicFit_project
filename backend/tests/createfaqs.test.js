@@ -1,5 +1,5 @@
 /**
- * @file classes.test.js
+ * @file createFaqs.test.js
  * @description This file contains Jest test cases for testing the faq create functionality of the API.
  * @author Parishrama
  * @date 2025/03/18

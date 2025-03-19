@@ -1,5 +1,5 @@
 /**
- * @file classes.test.js
+ * @file deleteClasses.test.js
  * @description This file contains Jest test cases for testing the classes functionality of the API.
  * @author EdwinEras
  * @date 2025/03/18

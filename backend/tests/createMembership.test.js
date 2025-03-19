@@ -1,5 +1,5 @@
 /**
- * @file membershipplans.test.js
+ * @file createMembership.test.js
  * @description This file contains Jest test cases for testing the membershipplans functionality of the API.
  * @author EdwinEras
  * @date 2025/03/18
