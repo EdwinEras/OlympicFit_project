@@ -1,5 +1,5 @@
 /**
- * @file classes.test.js
+ * @file createClass.test.js
  * @description This file contains Jest test cases for testing the class create functionality of the API.
  * @author Parishrama
  * @date 2025/03/18
@@ -22,10 +22,7 @@ const data = {
     "description":"Fun dance workout 2",
     "is_active":true
 }
- 
- 
-// Parishrama Teat Creating class
- 
+  
 test('create class test', async ()=>{
     const newClass = await createClass(data);
     expect(newClass.acknowledged).toBe(true);

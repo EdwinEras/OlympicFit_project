@@ -1,5 +1,5 @@
 /**
- * @file classes.test.js
+ * @file deleteClasses.test.js
  * @description This file contains Jest test cases for testing the classes functionality of the API.
  * @author EdwinEras
  * @date 2025/03/18
@@ -23,13 +23,10 @@ const data = {
     "is_active":true
 }
 
-test('Delete class test', async ()=>{ 
 
+test('Delete class test', async ()=>{ 
     var newClass = await createClass(data); 
     const result = await deleteClass(newClass.insertedId);  
     expect(result.acknowledged).toBe(true);
     expect(result.deletedCount).toBe(1);
 })
-
-
-;

@@ -1,5 +1,5 @@
 /**
- * @file media.test.js
+ * @file deleteMedia.test.js
  * @description This file contains Jest test cases for testing the /media functionality of the API.
  * @author Kozeta Pajaj
  * @date 03/18/2025
@@ -17,7 +17,7 @@ const mediaData = {
     "description": "Testing"
   }
 
-test('Delete media test item', async () => {         
+test('Delete media test', async () => {         
     var newMedia = await createMedia(mediaData); 
     const result = await deleteMedia(newMedia.insertedId);
     expect(result.acknowledged).toBe(true);
