@@ -14,13 +14,12 @@
 const {createFaq, deleteFaq } = require('../faqs');
 // Sample faqs data used for testing
 const data = {
-   "user_id":"67d70daf2f146b49d028bc15",
    "ques_code" : "Q0020",
    "ques_text" : "Can I get some discount?",
    "answer_text": "Please Provide us with your email so that we can discuss your query"
 }
 
-test('Delete faqs test item', async () => {         
+test('Delete faqs test', async () => {         
     var NewFaqs = await createFaq(data);
     const result = await deleteFaq(NewFaqs.insertedId); 
     expect(result.acknowledged).toBe(true); 

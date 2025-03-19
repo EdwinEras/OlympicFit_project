@@ -12,15 +12,14 @@
 
 
 const {createFaq, deleteFaq } = require('../faqs');
+
 const data = {
-   "user_id":"67d70daf2f146b49d028bc15",
    "ques_code" : "Q0020",
    "ques_text" : "Can I get some discount?",
    "answer_text": "Please Provide us with your email so that we can discuss your query"
 }
-// Parishrama Test Creating FQAS
  
-test('create faqs test', async ()=>{
+test('Create faqs test', async ()=>{
     const newfaq = await createFaq(data);
     expect(newfaq.acknowledged).toBe(true);
     expect(newfaq.insertedId).toBeDefined();

@@ -22,10 +22,7 @@ const data = {
     "description":"Fun dance workout 2",
     "is_active":true
 }
- 
- 
-// Parishrama Teat Creating class
- 
+  
 test('create class test', async ()=>{
     const newClass = await createClass(data);
     expect(newClass.acknowledged).toBe(true);
