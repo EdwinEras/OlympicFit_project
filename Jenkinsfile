@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        NODEJS_HOME = '/usr/bin'
-        PATH = "${NODEJS_HOME}:${PATH}"
-    }
-
     stages {
         stage('Clone Repository') {
             steps {
@@ -13,7 +8,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Frontend Dependencies') {
             steps {
                 dir('frontend') {
                     sh 'npm install'
@@ -21,15 +16,16 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Backend Tests') {
             steps {
-                dir('frontend') {
+                dir('backend') {
+                    sh 'npm install'
                     sh 'npm test -- --watchAll=false'
                 }
             }
         }
 
-        stage('Build Next.js App') {
+        stage('Build Frontend') {
             steps {
                 dir('frontend') {
                     sh 'npm run build'
@@ -37,10 +33,10 @@ pipeline {
             }
         }
 
-        stage('Start App Locally') {
+        stage('Start App (optional)') {
             steps {
                 dir('frontend') {
-                    sh 'nohup npx serve -s out -l 3000 > react-app.log 2>&1 &'
+                    sh 'nohup npx serve -s build -l 3000 > react-app.log 2>&1 &'
                 }
             }
         }
@@ -48,11 +44,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Next.js App Built, Tested, and Started Successfully!"
+            echo "✅ Backend tests passed and frontend built successfully!"
         }
         failure {
-            echo "❌ Build or Tests Failed!"
+            echo "❌ Build or Tests failed!"
         }
     }
 }
-
