@@ -36,6 +36,16 @@ pipeline {
             }
         }
 
+        stage('Permissions fixing') {
+            steps {
+                sh '''
+                echo "🔧 Fixing workspace permissions..."
+                sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/Olympic-fit
+                sudo chmod -R 775 /var/lib/jenkins/workspace/Olympic-fit
+                '''
+            }
+        }
+
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
@@ -44,13 +54,10 @@ pipeline {
             }
         }
 
-        stage('Start App (optional)') {
+        stage('Start App') {
             steps {
                 dir('frontend') {
-                    sh '''
-                    echo "Starting the Next.js server in production mode..."
-                    nohup npm run start > react-app.log 2>&1 &
-                    '''
+                    sh 'nohup npx serve -s build -l 3000 > react-app.log 2>&1 &'
                 }
             }
         }
@@ -58,10 +65,11 @@ pipeline {
 
     post {
         success {
-            echo "✅ Backend tests passed and frontend built successfully!"
+            echo "✅ Build and Tests Passed!"
         }
+
         failure {
-            echo "❌ Build or Tests failed!"
+            echo "❌ Build or Tests FAILED!"
         }
     }
 }
