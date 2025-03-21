@@ -17,13 +17,28 @@ pipeline {
         }
 
         stage('Run Backend Tests') {
-            steps {
-                dir('backend') {
-                    sh 'npm install'
-                    sh 'npm test -- --watchAll=false'
-                }
+    steps {
+        withCredentials([
+            string(credentialsId: 'mongo-uri', variable: 'MONGO_URI'),
+            string(credentialsId: 'mongo-db-name', variable: 'DB_NAME')
+        ]) {
+            dir('backend') {
+                sh '''
+                echo "🔍 Debugging: Checking Environment Variables"
+                echo "MONGO_URI=$MONGO_URI"
+                echo "DB_NAME=$DB_NAME"
+
+                echo "📦 Installing Dependencies..."
+                npm install
+
+                echo "🧪 Running Tests..."
+                URI=$MONGO_URI DB_NAME=$DB_NAME npm test -- --watchAll=false
+                '''
             }
         }
+    }
+}
+
 
         stage('Build Frontend') {
             steps {
