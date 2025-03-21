@@ -1,41 +1,41 @@
+const { ObjectId } = require('mongodb');
 const { createMemPlan, updateMemPlan } = require('../membershipplans');
-const { client } = require('../mongodbConnector'); // make sure this is how your connector exports
+const { client } = require('../mongodbConnector');
 
-// Sample membership data
 const data = {
-  "plan_name": "Premium",
-  "plan_code": "PREM003",
-  "package_price": 100,
-  "duration": 6,
-  "status": true
+  _id: new ObjectId("67da13bfba696e5ea56a2ff4"),
+  plan_name: "TestingPlan",
+  plan_code: "TEST999", // ✅ unique plan code
+  package_price: 99,
+  duration: 3,
+  status: true
 };
 
 const data2 = {
-  "plan_name": "Gold",
-  "plan_code": "GOLD005",
-  "package_price": 120,
-  "duration": 6,
-  "status": true
+  plan_name: "TestingPlanUpdated",
+  plan_code: "TEST999", // ✅ keep same code to avoid triggering unique index again
+  package_price: 120,
+  duration: 6,
+  status: false
 };
 
-const _id = "67da13bfba696e5ea56a2ff4";
-
 beforeAll(async () => {
-  // Insert the plan before running the test to make sure it exists
-  await createMemPlan({ ...data, _id }); 
+  const db = client.db(process.env.DB_NAME);
+  // ✅ delete only by plan_code (which is unique in your collection)
+  await db.collection('membershipplans').deleteMany({ plan_code: data.plan_code });
+  await createMemPlan(data);
 });
 
 afterAll(async () => {
-  // Always close the MongoDB connection after tests
   await client.close();
 });
 
 test('Update membership plan test', async () => {
-  const result = await updateMemPlan(_id, data2);
+  const result = await updateMemPlan(data._id, data2);
   console.log(result);
   expect(result.modifiedCount).toBe(1);
   expect(result.acknowledged).toBe(true);
 
-  // Restore original data after test
-  await updateMemPlan(_id, data);
+  // Optional: restore original
+  await updateMemPlan(data._id, data);
 });
