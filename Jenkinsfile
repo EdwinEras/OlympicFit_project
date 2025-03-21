@@ -29,7 +29,8 @@ pipeline {
                 echo "DB_NAME=$DB_NAME"
 
                 URI=$MONGO_URI DB_NAME=$DB_NAME npm install
-                URI=$MONGO_URI DB_NAME=$DB_NAME npm test -- --watchAll=false --detectOpenHandles
+                URI=$MONGO_URI DB_NAME=$DB_NAME npm test -- --watchAll=false --detectOpenHandles --forceExit
+
                 '''
             }
         }
