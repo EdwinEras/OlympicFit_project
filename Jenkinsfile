@@ -16,28 +16,25 @@ pipeline {
             }
         }
 
-       stage('Run Backend Tests') {
-    steps {
-        withCredentials([
-            string(credentialsId: 'mongo-uri', variable: 'MONGO_URI'),
-            string(credentialsId: 'mongo-db-name', variable: 'DB_NAME')
-        ]) {
-            dir('backend') {
-                sh '''
-                echo "🔍 Debugging: Checking Environment Variables"
-                echo "MONGO_URI=$MONGO_URI"
-                echo "DB_NAME=$DB_NAME"
+        stage('Run Backend Tests') {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'mongo-uri', variable: 'MONGO_URI'),
+                    string(credentialsId: 'mongo-db-name', variable: 'DB_NAME')
+                ]) {
+                    dir('backend') {
+                        sh '''
+                        echo "🔍 Debugging: Checking Environment Variables"
+                        echo "MONGO_URI=$MONGO_URI"
+                        echo "DB_NAME=$DB_NAME"
 
-                URI=$MONGO_URI DB_NAME=$DB_NAME npm install
-                URI=$MONGO_URI DB_NAME=$DB_NAME npm test -- --watchAll=false --detectOpenHandles --forceExit
-
-                '''
+                        URI=$MONGO_URI DB_NAME=$DB_NAME npm install
+                        URI=$MONGO_URI DB_NAME=$DB_NAME npm test -- --watchAll=false --detectOpenHandles --forceExit
+                        '''
+                    }
+                }
             }
         }
-    }
-}
-
-
 
         stage('Build Frontend') {
             steps {
@@ -50,7 +47,10 @@ pipeline {
         stage('Start App (optional)') {
             steps {
                 dir('frontend') {
-                    sh 'nohup npx serve -s build -l 3000 > react-app.log 2>&1 &'
+                    sh '''
+                    echo "Starting the Next.js server in production mode..."
+                    nohup npm run start > react-app.log 2>&1 &
+                    '''
                 }
             }
         }
