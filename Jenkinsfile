@@ -16,7 +16,7 @@ pipeline {
             }
         }
 
-        stage('Run Backend Tests') {
+       stage('Run Backend Tests') {
     steps {
         withCredentials([
             string(credentialsId: 'mongo-uri', variable: 'MONGO_URI'),
@@ -28,16 +28,14 @@ pipeline {
                 echo "MONGO_URI=$MONGO_URI"
                 echo "DB_NAME=$DB_NAME"
 
-                echo "📦 Installing Dependencies..."
-                npm install
-
-                echo "🧪 Running Tests..."
-                URI=$MONGO_URI DB_NAME=$DB_NAME npm test -- --watchAll=false
+                URI=$MONGO_URI DB_NAME=$DB_NAME npm install
+                URI=$MONGO_URI DB_NAME=$DB_NAME npm test -- --watchAll=false --detectOpenHandles
                 '''
             }
         }
     }
 }
+
 
 
         stage('Build Frontend') {
