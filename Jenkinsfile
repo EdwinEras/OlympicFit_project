@@ -36,15 +36,16 @@ pipeline {
             }
         }
 
-        stage('Permissions fixing') {
-            steps {
-                sh '''
-                echo "🔧 Fixing workspace permissions..."
-                sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/Olympic-fit
-                sudo chmod -R 775 /var/lib/jenkins/workspace/Olympic-fit
-                '''
-            }
-        }
+     stage('Fix Permissions') {
+    steps {
+        sh '''
+        echo "🔧 Fixing workspace permissions..."
+        sudo -n chown -R jenkins:jenkins /var/lib/jenkins/workspace/Olympic-fit
+        sudo -n chmod -R 775 /var/lib/jenkins/workspace/Olympic-fit
+        '''
+    }
+}
+
 
         stage('Build Frontend') {
             steps {
