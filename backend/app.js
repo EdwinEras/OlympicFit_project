@@ -1,12 +1,12 @@
 const express = require('express');
 const { run } = require('./mongodbConnector.js');
 const app = express();
-const { createUser, getUsers, updateUser, deleteUser } = require('./users.js');
-const { createClass, getClasses, updateClass, deleteClass } = require('./classes.js');
-const { createFaq, getFaqs, updateFaq, deleteFaq } = require('./faqs.js');
-const { createReview, getReviews, updateReview, deleteReview } = require('./reviews.js');
-const { createMedia, getMedias, updateMedia, deleteMedia } = require('./media.js');
-const { createMemPlan, getMemPlans, updateMemPlan, deleteMemPlan } = require('./membershipplans.js');
+const { createUser, getUsers, getUserById, updateUser, deleteUser } = require('./users.js');
+const { createClass, getClasses, getClassById, updateClass, deleteClass } = require('./classes.js');
+const { createFaq, getFaqs, getFaqById, updateFaq, deleteFaq } = require('./faqs.js');
+const { createReview, getReviews, getReviewById, updateReview, deleteReview } = require('./reviews.js');
+const { createMedia, getMedias, getMediaById, updateMedia, deleteMedia } = require('./media.js');
+const { createMemPlan, getMemPlans, getMemPlanById, updateMemPlan, deleteMemPlan } = require('./membershipplans.js');
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
@@ -25,6 +25,11 @@ app.post('/users', async (req, res) => {
 });
 app.get('/users', async (req, res) => {
   const users = await getUsers();
+  res.send(users);
+});
+app.get('/users/:id', async (req, res) => {
+  const id = req.params.id;
+  const users = await getUserById(id);
   res.send(users);
 });
 app.put('/users/:id', async (req, res) => {
@@ -50,6 +55,11 @@ app.get('/classes', async (req, res) => {
   const classes = await getClasses();
   res.send(classes);
 });
+app.get('/classes/:id', async (req, res) => {
+  const id = req.params.id;
+  const classes = await getClassById(id);
+  res.send(classes);
+});
 app.put('/classes/:id', async (req, res) => {
   const id = req.params.id;
   const data = req.body;
@@ -72,6 +82,11 @@ app.post('/faqs', async (req, res) => {
 app.get('/faqs', async (req, res) => {
   const faqs = await getFaqs();
   res.send(faqs);
+});
+app.get('/faqs/:id', async (req, res) => {
+  const id = req.params.id;
+  const faq = await getFaqById(id);
+  res.send(faq);
 });
 app.put('/faqs/:id', async (req, res) => {
   const id = req.params.id;
@@ -96,6 +111,11 @@ app.get('/reviews', async (req, res) => {
   const reviews = await getReviews();
   res.send(reviews);
 });
+app.get('/reviews/:id', async (req, res) => {
+  const id = req.params.id;
+  const review = await getReviewById(id);
+  res.send(review);
+});
 app.put('/reviews/:id', async (req, res) => {
   const id = req.params.id;
   const data = req.body;
@@ -119,6 +139,11 @@ app.get('/media', async (req, res) => {
   const medias = await getMedias();
   res.send(medias);
 });
+app.get('/media/:id', async (req, res) => {
+  const id = req.params.id;
+  const media = await getMediaById(id);
+  res.send(media);
+});
 app.put('/media/:id', async (req, res) => {
   const id = req.params.id;
   const data = req.body;
@@ -141,6 +166,11 @@ app.post('/memplans', async (req, res) => {
 app.get('/memplans', async (req, res) => {
   const memplans = await getMemPlans();
   res.send(memplans);
+});
+app.get('/memplans/:id', async (req, res) => {
+  const id = req.params.id;
+  const memplan = await getMemPlanById(id);
+  res.send(memplan);
 });
 app.put('/memplans/:id', async (req, res) => {
   const id = req.params.id;

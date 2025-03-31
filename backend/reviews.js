@@ -32,6 +32,25 @@ const getReviews = async () => {
 }
 
 
+const getReviewById = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('reviews');
+  const review = await collection.findOne(filter)
+  .then((json)=>{
+    return json;
+  })
+  .catch(()=>{
+    console.log(err);
+    return { message: "DB ERROR" }
+  });
+  return review;
+}
+
+
 const updateReview = async ( id, data ) => {
   if (!ObjectId.isValid(id)) {
     return { message: "Invalid request" }
@@ -69,4 +88,4 @@ const deleteReview = async ( id ) => {
 };
 
 
-module.exports = { createReview, getReviews, updateReview, deleteReview };
+module.exports = { createReview, getReviews, getReviewById, updateReview, deleteReview };

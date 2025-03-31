@@ -18,6 +18,25 @@ const createClass = async ( data ) => {
 };
 
 
+const getClassById = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('classes');
+  const classes = await collection.findOne(filter)
+  .then((json)=>{
+    return json;
+  })
+  .catch(()=>{
+    console.log(err);
+    return { message: "DB ERROR" }
+  });
+  return classes;
+}
+
+
 const getClasses = async () => {
   const db = client.db(process.env.DBNAME);
     const collection = db.collection('classes');
@@ -71,4 +90,4 @@ const deleteClass = async ( id ) => {
 };
 
 
-module.exports = { createClass, getClasses, updateClass, deleteClass };
+module.exports = { createClass, getClasses, getClassById, updateClass, deleteClass };

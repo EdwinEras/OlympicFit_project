@@ -31,6 +31,24 @@ const getUsers = async () => {
   return users;
 }
 
+const getUserById = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('users');
+  const user = await collection.findOne(filter)
+  .then((json)=>{
+    return json;
+  })
+  .catch(()=>{
+    console.log(err);
+    return { message: "DB ERROR" }
+  });
+  return user;
+}
+
 const updateUser = async ( id, data ) => {
   if (!ObjectId.isValid(id)) {
     return { message: "Invalid request" }
@@ -67,4 +85,4 @@ const deleteUser = async ( id ) => {
   return user;
 };
 
-module.exports = { createUser, getUsers, updateUser, deleteUser };
+module.exports = { createUser, getUsers, getUserById, updateUser, deleteUser };

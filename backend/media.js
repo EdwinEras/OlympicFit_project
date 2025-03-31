@@ -33,6 +33,25 @@ const getMedias = async () => {
 }
 
 
+const getMediaById = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('media');
+  const media = await collection.findOne(filter)
+  .then((json)=>{
+    return json;
+  })
+  .catch(()=>{
+    console.log(err);
+    return { message: "DB ERROR" }
+  });
+  return media;
+}
+
+
 const updateMedia = async ( id, data ) => {
   if (!ObjectId.isValid(id)) {
     return { message: "Invalid request" }
@@ -51,6 +70,7 @@ const updateMedia = async ( id, data ) => {
   });
   return media;
 }
+
 
 const deleteMedia = async ( id ) => {
   if (!ObjectId.isValid(id)) {
@@ -71,4 +91,4 @@ const deleteMedia = async ( id ) => {
 };
 
 
-module.exports = { createMedia, getMedias, updateMedia, deleteMedia };
+module.exports = { createMedia, getMedias, getMediaById, updateMedia, deleteMedia };

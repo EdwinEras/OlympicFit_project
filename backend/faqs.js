@@ -33,6 +33,25 @@ const getFaqs = async () => {
 }
 
 
+const getFaqById = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    return { message: "Invalid request" }
+  }
+  const filter = { _id: new ObjectId(id) };
+  const db = client.db(process.env.DBNAME);
+  const collection = db.collection('faqs');
+  const faq = await collection.findOne(filter)
+  .then((json)=>{
+    return json;
+  })
+  .catch(()=>{
+    console.log(err);
+    return { message: "DB ERROR" }
+  });
+  return faq;
+}
+
+
 const updateFaq = async ( id, data ) => {
   if (!ObjectId.isValid(id)) {
     return { message: "Invalid request" }
@@ -71,4 +90,4 @@ const deleteFaq = async ( id ) => {
 };
 
 
-module.exports = { createFaq, getFaqs, updateFaq, deleteFaq };
+module.exports = { createFaq, getFaqs, getFaqById, updateFaq, deleteFaq };
