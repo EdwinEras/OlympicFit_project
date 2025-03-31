@@ -38,7 +38,6 @@ const updateMemPlan = async ( id, data ) => {
   const filter = { _id: new ObjectId(id) };
   const db = client.db(process.env.DBNAME);
   const collection = db.collection('membershipplans');
-  console.log(data);
   const memplan = await collection.updateOne(filter, { $set: data })
   .then((json)=>{
     return json;

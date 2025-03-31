@@ -14,7 +14,7 @@
 const {createFaq, deleteFaq } = require('../faqs');
 
 const data = {
-   "ques_code" : "Q0020",
+   "ques_code" : "Q0021",
    "ques_text" : "Can I get some discount?",
    "answer_text": "Please Provide us with your email so that we can discuss your query"
 }
@@ -24,6 +24,5 @@ test('Create faqs test', async ()=>{
     expect(newfaq.acknowledged).toBe(true);
     expect(newfaq.insertedId).toBeDefined();
     await deleteFaq(newfaq.insertedId);
-})
- ;
+});
  

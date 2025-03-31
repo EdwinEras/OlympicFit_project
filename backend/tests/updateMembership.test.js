@@ -31,7 +31,6 @@ const _id = "67da13bfba696e5ea56a2ff4";
 
 test('Update membership plan test', async ()=>{
     const result = await updateMemPlan(_id, data2);
-    console.log(result);
     expect(result.modifiedCount).toBe(1);
     expect(result.acknowledged).toBe(true);
     await updateMemPlan(_id, data);
