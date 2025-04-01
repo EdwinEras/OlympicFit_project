@@ -1,10 +1,7 @@
-import { ArrowUp, ArrowDown, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const CardEditClass = ({ setShow, editClass }) => {
-  const [dropdown, setDropdown] = useState(false);
-  const [difficulty, setDifficulty] = useState();
-
   const [minDate, setMinDate] = useState(""); 
 
   useEffect(() => {
@@ -27,8 +24,10 @@ const CardEditClass = ({ setShow, editClass }) => {
           </button>
         </div>
         <form className="flex flex-col" action="#">
+        <div className="flex items-center">
+          <label className="mr-4">Name:</label>
           <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
+            className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="name"
             name="name_class"
             id="name_class"
@@ -36,7 +35,9 @@ const CardEditClass = ({ setShow, editClass }) => {
             defaultValue={editClass.name}
             required
           />
+          </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Category:</label>
             <input
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="text"
@@ -44,7 +45,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               id="category_class"
               placeholder="category"
               defaultValue={editClass.category}
-              required
+              requireds
             />
             <label className="ml-0 sm:ml-8">Capacity: </label>
             <input
@@ -59,7 +60,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               required
             />
           </div>
-          <div className="flex text-gray-400 items-center">
+          <div className="flex items-center">
             <label htmlFor="difficulty" className="mr-2">
               Select Difficulty:
             </label>
@@ -74,16 +75,18 @@ const CardEditClass = ({ setShow, editClass }) => {
               <option value="advance">Advance</option>
             </select>
           </div>
-
-          <textarea
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="description_class"
-            id="description_class"
-            placeholder="description"
-            defaultValue={editClass.description}
-            required
-          />
+          <div className="flex items-center">
+            <label className="mr-4">Description:</label>
+            <textarea
+              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="description_class"
+              id="description_class"
+              placeholder="description"
+              defaultValue={editClass.description}
+              required
+            />
+          </div>
           <div>
             <label>Set active: </label>
             <input
@@ -104,7 +107,7 @@ const CardEditClass = ({ setShow, editClass }) => {
             <label>No</label>
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
-            <label>Start date: </label>
+            <label className="mr-4">Start date: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="datetime-local"
@@ -116,7 +119,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               defaultValue={editClass.start_time}
               required
             />
-            <label>End date: </label>
+            <label className="mr-4">End date: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="datetime-local"
@@ -129,24 +132,30 @@ const CardEditClass = ({ setShow, editClass }) => {
               required
             />
           </div>
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="location"
-            name="location_class"
-            id="location_class"
-            placeholder="location"
-            defaultValue={editClass.location}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="media_class"
-            id="media_class"
-            placeholder="URL Image"
-            defaultValue={editClass.media}
-            required
-          />
+          <div className="flex items-center">
+            <label className="mr-4">Location:</label>
+            <input
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
+              type="location"
+              name="location_class"
+              id="location_class"
+              placeholder="location"
+              defaultValue={editClass.location}
+              required
+            />
+          </div>
+          <div className="flex items-center">
+            <label className="mr-4">Image URL:</label>
+            <input
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="media_class"
+              id="media_class"
+              placeholder="URL Image"
+              defaultValue={editClass.media}
+              required
+            />
+          </div>
           <button
             onClick={() => {}}
             className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70"

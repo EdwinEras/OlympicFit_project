@@ -2,8 +2,6 @@ import { ArrowUp, ArrowDown, X } from "lucide-react";
 import { useState } from "react";
 
 const CardCreateMember = ({setShow}) => {
-    const [dropdown, setDropdown] = useState(false);
-    const [dropdown2, setDropdown2] = useState(false);
     const [gender, setGender] = useState("Gender");
     const [mem, setMem] = useState("Membership");
 
@@ -20,18 +18,30 @@ const CardCreateMember = ({setShow}) => {
                 </button>
             </div>
             <form className="flex flex-col" action="#">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <label className="mr-4">First name: </label>
                 <input 
-                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
+                className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none outline-none"
                 type="text" name="first_name" placeholder="First name" required />
+            </div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <label className="mr-4">Last name: </label>    
                 <input 
-                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
-                type="text" name="first_name" placeholder="Last name" required />
+                className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none outline-none"
+                type="text" name="last_name" placeholder="Last name" required />
+            </div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <label className="mr-4">Email: </label>
                 <input 
-                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
+                className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none outline-none"
                 type="email" name="email" placeholder="email@hotmail.com" required />
+            </div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <label className="mr-4">Phone: </label>
                 <input 
-                className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none outline-none"
+                className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none outline-none"
                 type="tel" name="phone" placeholder="123 456 7890" required />
+            </div>
                 <div>
                     <label>Password: </label>
                     <input 
@@ -92,12 +102,18 @@ const CardCreateMember = ({setShow}) => {
                     className="bg-gray-300 text-midnights rounded p-2 my-2 outline-none"
                     type="date" min="1920-01-01T00:00" max="2015-01-01T00:00" name="dob" required />
                 </div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <label className="mr-4">Location: </label>
                 <input 
-                className="bg-gray-300 text-midnights rounded p-2 my-2 outline-none"
+                className="bg-gray-300 text-midnights w-full rounded p-2 my-2 outline-none"
                 type="text" name="address" placeholder="123 address Ave" required />
+                </div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Image URL: </label>
                 <input 
-                className="bg-gray-300 text-midnights rounded p-2 my-2 outline-none"
+                className="bg-gray-300 text-midnights w-[85%] rounded p-2 my-2 outline-none"
                 type="url" name="media" placeholder="URL Image" required />
+            </div>
                 <button 
                     onClick={() => {}}
                     className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70">

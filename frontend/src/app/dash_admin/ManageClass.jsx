@@ -1,5 +1,5 @@
 "use client";
-import { ArrowDown, ArrowUp, Pencil, X } from "lucide-react";
+import { ArrowDown, ArrowUp, Pencil, Trash } from "lucide-react";
 import CardEditClass from "./CardEditClass";
 import ConfirmDelete from "../../components/ui/ConfirmDelete";
 import CardCreateClass from "./CardCreateClass";
@@ -60,7 +60,7 @@ const ManageClass = ({ arrClasses }) => {
                   }}
                   className="bg-red/90 text-white px-2 py-1 rounded hover:bg-red"
                 >
-                  <X />
+                  <Trash />
                 </button>
                 {show === `del_c${c.id}` && (
                   <ConfirmDelete

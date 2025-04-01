@@ -22,38 +22,50 @@ const CardEditMember = ({ setShow, editMember }) => {
           </button>
         </div>
         <form className="flex flex-col" action="#">
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="first_name"
-            placeholder="First name"
-            defaultValue={editMember.first_name}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="first_name"
-            placeholder="Last name"
-            defaultValue={editMember.last_name}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="email"
-            name="email"
-            placeholder="email@hotmail.com"
-            defaultValue={editMember.email}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="tel"
-            name="phone"
-            placeholder="123 456 7890"
-            defaultValue={editMember.phone}
-            required
-          />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">First name: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="first_name"
+              placeholder="First name"
+              defaultValue={editMember.first_name}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Last name: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="first_name"
+              placeholder="Last name"
+              defaultValue={editMember.last_name}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Email: </label>
+            <input
+              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
+              type="email"
+              name="email"
+              placeholder="email@hotmail.com"
+              defaultValue={editMember.email}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Phone: </label>
+            <input
+              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
+              type="tel"
+              name="phone"
+              placeholder="123 456 7890"
+              defaultValue={editMember.phone}
+              required
+            />
+          </div>
           <div className="flex flex-col sm:flex-row text-midnights gap-4 my-2">
             <div className="flex items-center">
               <label htmlFor="gender" className="mr-2">
@@ -116,22 +128,28 @@ const CardEditMember = ({ setShow, editMember }) => {
               required
             />
           </div>
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="address"
-            placeholder="123 address Ave"
-            defaultValue={editMember.address}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="url"
-            name="media"
-            placeholder="URL Image"
-            defaultValue={editMember.media}
-            required
-          />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Location: </label>
+            <input
+              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="address"
+              placeholder="123 address Ave"
+              defaultValue={editMember.address}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Image URL: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="url"
+              name="media"
+              placeholder="URL Image"
+              defaultValue={editMember.media}
+              required
+            />
+          </div>
           <button
             onClick={() => {}}
             className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70"

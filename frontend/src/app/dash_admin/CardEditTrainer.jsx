@@ -20,40 +20,52 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
           </button>
         </div>
         <form className="flex flex-col" action="#">
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="first_name"
-            placeholder="First name"
-            defaultValue={editTrainer.first_name}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="Last_name"
-            placeholder="Last name"
-            defaultValue={editTrainer.last_name}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="email"
-            name="email"
-            placeholder="email@hotmail.com"
-            defaultValue={editTrainer.email}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="tel"
-            name="phone"
-            placeholder="123 456 7890"
-            defaultValue={editTrainer.phone}
-            required
-          />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">First name: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="first_name"
+              placeholder="First name"
+              defaultValue={editTrainer.first_name}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Last name: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="Last_name"
+              placeholder="Last name"
+              defaultValue={editTrainer.last_name}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Email: </label>
+            <input
+              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
+              type="email"
+              name="email"
+              placeholder="email@hotmail.com"
+              defaultValue={editTrainer.email}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Phone number: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="tel"
+              name="phone"
+              placeholder="123 456 7890"
+              defaultValue={editTrainer.phone}
+              required
+            />
+          </div>
           <div>
-            <label>Salary: </label>
+            <label className="mr-4">Salary: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
@@ -62,7 +74,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               defaultValue={editTrainer.salary}
               required
             />
-            <label>Hourly rate: </label>
+            <label className="mr-4">Hourly rate: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
@@ -73,7 +85,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             />
           </div>
           <div className="flex items-center text-midnights">
-            <label htmlFor="gender" className="mr-2">
+            <label htmlFor="gender" className="mr-4">
               Select Gender:
             </label>
             <select
@@ -89,7 +101,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
           </div>
 
           <div>
-            <label>Set active: </label>
+            <label className="mr-4">Set active: </label>
             <input
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
@@ -106,7 +118,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             <label>No</label>
           </div>
           <div>
-            <label>Date of Birth: </label>
+            <label className="mr-4">Date of Birth: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
               type="date"
@@ -117,22 +129,28 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               required
             />
           </div>
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="address"
-            placeholder="123 address Ave"
-            defaultValue={editTrainer.address}
-            required
-          />
-          <input
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            type="url"
-            name="media"
-            placeholder="URL Image"
-            defaultValue={editTrainer.media}
-            required
-          />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Location: </label>
+            <input
+              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="address"
+              placeholder="123 address Ave"
+              defaultValue={editTrainer.address}
+              required
+            />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Image URL: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="url"
+              name="media"
+              placeholder="URL Image"
+              defaultValue={editTrainer.media}
+              required
+            />
+          </div>
           <button
             onClick={() => {}}
             className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70"
