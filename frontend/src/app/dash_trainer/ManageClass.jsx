@@ -1,5 +1,5 @@
 "use client";
-import { ArrowDown, ArrowUp, Pencil, X } from "lucide-react";
+import { ArrowDown, ArrowUp, Pencil } from "lucide-react";
 import CardEditClass from "../dash_admin/CardEditClass";
 import CardCreateClass from "../dash_admin/CardCreateClass";
 import { useState } from "react";
