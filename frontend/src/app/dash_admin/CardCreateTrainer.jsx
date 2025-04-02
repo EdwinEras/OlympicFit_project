@@ -1,8 +1,68 @@
-import { ArrowUp, ArrowDown, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState } from "react";
+import { createUser } from "../../routes/users";
 
 const CardCreateTrainner = ({ setShow }) => {
   const [gender, setGender] = useState("Gender");
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    password_hash: "",
+    gender: "",
+    address: "",
+    membership: null,
+    promotions: [],
+    dob: "",
+    media: "",
+    employee: {
+      years_experience: 5,
+      specialization: "Yoga Instructor",
+      type: "full-time",
+      employment_status: "active",
+      description: "Olympic fit trainer",
+      assigned_classes: ["yoga"],
+      hourly_rate: 50,
+      monthly_salary: 4000,
+      role: "trainer",
+    }
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "gender") setGender(value);
+    if(name==="hourly_rate"){
+      setFormData((prevData) => ({
+        ...prevData,
+        employee: {
+          ...prevData.employee,
+          [name]: Number(value),
+        },
+      }));
+    }
+    if(name==="monthly_salary"){
+      setFormData((prevData) => ({
+        ...prevData,
+        employee: {
+          ...prevData.employee,
+          [name]: Number(value),
+        },
+      }));
+    }else{
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  async function handleSubmit(){
+    console.log("formData: "+formData);
+    const user = await createUser(formData);
+    console.log(user);
+    setShow("");
+  }
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
@@ -18,13 +78,14 @@ const CardCreateTrainner = ({ setShow }) => {
             <X />
           </button>
         </div>
-        <form className="flex flex-col" action="#">
+        <form className="flex flex-col">
         <div className="flex flex-col sm:flex-row items-start sm:items-center">
         <label className="mr-4">First name: </label>
           <input
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="first_name"
+            onChange={handleChange}
             placeholder="First name"
             required
           />
@@ -35,6 +96,7 @@ const CardCreateTrainner = ({ setShow }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="last_name"
+            onChange={handleChange}
             placeholder="Last name"
             required
           />
@@ -45,6 +107,7 @@ const CardCreateTrainner = ({ setShow }) => {
             className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="email"
             name="email"
+            onChange={handleChange}
             placeholder="email@hotmail.com"
             required
           />
@@ -54,7 +117,8 @@ const CardCreateTrainner = ({ setShow }) => {
           <input
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="tel"
-            name="phone"
+            name="phone_number"
+            onChange={handleChange}
             placeholder="123 456 7890"
             required
           />
@@ -64,7 +128,8 @@ const CardCreateTrainner = ({ setShow }) => {
             <input
               className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
-              name="salary"
+              name="monthly_salary"
+              onChange={handleChange}
               placeholder="1000.00"
               required
             />
@@ -73,6 +138,7 @@ const CardCreateTrainner = ({ setShow }) => {
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
               name="hourly_rate"
+              onChange={handleChange}
               placeholder="8.5"
               required
             />
@@ -82,18 +148,19 @@ const CardCreateTrainner = ({ setShow }) => {
             <input
               className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="password"
-              name="passowrd_1"
+              name="passowrd_hash"
+              onChange={handleChange}
               placeholder="**********"
               required
             />
-            <label className="mr-4">Confirm password: </label>
+            {/* <label className="mr-4">Confirm password: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="password"
               name="passowrd_2"
               placeholder="**********"
               required
-            />
+            /> */}
           </div>
           <div className="flex items-center text-midnights">
             <label htmlFor="gender" className="mr-4">
@@ -117,14 +184,16 @@ const CardCreateTrainner = ({ setShow }) => {
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="employment_status"
-              value="yes"
+              onChange={handleChange}
+              value="active"
             />
             <label>Yes</label>
             <input
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="employment_status"
-              value="no"
+              onChange={handleChange}
+              value="inactive"
             />
             <label>No</label>
           </div>
@@ -136,6 +205,7 @@ const CardCreateTrainner = ({ setShow }) => {
               min="1920-01-01T00:00"
               max="2015-01-01T00:00"
               name="dob"
+              onChange={handleChange}
               required
             />
           </div>
@@ -145,6 +215,7 @@ const CardCreateTrainner = ({ setShow }) => {
             className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="address"
+            onChange={handleChange}
             placeholder="123 address Ave"
             required
           />
@@ -155,12 +226,14 @@ const CardCreateTrainner = ({ setShow }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="url"
             name="media"
+            onChange={handleChange}
             placeholder="URL Image"
             required
           />
           </div>
           <button
-            onClick={() => {}}
+            type="submit"
+            formAction={handleSubmit}
             className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70"
           >
             Save
