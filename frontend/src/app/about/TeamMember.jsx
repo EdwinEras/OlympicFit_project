@@ -2,7 +2,6 @@ export default function TeamMember({
   first_name,
   last_name,
   employee,
-  trainer_details,
   media,
 }) {
   return (
@@ -32,10 +31,10 @@ export default function TeamMember({
               {first_name} {last_name}
             </h2>
             <h3 className="text-md my-2 text-[#ffffffc2]">
-              {employee?.specialties?.employee_type}
+              {employee?.specialization}
             </h3>
             <p className="text-md text-[#ffffffc2]">
-              {trainer_details?.description}
+              {employee?.description}
             </p>
           </div>
         </div>

@@ -101,7 +101,7 @@ export default function ClassDetailsPage() {
                 <img
                   src={
                     trainer?.media
-                      ? `/images/${trainer.media}`
+                      ? `${trainer.media}`
                       : "/images/default.jpg"
                   }
                   alt={trainer ? trainer.first_name : "Trainer"}
