@@ -1,11 +1,48 @@
-import { ArrowUp, ArrowDown, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState } from "react";
+import { updateUserById } from "../../routes/users";
 
 const CardEditMember = ({ setShow, editMember }) => {
-  const [dropdown, setDropdown] = useState(false);
-  const [dropdown2, setDropdown2] = useState(false);
   const [gender, setGender] = useState(editMember.gender);
   const [mem, setMem] = useState(editMember.membership);
+  const [formData, setFormData] = useState({
+    first_name: editMember.first_name,
+    last_name: editMember.last_name,
+    email: editMember.email,
+    phone_number: editMember.phone_number,
+    gender: editMember.gender,
+    address: editMember.address,
+    membership: {
+      end_date: "",
+      start_date: "",
+      plan_code: "67d707208fea0c99f890318a",
+      status: true,
+    },
+    promotions: [],
+    dob: "",
+    media: editMember.media,
+    employee: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name.startsWith("membership.")) {
+      const key = name.split(".")[1];
+      setFormData((prev) => ({
+        ...prev,
+        membership: { ...prev.membership, [key]: value },
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+  
+  async function handleSubmit(){
+    console.log("formData: "+formData);
+    const user = await updateUserById(editMember._id, formData);
+    console.log(user);
+    setShow("");
+  }
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
@@ -21,7 +58,7 @@ const CardEditMember = ({ setShow, editMember }) => {
             <X />
           </button>
         </div>
-        <form className="flex flex-col" action="#">
+        <form className="flex flex-col">
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
             <label className="mr-4">First name: </label>
             <input
@@ -29,7 +66,7 @@ const CardEditMember = ({ setShow, editMember }) => {
               type="text"
               name="first_name"
               placeholder="First name"
-              defaultValue={editMember.first_name}
+              value={formData.first_name} onChange={handleChange}
               required
             />
           </div>
@@ -38,9 +75,9 @@ const CardEditMember = ({ setShow, editMember }) => {
             <input
               className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
               type="text"
-              name="first_name"
+              name="last_name"
               placeholder="Last name"
-              defaultValue={editMember.last_name}
+              value={formData.last_name} onChange={handleChange}
               required
             />
           </div>
@@ -51,7 +88,7 @@ const CardEditMember = ({ setShow, editMember }) => {
               type="email"
               name="email"
               placeholder="email@hotmail.com"
-              defaultValue={editMember.email}
+              value={formData.email} onChange={handleChange}
               required
             />
           </div>
@@ -60,9 +97,9 @@ const CardEditMember = ({ setShow, editMember }) => {
             <input
               className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
               type="tel"
-              name="phone"
+              name="phone_number"
               placeholder="123 456 7890"
-              defaultValue={editMember.phone}
+              value={formData.phone_number} onChange={handleChange}
               required
             />
           </div>
@@ -124,7 +161,7 @@ const CardEditMember = ({ setShow, editMember }) => {
               min="1920-01-01"
               max="2015-01-01"
               name="dob"
-              defaultValue={editMember.dob}
+              value={formData.dob} onChange={handleChange}
               required
             />
           </div>
@@ -135,7 +172,7 @@ const CardEditMember = ({ setShow, editMember }) => {
               type="text"
               name="address"
               placeholder="123 address Ave"
-              defaultValue={editMember.address}
+              value={formData.address} onChange={handleChange}
               required
             />
           </div>
@@ -146,12 +183,13 @@ const CardEditMember = ({ setShow, editMember }) => {
               type="url"
               name="media"
               placeholder="URL Image"
-              defaultValue={editMember.media}
+              value={formData.media} onChange={handleChange}
               required
             />
           </div>
           <button
-            onClick={() => {}}
+            type="submit"
+            formAction={handleSubmit}
             className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70"
           >
             Save

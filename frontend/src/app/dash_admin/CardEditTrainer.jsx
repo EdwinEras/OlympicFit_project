@@ -1,9 +1,10 @@
-import { ArrowUp, ArrowDown, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState } from "react";
 
 const CardCreateTrainner = ({ setShow, editTrainer }) => {
   const [dropdown, setDropdown] = useState(false);
   const [gender, setGender] = useState();
+  
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">

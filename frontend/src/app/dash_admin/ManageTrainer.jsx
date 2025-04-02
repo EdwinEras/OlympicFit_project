@@ -5,7 +5,7 @@ import { useState } from "react";
 import CardCreateTrainer from "./CardCreateTrainer";
 import CardEditTrainer from "./CardEditTrainer";
 
-const ManageTrainner = ({ arrTrainers }) => {
+const ManageTrainner = ({arrTrainers}) => {
   const [trainerUp, setTrainerUp] = useState(false);
   const [show, setShow] = useState();
   const [ans, setAns] = useState();
@@ -34,38 +34,38 @@ const ManageTrainner = ({ arrTrainers }) => {
             Add Trainner
           </button>
           {show === "create_t" && <CardCreateTrainer setShow={setShow} />}
-          {arrTrainers.map((t) => (
+          {arrTrainers.map((t, index) => (
             <div
-              key={t.id}
+              key={t._id}
               className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md"
             >
               <p className="text-sm">
-                {t.id} - {t.first_name} {t.last_name} - {t.dob} - {t.salary}
+              {index+1} - {t.first_name} {t.last_name} - {t.phone_number} - {t.email}
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
-                    setShow(`edit_t${t.id}`);
+                    setShow(`edit_t${t._id}`);
                   }}
                   className="bg-yellow-400 text-white px-2 py-1 rounded hover:bg-yellow-500"
                 >
                   <Pencil />
                 </button>
-                {show === `edit_t${t.id}` && (
+                {show === `edit_t${t._id}` && (
                   <CardEditTrainer setShow={setShow} editTrainer={t} />
                 )}
                 <button
                   onClick={() => {
-                    setShow(`del_t${t.id}`);
+                    setShow(`del_t${t._id}`);
                   }}
                   className="bg-red/90 px-2 py-1 rounded hover:bg-red text-white"
                 >
                   <Trash />
                 </button>
-                {show === `del_t${t.id}` && (
+                {show === `del_t${t._id}` && (
                   <ConfirmDelete
                     setShow={setShow}
-                    text={`${t.first_name} ${t.last_name}`}
+                    user={t}
                     setAns={setAns}
                   />
                 )}

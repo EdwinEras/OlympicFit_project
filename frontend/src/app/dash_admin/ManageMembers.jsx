@@ -1,13 +1,11 @@
 "use client";
 import { ArrowDown, ArrowUp, Pencil, Trash } from "lucide-react";
-import CardEditClass from "./CardEditClass";
 import ConfirmDelete from "../../components/ui/ConfirmDelete";
-import CardCreateClass from "./CardCreateClass";
 import { useState } from "react";
 import CardCreateMember from "./CardCreateMember";
 import CardEditMember from "./CardEditMember";
 
-const ManageMembers = ({ arrMembers }) => {
+const ManageMembers = ({arrMembers}) => {
   const [memberUp, setMemberUp] = useState(false);
   const [show, setShow] = useState();
   const [ans, setAns] = useState();
@@ -36,38 +34,38 @@ const ManageMembers = ({ arrMembers }) => {
             Add Member
           </button>
           {show === "create_m" && <CardCreateMember setShow={setShow} />}
-          {arrMembers.map((m) => (
+          {arrMembers.map((m, index) => (
             <div
-              key={m.id}
+              key={m._id}
               className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md"
             >
               <p className="text-sm">
-                {m.id} - {m.first_name} {m.last_name} - {m.dob} - {m.membership}
+                {index+1} - {m.first_name} {m.last_name} - {m.phone_number} - {m.email}
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
-                    setShow(`edit_m${m.id}`);
+                    setShow(`edit_m${m._id}`);
                   }}
                   className="bg-yellow-400 text-white px-2 py-1 rounded hover:bg-yellow-500"
                 >
                   <Pencil />
                 </button>
-                {show === `edit_m${m.id}` && (
+                {show === `edit_m${m._id}` && (
                   <CardEditMember setShow={setShow} editMember={m} />
                 )}
                 <button
                   onClick={() => {
-                    setShow(`del_m${m.id}`);
+                    setShow(`del_m${m._id}`);
                   }}
                   className="bg-red/90 text-white px-2 py-1 rounded hover:bg-red"
                 >
                   <Trash />
                 </button>
-                {show === `del_m${m.id}` && (
+                {show === `del_m${m._id}` && (
                   <ConfirmDelete
                     setShow={setShow}
-                    text={`${m.first_name} ${m.last_name}`}
+                    user={m}
                     setAns={setAns}
                   />
                 )}

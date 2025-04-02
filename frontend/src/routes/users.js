@@ -1,5 +1,5 @@
-import { axios } from "axios";
-const route = "http://localhost/3001"
+import axios from "axios";
+const route = "http://localhost:3001"
 
 async function getUsers(){
     try{
@@ -12,7 +12,9 @@ async function getUsers(){
 
 async function createUser(formdata){
     try{
-        const data = await axios.post(route+"/users", formdata);
+        const data = await axios.post(route+"/users", formdata, {
+            headers: { "Content-Type": "application/json" }
+        });
         return data;
     }catch(err){
         console.log("Error: "+err);
@@ -46,4 +48,4 @@ async function deleteUserById(id){
     }
 }
 
-module.exports = {getUsers, createUser, getUserById, updateUserById, deleteUserById}
+export {getUsers, createUser, getUserById, updateUserById, deleteUserById}
