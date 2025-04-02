@@ -25,9 +25,6 @@ export default async function Classes() {
   const classesData = await resClasses.data;
   const mediaData = await resMedia.data;
 
-  console.log(mediaData);
-  console.log(classesData);
-
   return (
     <main className="min-h-screen">
       <Banner bgImage={bannerImages.classes} title="Classes" />

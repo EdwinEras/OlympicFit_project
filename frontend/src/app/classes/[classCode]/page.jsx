@@ -9,7 +9,7 @@ import { getMedias } from "../../../routes/media";
 import { getUsers } from "../../../routes/users";
 
 const findItemByKey = (array, key, value) => {
-  return array.find(item => item[key] === value);
+  return array.find((item) => item[key] === value);
 };
 
 export default function ClassDetailsPage() {
@@ -26,22 +26,25 @@ export default function ClassDetailsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resClasses = await getClasses();
-        const resMedia = await getMedias();
-        const resUsers = await getUsers();
+        const [classesData, mediaData, users] = await Promise.all([
+          getClasses().then((res) => res.data),
+          getMedias().then((res) => res.data),
+          getUsers().then((res) => res.data),
+        ]);
 
-        const classesData = await resClasses.data;
-        const mediaData = await resMedia.data;
-        const users = await resUsers.data;
+        const classDetails = findItemByKey(
+          classesData,
+          "class_code",
+          classCode
+        );
 
-        const classDetails = findItemByKey(classesData, 'class_code', classCode);
+        if (!classDetails) return;
 
-        if (!classDetails) {
-          return;
-        }
+        const mediaInfo = classDetails.media_code?.length
+          ? findItemByKey(mediaData, "media_code", classDetails.media_code[0])
+          : null;
 
-        const mediaInfo = findItemByKey(mediaData, 'media_code', classDetails.media_code);
-        const trainer = findItemByKey(users, '_id', classDetails.trainer_id);
+        const trainer = findItemByKey(users, "_id", classDetails.trainer_id);
 
         setClassDetails(classDetails);
         setMediaInfo(mediaInfo);
@@ -53,14 +56,11 @@ export default function ClassDetailsPage() {
 
     fetchData();
   }, [classCode]);
-  
 
   if (!classDetails)
     return <div className="p-6 text-red-500">Class not found!</div>;
 
-  const imagePath = mediaInfo
-    ? `/images/${mediaInfo.media_path}`
-    : "/images/default.jpg";
+  const imagePath = mediaInfo ? mediaInfo.media_path : "/images/default.jpg";
 
   return (
     <main className="min-h-screen">
@@ -68,11 +68,10 @@ export default function ClassDetailsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 flex flex-col gap-6">
             <div className="relative w-full h-[400px]">
-              <Image
+              <img
                 src={imagePath}
                 alt={classDetails.class_name}
-                fill
-                className="w-full h-64 object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
 
@@ -100,9 +99,7 @@ export default function ClassDetailsPage() {
               <div className="w-32 h-32 rounded-full overflow-hidden mt-4">
                 <img
                   src={
-                    trainer?.media
-                      ? `${trainer.media}`
-                      : "/images/default.jpg"
+                    trainer?.media ? `${trainer.media}` : "/images/default.jpg"
                   }
                   alt={trainer ? trainer.first_name : "Trainer"}
                   className="w-full h-full object-cover"
