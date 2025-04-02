@@ -47,7 +47,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               defaultValue={editClass.category}
               requireds
             />
-            <label className="ml-0 sm:ml-8">Capacity: </label>
+            <label className="ml-0 mr-4 sm:ml-8">Capacity: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
@@ -135,7 +135,7 @@ const CardEditClass = ({ setShow, editClass }) => {
           <div className="flex items-center">
             <label className="mr-4">Location:</label>
             <input
-              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
+              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
               type="location"
               name="location_class"
               id="location_class"
@@ -147,7 +147,7 @@ const CardEditClass = ({ setShow, editClass }) => {
           <div className="flex items-center">
             <label className="mr-4">Image URL:</label>
             <input
-              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
               type="text"
               name="media_class"
               id="media_class"

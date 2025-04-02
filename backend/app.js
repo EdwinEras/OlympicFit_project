@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { run } = require('./mongodbConnector.js');
 const app = express();
 const { createUser, getUsers, getUserById, updateUser, deleteUser } = require('./users.js');
@@ -9,6 +10,7 @@ const { createMedia, getMedias, getMediaById, updateMedia, deleteMedia } = requi
 const { createMemPlan, getMemPlans, getMemPlanById, updateMemPlan, deleteMemPlan } = require('./membershipplans.js');
 const PORT = process.env.PORT || 3001;
 
+app.use(cors());
 app.use(express.json());
 
 app.listen(PORT, async () => {
@@ -19,7 +21,8 @@ app.listen(PORT, async () => {
 
 // HTTP methods for users
 app.post('/users', async (req, res) => {
-  const data = req.body;
+  const data = req.body; 
+  console.log(data);
   const users = await createUser(data);
   res.send(users);
 });
@@ -29,7 +32,7 @@ app.get('/users', async (req, res) => {
 });
 app.get('/users/:id', async (req, res) => {
   const id = req.params.id;
-  const users = await getUserById(id);
+  const users = await getUserById(id);  
   res.send(users);
 });
 app.put('/users/:id', async (req, res) => {

@@ -21,14 +21,19 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/app/components/navbar/index.jsx", "src/app/about/page.jsx", "src/app/pricing/page.jsx", "src/app/login/page.jsx"  ],
+    "**/*.tsx",
+    "src/app/components/navbar/index.jsx",
+    "src/app/about/page.jsx",
+    "src/app/pricing/page.jsx",
+    "src/app/login/page.jsx"
+  ],
   "exclude": [
     "node_modules"
   ]
