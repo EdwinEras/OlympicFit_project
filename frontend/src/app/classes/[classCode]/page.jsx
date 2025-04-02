@@ -97,7 +97,7 @@ export default function ClassDetailsPage() {
 
           <div className="flex flex-col gap-6">
             <div className="rounded-lg shadow flex flex-col items-center text-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden">
+              <div className="w-32 h-32 rounded-full overflow-hidden mt-4">
                 <img
                   src={
                     trainer?.media
@@ -105,8 +105,6 @@ export default function ClassDetailsPage() {
                       : "/images/default.jpg"
                   }
                   alt={trainer ? trainer.first_name : "Trainer"}
-                  // width={80}
-                  // height={80}
                   className="w-full h-full object-cover"
                 />
               </div>

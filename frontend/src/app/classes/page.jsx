@@ -25,6 +25,9 @@ export default async function Classes() {
   const classesData = await resClasses.data;
   const mediaData = await resMedia.data;
 
+  console.log(mediaData);
+  console.log(classesData);
+
   return (
     <main className="min-h-screen">
       <Banner bgImage={bannerImages.classes} title="Classes" />
@@ -43,14 +46,16 @@ export default async function Classes() {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full mt-20">
-          {classesData.map((classItem) => {
+          {classesData.map((classItem, index) => {
             const mediaInfo = mediaData.find(
-              (media) => media.media_code === classItem.media_code
+              (media) =>
+                Array.isArray(classItem.media_code) &&
+                classItem.media_code.includes(media.media_code)
             );
 
             return (
               <ClassCard
-                key={classItem.class_code}
+                key={`${classItem.class_code}-${index}`}
                 classData={classItem}
                 mediaInfo={mediaInfo}
               />
