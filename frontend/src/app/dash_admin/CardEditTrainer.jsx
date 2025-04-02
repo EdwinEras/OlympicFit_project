@@ -5,23 +5,22 @@ import { updateUserById } from "../../routes/users";
 const CardCreateTrainner = ({ setShow, editTrainer }) => {
   const [gender, setGender] = useState();
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone_number: "",
-    gender: "",
-    address: "",
+    first_name: editTrainer.first_name,
+    last_name: editTrainer.last_name,
+    email: editTrainer.email,
+    phone_number: editTrainer.phone_number,
+    gender: editTrainer.gender,
+    address: editTrainer.address,
     membership: null,
     promotions: [],
-    dob: "",
-    media: "",
+    dob: editTrainer.dob,
+    media: editTrainer.media,
     employee: {
-      years_experience: 5,
-      specialization: "Yoga Instructor",
+      years_experience: 6,
+      specialization: "Cycling Instructor",
       type: "full-time",
       employment_status: "active",
-      description: "Olympic fit trainer",
-      assigned_classes: ["yoga"],
+      description: "Teddy helps clients enhance endurance and cardiovascular health through cycling.",
       hourly_rate: 50,
       monthly_salary: 4000,
       role: "trainer",
@@ -58,7 +57,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
 
   async function handleSubmit(){
     console.log("formData: "+formData);
-    const user = await createUser(formData);
+    const user = await updateUserById(editTrainer._id, formData);
     console.log(user);
     setShow("");
   }
@@ -67,7 +66,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
       <div className="p-2 max-h-[600px] sm:max-h-full overflow-y-auto bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
         <div className="flex justify-between items-center">
-          <h2 className="text-lg sm:text-2xl font-semibold">New Trainer</h2>
+          <h2 className="text-lg sm:text-2xl font-semibold">Edit Trainer</h2>
           <button
             onClick={() => {
               setShow("");
@@ -84,7 +83,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="first_name"
-            onChange={handleChange}
+            value={formData.first_name} onChange={handleChange}
             placeholder="First name"
             required
           />
@@ -95,7 +94,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="last_name"
-            onChange={handleChange}
+            value={formData.last_name} onChange={handleChange}
             placeholder="Last name"
             required
           />
@@ -106,7 +105,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="email"
             name="email"
-            onChange={handleChange}
+            value={formData.email} onChange={handleChange}
             placeholder="email@hotmail.com"
             required
           />
@@ -117,7 +116,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="tel"
             name="phone_number"
-            onChange={handleChange}
+            value={formData.phone_number} onChange={handleChange}
             placeholder="123 456 7890"
             required
           />
@@ -128,7 +127,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
               name="monthly_salary"
-              onChange={handleChange}
+              value={formData.monthly_salary} onChange={handleChange}
               placeholder="1000.00"
               required
             />
@@ -137,7 +136,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
               name="hourly_rate"
-              onChange={handleChange}
+              value={formData.hourly_rate} onChange={handleChange}
               placeholder="8.5"
               required
             />
@@ -185,7 +184,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               min="1920-01-01T00:00"
               max="2015-01-01T00:00"
               name="dob"
-              onChange={handleChange}
+              value={formData.dob} onChange={handleChange}
               required
             />
           </div>
@@ -195,7 +194,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="address"
-            onChange={handleChange}
+            value={formData.address} onChange={handleChange}
             placeholder="123 address Ave"
             required
           />
@@ -206,7 +205,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="url"
             name="media"
-            onChange={handleChange}
+            value={formData.media} onChange={handleChange}
             placeholder="URL Image"
             required
           />
