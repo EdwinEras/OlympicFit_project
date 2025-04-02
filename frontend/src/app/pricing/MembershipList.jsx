@@ -1,42 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import MembershipCard from "./MembershipCard";
 import { X } from "lucide-react";
 
-const membershipPlans = [
-  {
-    price: 49,
-    title: "Basic",
-    features: [
-      { label: "Minimum contract duration:", value: "24 months", dataPrice: "duration" },
-      { label: "Extension:", value: "Unlimited after 24 months", dataPrice: "extension" },
-      { label: "Notice period:", value: "30 days", dataPrice: "notice" },
-    ],
-  },
-  {
-    price: 99,
-    title: "Premium",
-    features: [
-      { label: "Minimum contract duration:", value: "24 months", dataPrice: "duration" },
-      { label: "Extension:", value: "Unlimited after 24 months", dataPrice: "extension" },
-      { label: "Notice period:", value: "30 days", dataPrice: "notice" },
-    ],
-  },
-  {
-    price: 120,
-    title: "Gold",
-    features: [
-      { label: "Minimum contract duration:", value: "24 months", dataPrice: "duration" },
-      { label: "Extension:", value: "Unlimited after 24 months", dataPrice: "extension" },
-      { label: "Notice period:", value: "30 days", dataPrice: "notice" },
-    ],
-  },
-];
+const API_URL = "http://localhost:3001/memplans";
 
 export default function MembershipList() {
+  const [membershipPlans, setMembershipPlans] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const fetchMembershipPlans = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setMembershipPlans(response.data);
+      } catch (error) {
+        console.error("Error fetching membership plans:", error);
+      }
+    };
+
+    fetchMembershipPlans();
+  }, []);
 
   const handleSubscribe = () => {
     console.log("User subscribed with email:", email);
@@ -48,21 +35,32 @@ export default function MembershipList() {
       <div className="text-center max-w-lg">
         <h2 className="text-2xl sm:text-4xl font-semibold mb-6">Memberships</h2>
         <p className="text-base">
-          At Olympic Fit, we offer flexible and tailored membership plans designed to fit every fitness level and lifestyle. We have a membership that suits your needs.
-          <br /><br />
-          We prioritize convenience and flexibility, offering easy online sign-ups, and cancellation policies designed with our members in mind.
+          At Olympic Fit, we offer flexible and tailored membership plans
+          designed to fit every fitness level and lifestyle. We have a
+          membership that suits your needs.
+          <br />
+          <br />
+          We prioritize convenience and flexibility, offering easy online
+          sign-ups, and cancellation policies designed with our members in mind.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-16 w-full mt-20">
-        {membershipPlans.map((plan, index) => (
-          <MembershipCard key={index} {...plan} openModal={() => setIsModalOpen(true)} />
+        {membershipPlans.map((plan) => (
+          <MembershipCard
+            key={plan._id}
+            {...plan}
+            openModal={() => setIsModalOpen(true)}
+          />
         ))}
       </div>
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black px-10 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
-            <button className="absolute top-3 right-3 text-gray-500 hover:text-black" onClick={() => setIsModalOpen(false)}>
+            <button
+              className="absolute top-3 right-3 text-gray-500 hover:text-black"
+              onClick={() => setIsModalOpen(false)}
+            >
               <X size={20} />
             </button>
 
