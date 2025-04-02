@@ -1,7 +1,21 @@
 import { users } from "../../lib/userData";
 import TeamMember from "./TeamMember";
+import { getUsers } from "../../routes/users"
+import { useEffect, useState } from "react";
 
 export default function TeamList() {
+  const [arrUsers, setArrUsers] = useState([]);
+  useEffect(()=>{
+    const loadUsers = async () => {
+      const res = await getUsers();
+      console.log(res.data);
+      setArrUsers(res.data);
+      
+    }
+    
+    loadUsers();
+  },[])
+
   return (
     <section className="container py-20 md:py-28 mx-auto w-[85%] flex flex-col items-center">
       <div className="text-center max-w-lg">
@@ -19,8 +33,8 @@ export default function TeamList() {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full mt-20">
-        {users.map((user) => (
-          <TeamMember key={user.user_id} {...user} />
+        {arrUsers.map((user) => (
+          <TeamMember key={user._id} {...user} />
         ))}
       </div>
     </section>

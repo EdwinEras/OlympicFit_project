@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const { run } = require('./mongodbConnector.js');
 const app = express();
-const cors = require("cors");
 const { createUser, getUsers, getUserById, updateUser, deleteUser } = require('./users.js');
 const { createClass, getClasses, getClassById, updateClass, deleteClass } = require('./classes.js');
 const { createFaq, getFaqs, getFaqById, updateFaq, deleteFaq } = require('./faqs.js');
@@ -13,7 +12,6 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
-app.use(cors());
 
 app.listen(PORT, async () => {
   await run();

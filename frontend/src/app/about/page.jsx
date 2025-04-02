@@ -20,6 +20,7 @@ export default function About({ params }) {
       <main className="min-h-screen">
         <Banner bgImage={bannerImages.about} title="About Us"/>
         <TeamList />
+        <Trainers />
       </main>
   );
 }
