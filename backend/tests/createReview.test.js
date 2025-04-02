@@ -20,8 +20,8 @@ const data = {
 }
 
 test('Create review', async ()=>{
-    const result = await createReview(data);
-    expect(result.acknowledged).toBe(true);
+    const result = await createReview(data); // await pauses the test execution until the function finishes and return results
+    expect(result.acknowledged).toBe(true); // verification that the review was created in the database
     expect(result.insertedId).toBeDefined();
     await deleteReview(result.insertedId);
 })
