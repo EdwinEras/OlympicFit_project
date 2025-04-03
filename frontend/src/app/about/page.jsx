@@ -15,7 +15,7 @@ export const metadata = {
   title: "Olympic Fit - About",
 };
 
-export default function About({ params }) {
+export default function About() {
   return (
       <main className="min-h-screen">
         <Banner bgImage={bannerImages.about} title="About Us"/>

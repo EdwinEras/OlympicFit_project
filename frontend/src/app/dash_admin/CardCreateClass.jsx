@@ -1,9 +1,10 @@
-import { ArrowUp, ArrowDown, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const CardCreateClass = ({ setShow }) => {
   const [difficulty, setDifficulty] = useState("Difficulty");
   const [minDate, setMinDate] = useState("");
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const currentDate = new Date().toISOString().slice(0, 16);

@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import MembershipCard from "./MembershipCard";
 import { X } from "lucide-react";
-
-const API_URL = "http://localhost:3001/memplans";
+import { getMemPlans } from "../../routes/memplans";
 
 export default function MembershipList() {
   const [membershipPlans, setMembershipPlans] = useState([]);
@@ -15,7 +13,7 @@ export default function MembershipList() {
   useEffect(() => {
     const fetchMembershipPlans = async () => {
       try {
-        const response = await axios.get(API_URL);
+        const response = await getMemPlans();
         setMembershipPlans(response.data);
       } catch (error) {
         console.error("Error fetching membership plans:", error);

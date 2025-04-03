@@ -1,5 +1,5 @@
-import { axios } from "axios";
-const route = "http://localhost/3001"
+import axios from "axios";
+const route = "http://localhost:3001"
 
 async function getMedias(){
     try{
@@ -46,4 +46,4 @@ async function deleteMediaById(id){
     }
 }
 
-module.exports = {getMedias, createMedia, getMediaById, updateMediaById, deleteMediaById}
+export {getMedias, createMedia, getMediaById, updateMediaById, deleteMediaById}

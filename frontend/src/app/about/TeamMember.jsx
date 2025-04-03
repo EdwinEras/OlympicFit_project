@@ -2,8 +2,7 @@ export default function TeamMember({
   first_name,
   last_name,
   employee,
-  trainer_details,
-  image,
+  media,
 }) {
   return (
     <div className="card w-full h-[560px] perspective">
@@ -11,7 +10,7 @@ export default function TeamMember({
         <div className="card__front absolute w-full h-full top-0 bottom-0 left-0 right-0 rounded-2xl text-left transform-style-preserve-3d">
           <div className="relative w-full h-full">
             <img
-              src={`/images/${image}`}
+              src={`${media}`}
               alt={`${first_name} ${last_name}`}
               className="w-full h-full object-cover rounded-2xl mb-4 opacity-90"
             />
@@ -24,7 +23,7 @@ export default function TeamMember({
         <div className="card__back absolute top-0 bottom-0 left-0 text-white bg-[#2c2b2a] p-4 right-0 rounded-2xl transform-style-preserve-3d rotate-y-180">
           <div className="w-full h-full flex flex-col items-start justify-center">
             <img
-              src={`/images/${image}`}
+              src={`${media}`}
               alt={`${first_name} ${last_name}`}
               className="w-full h-full object-cover mb-4 rounded-2xl"
             />
@@ -32,10 +31,10 @@ export default function TeamMember({
               {first_name} {last_name}
             </h2>
             <h3 className="text-md my-2 text-[#ffffffc2]">
-              {employee?.specialties?.employee_type}
+              {employee?.specialization}
             </h3>
             <p className="text-md text-[#ffffffc2]">
-              {trainer_details?.description}
+              {employee?.description}
             </p>
           </div>
         </div>

@@ -1,5 +1,5 @@
-import { axios } from "axios";
-const route = "http://localhost/3001"
+import axios from "axios";
+const route = "http://localhost:3001"
 
 async function getMemPlans(){
     try{
@@ -46,4 +46,4 @@ async function deleteMemPlanById(id){
     }
 }
 
-module.exports = {getMemPlans, createMemPlan, getMemPlanById, updateMemPlanById, deleteMemPlanById}
+export {getMemPlans, createMemPlan, getMemPlanById, updateMemPlanById, deleteMemPlanById}
