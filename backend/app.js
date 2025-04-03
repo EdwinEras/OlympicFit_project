@@ -188,7 +188,6 @@ app.delete('/memplans/:id', async (req, res) => {
   res.send(memplan);
 });
 
-<<<<<<< HEAD
 app.post('/login', async (req, res) => {
   console.log(req.body)
   const email = req.body.email;
@@ -196,7 +195,8 @@ app.post('/login', async (req, res) => {
   const faqs = await loginUser(email, password);
   res.send(faqs);
 });
-=======
+
+
 const nodemailer = require('nodemailer');
 const { body, validationResult } = require('express-validator');
 
@@ -240,4 +240,3 @@ app.post(
     }
   }
 );
->>>>>>> 019ee584fa07d1f4566dcb799edae24f6e92e30c
