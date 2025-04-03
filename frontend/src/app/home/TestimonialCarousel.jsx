@@ -3,31 +3,40 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Quote } from "lucide-react";
-import { getReviews } from "../../routes/reviews"; // ✅ adjust path if needed
+import { getReviews } from "../../routes/reviews";
+import { getUsers } from "../../routes/users";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
+const findItemByKey = (array, key, value) => {
+  return array.find((item) => item[key] === value);
+};
+
 const TestimonialCarousel = () => {
   const [testimonials, setTestimonials] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    async function fetchReviews() {
+    async function fetchData() {
       try {
-        const res = await getReviews();
-        if (res?.data) {
-          setTestimonials(res.data);
+        const [reviewsRes, usersRes] = await Promise.all([getReviews(), getUsers()]);
+        if (reviewsRes?.data) {
+          setTestimonials(reviewsRes.data);
+        }
+        if (usersRes?.data) {
+          setUsers(usersRes.data);
         }
       } catch (err) {
-        console.error("Error fetching reviews:", err);
+        console.error("Error fetching data:", err);
       }
     }
 
-    fetchReviews();
+    fetchData();
   }, []);
 
   return (
-    <div className="w-full mx-auto my-24">
+    <div className="w-full mx-auto my-24 bg-silver-slate">
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
@@ -36,30 +45,22 @@ const TestimonialCarousel = () => {
         className="text-center"
       >
         {testimonials.length > 0 ? (
-          testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index}>
-              <div className="bg-silver-slate px-12 py-24 flex flex-col items-center">
-                <Quote className="text-brand-200 w-6 h-6 mb-12" />
-                <p className="text-lg text-brand-200 max-w-4xl italic">
-                  {testimonial.feedback || "No feedback provided."}
-                </p>
-
-                <p className="font-bold text-md text-brand-200 mt-4">
-                  Rating: {testimonial.rating ?? "N/A"} ⭐
-                </p>
-
-                <p className="text-sm text-brand-200 mt-2">
-                  {testimonial.user_id ? `User ID: ${testimonial.user_id}` : "Anonymous"}
-                </p>
-
-                {testimonial.created_at && (
-                  <p className="text-sm text-brand-200">
-                    {new Date(testimonial.created_at).toLocaleDateString()}
+          testimonials.map((testimonial, index) => {
+            const user = findItemByKey(users, "_id", testimonial.user_id);
+            return (
+              <SwiperSlide key={index}>
+                <div className="px-12 py-24 flex flex-col items-center">
+                  <Quote className="text-brand-200 w-6 h-6" />
+                  <p className="text-lg text-brand-200 max-w-4xl italic my-12">
+                    {testimonial.feedback || "No feedback provided."}
                   </p>
-                )}
-              </div>
-            </SwiperSlide>
-          ))
+                  <p className="text-sm text-brand-200 mt-2">
+                    {user ? `${user.first_name} ${user.last_name}` : "Anonymous"}
+                  </p>
+                </div>
+              </SwiperSlide>
+            );
+          })
         ) : (
           <SwiperSlide>
             <div className="bg-silver-slate px-12 py-24 flex flex-col items-center">

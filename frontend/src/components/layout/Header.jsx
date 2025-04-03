@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import GoogleTranslate from "../GoogleTranslate";
 import { User, ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 
 const Navbar = () => {
