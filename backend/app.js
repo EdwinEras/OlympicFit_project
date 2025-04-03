@@ -186,3 +186,47 @@ app.delete('/memplans/:id', async (req, res) => {
   const memplan = await deleteMemPlan(id);
   res.send(memplan);
 });
+
+const nodemailer = require('nodemailer');
+const { body, validationResult } = require('express-validator');
+
+app.post(
+  '/contact',
+  [
+    body('name').notEmpty().withMessage('Name is required'),
+    body('email').isEmail().withMessage('Valid email is required'),
+    body('subject').notEmpty().withMessage('Subject is required'),
+    body('message').notEmpty().withMessage('Message is required'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, email, subject, message } = req.body;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: email,
+      to: process.env.EMAIL_USER,
+      subject,
+      text: `From: ${name} <${email}>\n\n${message}`,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: '✅ Email sent successfully!' });
+    } catch (error) {
+      console.error('❌ Email error:', error);
+      res.status(500).json({ error: 'Failed to send email' });
+    }
+  }
+);
