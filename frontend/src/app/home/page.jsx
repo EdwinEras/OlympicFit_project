@@ -1,15 +1,30 @@
+/**** 
+  IMPORTANT: This page is a Server Component by default. 
+  DO NOT add "use client"; unless necessary.
+  Keep this as a Server Component for better performance.
+
+  Best Practice:
+    - Keep **page.jsx** as a Server Component.
+    - Create a separate **Client Component** inside the same folder and import it.
+****/
+
 import bannerImages from "../../lib/bannerImages";
 import WhyChooseUs from "./WhyChooseUs";
 import Link from "next/link";
-import { classesData } from "../../lib/classesData";
-import { mediaData } from "../../lib/mediaData";
+import { getClasses } from "../../routes/classes";
+import { getMedias } from "../../routes/media";
 import ClassCard from "../../components/ui/ClassCard";
 import TestimonialCarousel from "./TestimonialCarousel";
 import BMICalculator from "./BMICalculator";
 import HomeBannner from "./HomeBannner";
- 
-export default function Home() {
-  const data = classesData;
+
+export default async function Home() {
+  const resClasses = await getClasses();
+  const resMedia = await getMedias();
+
+  const classesData = await resClasses.data;
+  const mediaData = await resMedia.data;
+
   return (
     <main className="min-h-screen">
       <HomeBannner
@@ -34,11 +49,14 @@ export default function Home() {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full mt-12">
-          {data.slice(0, 3).map((classItem) => {
+          {classesData.slice(0, 3).map((classItem) => {
             const mediaInfo = mediaData.find(
-              (media) => media.media_code === classItem.media_code
+              (media) =>
+                Array.isArray(classItem.media_code) &&
+                classItem.media_code.includes(media.media_code)
             );
- 
+
+            console.log(mediaInfo);
             return (
               <ClassCard
                 key={classItem.class_code}
@@ -49,8 +67,8 @@ export default function Home() {
           })}
         </div>
       </div>
-      <TestimonialCarousel/>
-      <BMICalculator/>
+      <TestimonialCarousel />
+      <BMICalculator />
     </main>
   );
 }
