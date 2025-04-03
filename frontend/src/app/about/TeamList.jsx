@@ -1,4 +1,5 @@
-import { users } from "../../lib/userData";
+"use client";
+
 import TeamMember from "./TeamMember";
 import { getUsers } from "../../routes/users"
 import { useEffect, useState } from "react";

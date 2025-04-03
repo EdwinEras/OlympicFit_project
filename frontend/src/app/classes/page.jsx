@@ -10,16 +10,20 @@
 import React from "react";
 import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
-import { classesData } from "../../lib/classesData";
-import { mediaData } from "../../lib/mediaData";
 import ClassCard from "../../components/ui/ClassCard";
+import { getClasses } from "../../routes/classes";
+import { getMedias } from "../../routes/media";
 
 export const metadata = {
   title: "Olympic Fit - Classes",
 };
 
 export default async function Classes() {
-  const data = classesData;
+  const resClasses = await getClasses();
+  const resMedia = await getMedias();
+
+  const classesData = await resClasses.data;
+  const mediaData = await resMedia.data;
 
   return (
     <main className="min-h-screen">
@@ -39,14 +43,16 @@ export default async function Classes() {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full mt-20">
-          {data.map((classItem) => {
+          {classesData.map((classItem, index) => {
             const mediaInfo = mediaData.find(
-              (media) => media.media_code === classItem.media_code
+              (media) =>
+                Array.isArray(classItem.media_code) &&
+                classItem.media_code.includes(media.media_code)
             );
 
             return (
               <ClassCard
-                key={classItem.class_code}
+                key={`${classItem.class_code}-${index}`}
                 classData={classItem}
                 mediaInfo={mediaInfo}
               />

@@ -1,45 +1,77 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { classesData } from "../../lib/classesData";
-import { users } from "../../lib/userData";
+import { getClasses } from "../../routes/classes";
+import { getUsers } from "../../routes/users"; 
 
-const scheduleData = classesData.reduce((acc, classItem) => {
-  const trainer = users.find((user) => user.user_id === classItem.trainer_id);
-
-  classItem.schedule.forEach((scheduleItem) => {
-    const day = scheduleItem.day || "Unknown";
-
-    const classEntry = {
-      name: classItem.class_name,
-      class_code: classItem.class_code,
-      duration: 60,
-      start_time: scheduleItem.start_time,
-      end_time: scheduleItem.end_time,
-      location: scheduleItem.location,
-      day: scheduleItem.day,
-      time: `${scheduleItem.start_time} - ${scheduleItem.end_time}`,
-      trainer: trainer
-        ? `${trainer.first_name} ${trainer.last_name}`
-        : "Unknown",
-    };
-
-    let dayEntry = acc.find((d) => d.day === day);
-    if (dayEntry) {
-      dayEntry.classes.push(classEntry);
-    } else {
-      acc.push({ day, classes: [classEntry] });
-    }
-  });
-
-  return acc;
-}, []);
-
-const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-scheduleData.sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
+const dayOrder = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
 export default function ClassesSchedule() {
+  const [scheduleData, setScheduleData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [classesResponse, usersResponse] = await Promise.all([
+          getClasses(),
+          getUsers(),
+        ]);
+
+        const classes = classesResponse.data;
+        const fetchedUsers = usersResponse.data;
+
+        const schedule = classes.reduce((acc, classItem) => {
+          const trainer = fetchedUsers.find(
+            (user) => user._id === classItem.trainer_id
+          );
+
+          console.log(trainer);
+          classItem.schedule?.forEach(
+            ({ day = "Unknown", start_time, end_time, location }) => {
+              const classEntry = {
+                name: classItem.class_name,
+                class_code: classItem.class_code,
+                duration: 60,
+                start_time,
+                end_time,
+                location,
+                day,
+                time: `${start_time} - ${end_time}`,
+                trainer: trainer
+                  ? `${trainer.first_name} ${trainer.last_name}`
+                  : "Unknown",
+              };
+
+              const dayEntry = acc.find((d) => d.day === day);
+              dayEntry
+                ? dayEntry.classes.push(classEntry)
+                : acc.push({ day, classes: [classEntry] });
+            }
+          );
+
+          return acc;
+        }, []);
+
+        schedule.sort(
+          (a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day)
+        );
+        setScheduleData(schedule);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="container mx-auto p-6 lg:p-12">
       <div className="overflow-x-auto">
@@ -80,10 +112,7 @@ export default function ClassesSchedule() {
                         >
                           <div className="cursor-pointer bg-gradient-to-b from-silver-slate border border-silver-slate to-midnights text-white p-2 rounded-md shadow-sm text-center">
                             <p className="font-semibold text-brand-200 text-sm">
-                              {cls.name}{" "}
-                              <span>
-                                <br />({cls.duration} min)
-                              </span>
+                              {cls.name} <br />({cls.duration} min)
                             </p>
                             <p className="text-sm text-gray-400">{cls.time}</p>
                             <p className="text-xs text-gray-400">
@@ -131,10 +160,7 @@ export default function ClassesSchedule() {
                     >
                       <div className="bg-gradient-to-b from-silver-slate border border-silver-slate to-midnights text-white p-3 rounded-md shadow-sm my-4">
                         <p className="font-semibold text-brand-200 text-sm">
-                          {cls.name}{" "}
-                          <span>
-                            <br />({cls.duration} min)
-                          </span>
+                          {cls.name} <br />({cls.duration} min)
                         </p>
                         <p className="text-sm text-gray-400">{cls.time}</p>
                         <p className="text-xs text-gray-400">

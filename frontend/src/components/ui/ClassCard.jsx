@@ -1,19 +1,17 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function ClassCard({ classData, mediaInfo }) {
   return (
     <div className="relative grid place-items-center group">
       <div className="relative w-full h-96 overflow-hidden rounded-2xl">
-        <Image
+        <img
           src={
             mediaInfo
-              ? `/images/${mediaInfo.media_path}`
+              ? `${mediaInfo.media_path}`
               : "/images/default.jpg"
           }
           alt={classData.class_name}
-          fill
-          className="object-cover rounded-2xl transition-transform duration-300 group-hover:scale-110"
+          className="object-cover w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-110"
         />
 
         <div className="absolute inset-0 bg-black bg-opacity-40 grid place-items-center rounded-2xl px-4">

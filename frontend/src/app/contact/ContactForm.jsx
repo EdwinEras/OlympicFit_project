@@ -14,14 +14,45 @@ export default function ContactForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    try {
+      const response = await fetch("http://localhost:3001/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("✅ Message sent successfully!");
+        setFormData({
+          fullName: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        alert(`❌ ${result.error || result.errors?.[0]?.msg || "Something went wrong."}`);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("❌ There was a problem sending your message. Try again later.");
+    }
   };
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
           name="fullName"
@@ -64,7 +95,7 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="bg-[#232a2c] text-white px-6 py-2 rounded hover:bg-[#1d2325]"
+        className="bg-[#232a2c] text-white px-6 py-2 rounded hover:bg-[#1d2325] transition"
       >
         SEND US A MESSAGE
       </button>

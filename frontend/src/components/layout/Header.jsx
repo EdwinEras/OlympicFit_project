@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import GoogleTranslate from "../GoogleTranslate";
 import { User, ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 
 const Navbar = () => {
@@ -150,10 +151,15 @@ const Navbar = () => {
           </div>
 
           {/* Language Switch */}
-          <div className="text-white">
+         {/* <div className="text-white">
             <span className="cursor-pointer text-sm font-semibold">EN</span> /
             <span className="cursor-pointer text-sm"> FR</span>
-          </div>
+          </div> */}
+          <div
+            id="google_translate_element"
+            className="text-sm text-white"
+            style={{ display: "inline-block" }}
+          ></div>
         </div>
       </nav>
     </header>

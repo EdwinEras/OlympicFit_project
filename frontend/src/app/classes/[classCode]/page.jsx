@@ -1,12 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { classesData } from "../../../lib/classesData";
-import { mediaData } from "../../../lib/mediaData";
-import { users } from "../../../lib/userData";
+import { getClasses } from "../../../routes/classes";
+import { getMedias } from "../../../routes/media";
+import { getUsers } from "../../../routes/users";
+
+const findItemByKey = (array, key, value) => {
+  return array.find((item) => item[key] === value);
+};
 
 export default function ClassDetailsPage() {
   const { classCode } = useParams();
@@ -14,30 +18,49 @@ export default function ClassDetailsPage() {
   const scheduleData = searchParams.get("schedule")
     ? JSON.parse(searchParams.get("schedule"))
     : null;
-  const classDetails = classesData.find(
-    (item) => item.class_code === classCode
-  );
+
+  const [classDetails, setClassDetails] = useState(null);
+  const [mediaInfo, setMediaInfo] = useState(null);
+  const [trainer, setTrainer] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [classesData, mediaData, users] = await Promise.all([
+          getClasses().then((res) => res.data),
+          getMedias().then((res) => res.data),
+          getUsers().then((res) => res.data),
+        ]);
+
+        const classDetails = findItemByKey(
+          classesData,
+          "class_code",
+          classCode
+        );
+
+        if (!classDetails) return;
+
+        const mediaInfo = classDetails.media_code?.length
+          ? findItemByKey(mediaData, "media_code", classDetails.media_code[0])
+          : null;
+
+        const trainer = findItemByKey(users, "_id", classDetails.trainer_id);
+
+        setClassDetails(classDetails);
+        setMediaInfo(mediaInfo);
+        setTrainer(trainer);
+      } catch (error) {
+        console.error("Error fetching class details:", error);
+      }
+    };
+
+    fetchData();
+  }, [classCode]);
+
   if (!classDetails)
     return <div className="p-6 text-red-500">Class not found!</div>;
 
-  const mediaInfo = mediaData.find(
-    (media) => media.media_code === classDetails.media_code
-  );
-  const imagePath = mediaInfo
-    ? `/images/${mediaInfo.media_path}`
-    : "/images/default.jpg";
-
-  const trainer = users.find(
-    (user) =>
-      user.role === "trainer" &&
-      Array.isArray(user.trainer_details?.assigned_classes) &&
-      user.trainer_details.assigned_classes.some((classItem) =>
-        typeof classItem === "string"
-          ? classItem.toLowerCase() === classDetails.class_name.toLowerCase()
-          : classItem.name?.toLowerCase() ===
-            classDetails.class_name.toLowerCase()
-      )
-  );
+  const imagePath = mediaInfo ? mediaInfo.media_path : "/images/default.jpg";
 
   return (
     <main className="min-h-screen">
@@ -45,11 +68,10 @@ export default function ClassDetailsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 flex flex-col gap-6">
             <div className="relative w-full h-[400px]">
-              <Image
+              <img
                 src={imagePath}
                 alt={classDetails.class_name}
-                fill
-                className="w-full h-64 object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
 
@@ -74,16 +96,12 @@ export default function ClassDetailsPage() {
 
           <div className="flex flex-col gap-6">
             <div className="rounded-lg shadow flex flex-col items-center text-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden">
-                <Image
+              <div className="w-32 h-32 rounded-full overflow-hidden mt-4">
+                <img
                   src={
-                    trainer?.image
-                      ? `/images/${trainer.image}`
-                      : "/images/default.jpg"
+                    trainer?.media ? `${trainer.media}` : "/images/default.jpg"
                   }
                   alt={trainer ? trainer.first_name : "Trainer"}
-                  width={80}
-                  height={80}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -94,8 +112,7 @@ export default function ClassDetailsPage() {
                     : "Trainer Name"}
                 </h3>
                 <p className="bg-old-black py-6 px-4 text-off-white text-left text-sm">
-                  {trainer?.trainer_details?.description ||
-                    "Trainer Description"}
+                  {trainer?.employee?.description || "Trainer Description"}
                 </p>
               </div>
             </div>

@@ -1,28 +1,42 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Quote } from "lucide-react";
+import { getReviews } from "../../routes/reviews";
+import { getUsers } from "../../routes/users";
+
 import "swiper/css";
 import "swiper/css/pagination";
- 
-const testimonials = [
-  {
-    text: "I took more than one class, and I loved each one of them! The lessons were well-structured, easy to follow, and provided real-world examples that made learning enjoyable. The instructors were patient and always willing to help with any questions. I feel much more confident in my skills now!",
-    name: "John Doe",
-  },
-  {
-    text: "The instructors were amazing, and the content was very engaging! Each lesson was designed to build on the previous one, making it easy to progress without feeling overwhelmed. I especially appreciated the hands-on exercises, which helped reinforce what I was learning. It was truly a fantastic learning experience!",
-    name: "Jane Smith",
-  },
-  {
-    text: "A fantastic experience! I highly recommend these classes to anyone looking to learn and grow. The material was thorough, the lessons were interactive, and I loved the real-world applications of what we were taught. The support from the instructors and community was incredible, making the whole experience even better.",
-    name: "Michael Brown",
-  },
-];
- 
+
+const findItemByKey = (array, key, value) => {
+  return array.find((item) => item[key] === value);
+};
+
 const TestimonialCarousel = () => {
+  const [testimonials, setTestimonials] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [reviewsRes, usersRes] = await Promise.all([getReviews(), getUsers()]);
+        if (reviewsRes?.data) {
+          setTestimonials(reviewsRes.data);
+        }
+        if (usersRes?.data) {
+          setUsers(usersRes.data);
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
-    <div className="w-full mx-auto my-24">
+    <div className="w-full mx-auto my-24 bg-silver-slate">
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
@@ -30,18 +44,33 @@ const TestimonialCarousel = () => {
         loop={true}
         className="text-center"
       >
-        {testimonials.map((testimonial, index) => (
-          <SwiperSlide key={index}>
+        {testimonials.length > 0 ? (
+          testimonials.map((testimonial, index) => {
+            const user = findItemByKey(users, "_id", testimonial.user_id);
+            return (
+              <SwiperSlide key={index}>
+                <div className="flex flex-col items-center px-12 py-24">
+                  <Quote className="text-brand-200 w-6 h-6" />
+                  <p className="text-lg text-brand-200 max-w-4xl italic my-12">
+                    {testimonial.feedback || "No feedback provided."}
+                  </p>
+                  <p className="text-sm text-brand-200 mt-2">
+                    {user ? `${user.first_name} ${user.last_name}` : "Anonymous"}
+                  </p>
+                </div>
+              </SwiperSlide>
+            );
+          })
+        ) : (
+          <SwiperSlide>
             <div className="bg-silver-slate px-12 py-24 flex flex-col items-center">
-            <Quote className="text-brand-200 w-6 h-6 mb-12" />
-              <p className="text-lg text-brand-200 max-w-4xl">{testimonial.text}</p>
-              <p className="font-bold text-md text-brand-200 mt-8">{testimonial.name}</p>
+              <p className="text-lg text-brand-200">No testimonials found.</p>
             </div>
           </SwiperSlide>
-        ))}
+        )}
       </Swiper>
     </div>
   );
 };
- 
+
 export default TestimonialCarousel;

@@ -2,6 +2,7 @@ import { Mulish } from "next/font/google";
 import "./globals.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import GoogleTranslate from "../components/GoogleTranslate";
 
 const mulish = Mulish({
   weight: ["200", "300", "400", "600", "800"], 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${mulish.variable} scrollbar`}
       >
+        <GoogleTranslate /> {/*This renders the widget dropdown */}
         <Header/>
         {children}
         <Footer/>

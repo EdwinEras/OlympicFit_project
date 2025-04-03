@@ -188,6 +188,7 @@ app.delete('/memplans/:id', async (req, res) => {
   res.send(memplan);
 });
 
+<<<<<<< HEAD
 app.post('/login', async (req, res) => {
   console.log(req.body)
   const email = req.body.email;
@@ -195,3 +196,48 @@ app.post('/login', async (req, res) => {
   const faqs = await loginUser(email, password);
   res.send(faqs);
 });
+=======
+const nodemailer = require('nodemailer');
+const { body, validationResult } = require('express-validator');
+
+app.post(
+  '/contact',
+  [
+    body('name').notEmpty().withMessage('Name is required'),
+    body('email').isEmail().withMessage('Valid email is required'),
+    body('subject').notEmpty().withMessage('Subject is required'),
+    body('message').notEmpty().withMessage('Message is required'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, email, subject, message } = req.body;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: email,
+      to: process.env.EMAIL_USER,
+      subject,
+      text: `From: ${name} <${email}>\n\n${message}`,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: '✅ Email sent successfully!' });
+    } catch (error) {
+      console.error('❌ Email error:', error);
+      res.status(500).json({ error: 'Failed to send email' });
+    }
+  }
+);
+>>>>>>> 019ee584fa07d1f4566dcb799edae24f6e92e30c
