@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { deleteUserById } from "../../routes/users";
+import { deleteClassById } from "../../routes/classes";
 
-export default function ConfirmDelete({ setShow, user, setAns }) {
+export default function ConfirmDelete({ setShow, dbObject, setAns }) {
+  const [objName, setObjName] = useState();
+
+  useEffect(()=>{
+    if(dbObject.first_name){
+      setObjName("user");
+    }
+    if(dbObject.class_name){
+      setObjName("class"); 
+    }
+  }, [])
+
   const callApi = async() => {
-    const res = await deleteUserById(user._id)
+    var res;
+    if(objName==="user"){
+      res = await deleteUserById(dbObject._id)  
+    }
+    if(objName==="class"){
+      res = await deleteClassById(dbObject._id)  
+    }
     console.log(res.data);
     setShow("");
     setAns(true);
   }
+
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
       <div className="p-2 bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
           <h2 className="text-lg sm:text-2xl font-semibold mb-4">Confirm Delete</h2>
         <p>
-          Are you sure you want to delete <strong>"{user.first_name} {user.last_name}"</strong>?
+          Are you sure you want to delete 
+          {objName==="user"? <strong>"{dbObject.first_name} {dbObject.last_name}"</strong>: 
+          <strong>"{dbObject.class_name}"</strong>}
+          ?
         </p>
         <div className="flex justify-between items-center mt-2">
           <button

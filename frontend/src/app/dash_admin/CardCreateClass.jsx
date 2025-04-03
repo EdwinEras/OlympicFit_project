@@ -1,16 +1,40 @@
 import { X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { createClass } from "../../routes/classes";
 
 const CardCreateClass = ({ setShow }) => {
-  const [difficulty, setDifficulty] = useState("Difficulty");
   const [minDate, setMinDate] = useState("");
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    class_name: "",
+    category: "",
+    capacity: 20,
+    difficulty_level: "Intermediate 2",
+    description: "",
+    end_time: "",
+    start_time: "",
+    is_active: true
+  });
 
   useEffect(() => {
     const currentDate = new Date().toISOString().slice(0, 16);
     console.log(currentDate);
     setMinDate(currentDate);
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  async function handleSubmit(){
+    console.log("formData: "+formData);
+    const classes = await createClass(formData);
+    console.log(classes);
+    setShow("");
+  }
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
@@ -26,15 +50,15 @@ const CardCreateClass = ({ setShow }) => {
             <X />
           </button>
         </div>
-        <form className="flex flex-col" action="#">
+        <form className="flex flex-col">
         <div className="flex flex-col sm:flex-row items-start sm:items-center">
           <label className="mr-4">Name: </label>
           <input
             className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="text"
-            name="name_class"
-            id="name_class"
+            name="class_name"
             placeholder="name"
+            value={formData.class_name} onChange={handleChange}
             required
           />
           </div>
@@ -43,9 +67,9 @@ const CardCreateClass = ({ setShow }) => {
             <input
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="text"
-              name="category_class"
-              id="category_class"
+              name="category"
               placeholder="category"
+              value={formData.category} onChange={handleChange}
               required
             />
             <label className="ml-0 mr-4 sm:ml-8">Capacity: </label>
@@ -54,9 +78,9 @@ const CardCreateClass = ({ setShow }) => {
               type="number"
               min={0}
               max={15}
-              name="capacity_class"
-              id="capacity_class"
+              name="capacity"
               placeholder="#"
+              value={formData.capacity} onChange={handleChange}
               required
             />
           </div>
@@ -66,9 +90,9 @@ const CardCreateClass = ({ setShow }) => {
               Select Difficulty:
             </label>
             <select
-              id="difficulty"
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
+              id="difficulty_level"
+              name="difficulty_level"
+              value={formData.difficulty_level} onChange={handleChange}
               className="rounded bg-gray-300 p-2 outline-none text-midnights"
             >
               <option value="regular">Regular</option>
@@ -81,9 +105,9 @@ const CardCreateClass = ({ setShow }) => {
             <textarea
               className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
               type="text"
-              name="description_class"
-              id="description_class"
+              name="description"
               placeholder="description"
+              value={formData.description} onChange={handleChange}
               required
             />
           </div>
@@ -92,7 +116,7 @@ const CardCreateClass = ({ setShow }) => {
             <input
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
-              name="active"
+              name="is_active"
               id="active_yes"
               value="yes"
             />
@@ -100,7 +124,7 @@ const CardCreateClass = ({ setShow }) => {
             <input
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
-              name="active"
+              name="is_active"
               id="active_no"
               value="no"
             />
@@ -114,8 +138,8 @@ const CardCreateClass = ({ setShow }) => {
               min={minDate}
               max="2029-12-31T00:00"
               name="start_time"
-              id="start_time"
               placeholder="start time"
+              value={formData.start_time} onChange={handleChange}
               required
             />
             <label className="mr-4">End date: </label>
@@ -124,13 +148,13 @@ const CardCreateClass = ({ setShow }) => {
               type="datetime-local"
               min={minDate}
               max="2029-12-31T00:00"
-              name="end_time_class"
-              id="end_time"
+              name="end_time"
               placeholder="end_time"
+              value={formData.end_time} onChange={handleChange}
               required
             />
           </div>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          {/* <div className="flex flex-col sm:flex-row items-start sm:items-center">
             <label className="mr-4">Location:</label>
             <input
               className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
@@ -140,8 +164,8 @@ const CardCreateClass = ({ setShow }) => {
               placeholder="location"
               required
             />
-          </div>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          </div> */}
+          {/* <div className="flex flex-col sm:flex-row items-start sm:items-center">
             <label className="mr-2">Image URL:</label>
             <input
               className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
@@ -151,9 +175,10 @@ const CardCreateClass = ({ setShow }) => {
               placeholder="URL Image"
               required
             />
-          </div>
+          </div> */}
           <button
-            onClick={() => {}}
+            type="submit"
+            formAction={handleSubmit}
             className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white bg-ocean-blue/70"
           >
             Save

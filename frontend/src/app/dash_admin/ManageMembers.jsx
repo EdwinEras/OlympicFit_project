@@ -65,7 +65,7 @@ const ManageMembers = ({arrMembers}) => {
                 {show === `del_m${m._id}` && (
                   <ConfirmDelete
                     setShow={setShow}
-                    user={m}
+                    dbObject={m}
                     setAns={setAns}
                   />
                 )}

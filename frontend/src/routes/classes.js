@@ -10,7 +10,7 @@ async function getClasses(){
     }
 }
 
-async function createClasse(formdata){
+async function createClass(formdata){
     try{
         const data = await axios.post(route+"/classes", formdata);
         return data;
@@ -46,4 +46,4 @@ async function deleteClassById(id){
     }
 }
 
-export {getClasses, createClasse, getClassById, updateClassById, deleteClassById}
+export {getClasses, createClass, getClassById, updateClassById, deleteClassById}

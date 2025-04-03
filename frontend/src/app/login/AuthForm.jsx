@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LoginForm from "./LoginForm";
@@ -8,13 +7,8 @@ import Link from "next/link";
 
 export default function AuthForm() {
   const [showReset, setShowReset] = useState(false);
-  const router = useRouter();
 
-  useEffect(() => {
-    console.log("Router initialized on client side", router);
-  }, [router]);
-
-  return (
+  return(
     <div className="bg-white shadow-lg container rounded-lg p-8 mx-8 w-full md:max-w-5xl flex flex-col md:flex-row mb-24 mt-[10rem]">
       <div className="w-full md:w-1/2 md:pr-4 flex flex-col justify-center">
         {showReset ? (

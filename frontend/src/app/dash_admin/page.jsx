@@ -25,10 +25,8 @@ export default function DashAdmin() {
   useEffect(()=>{
     const loadUsers = async () => {
       const res = await getUsers();
-      console.log(res.data);
       setArrUsers(res.data);
       const restt = await getClasses();
-      console.log(restt.data);
       setArrClasses(restt.data);
     }
     loadUsers();

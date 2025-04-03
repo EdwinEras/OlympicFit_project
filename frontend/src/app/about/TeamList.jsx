@@ -9,10 +9,8 @@ export default function TeamList() {
     const loadUsers = async () => {
       const res = await getUsers();
       console.log(res.data);
-      setArrUsers(res.data);
-      
+      setArrUsers(res.data); 
     }
-    
     loadUsers();
   },[])
 

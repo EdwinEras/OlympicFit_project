@@ -65,7 +65,7 @@ const ManageTrainner = ({arrTrainers}) => {
                 {show === `del_t${t._id}` && (
                   <ConfirmDelete
                     setShow={setShow}
-                    user={t}
+                    dbObject={t}
                     setAns={setAns}
                   />
                 )}

@@ -8,6 +8,7 @@ const { createFaq, getFaqs, getFaqById, updateFaq, deleteFaq } = require('./faqs
 const { createReview, getReviews, getReviewById, updateReview, deleteReview } = require('./reviews.js');
 const { createMedia, getMedias, getMediaById, updateMedia, deleteMedia } = require('./media.js');
 const { createMemPlan, getMemPlans, getMemPlanById, updateMemPlan, deleteMemPlan } = require('./membershipplans.js');
+const { loginUser } = require('./login.js');
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
@@ -185,4 +186,12 @@ app.delete('/memplans/:id', async (req, res) => {
   const id = req.params.id;
   const memplan = await deleteMemPlan(id);
   res.send(memplan);
+});
+
+app.post('/login', async (req, res) => {
+  console.log(req.body)
+  const email = req.body.email;
+  const password = req.body.password;
+  const faqs = await loginUser(email, password);
+  res.send(faqs);
 });

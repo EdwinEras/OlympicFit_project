@@ -65,7 +65,7 @@ const ManageClass = ({ arrClasses }) => {
                 {show === `del_c${c._id}` && (
                   <ConfirmDelete
                     setShow={setShow}
-                    text={c.class_name}
+                    dbObject={c}
                     setAns={setAns}
                   />
                 )}

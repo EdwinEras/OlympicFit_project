@@ -1,9 +1,25 @@
 "use client";
-
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { loginUser } from "../../routes/login"
 
 export default function LoginForm({ onReset }) {
-  const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => (
+      { ...prev, [name]: value }
+    ));
+  };
+
+  async function handleSubmit(){
+    console.log("formData: "+formData);
+    const user = await loginUser(formData);
+    console.log(user);
+  };
 
   return (
     <div>
@@ -12,12 +28,16 @@ export default function LoginForm({ onReset }) {
       <form className="space-y-4">
         <div>
           <label className="block font-medium">Email</label>
-          <input type="email" className="w-full border p-2 rounded mt-1" />
+          <input name="email" type="email" 
+          value={formData.email} onChange={handleChange}
+          className="w-full border p-2 rounded mt-1" />
         </div>
 
         <div>
           <label className="block font-medium">Password</label>
-          <input type="password" className="w-full border p-2 rounded mt-1" />
+          <input name="password" type="password" 
+          value={formData.password} onChange={handleChange}
+          className="w-full border p-2 rounded mt-1" />
         </div>
 
         <div className="flex justify-between items-center text-sm">
@@ -26,7 +46,9 @@ export default function LoginForm({ onReset }) {
           </button>
         </div>
 
-        <button className="w-full bg-midnights text-white px-4 py-2 rounded hover:bg-[#1d2325]">
+        <button 
+          formAction={handleSubmit}
+          className="w-full bg-midnights text-white px-4 py-2 rounded hover:bg-[#1d2325]">
           Login
         </button>
       </form>

@@ -28,18 +28,17 @@ const UpcomingClasses = ({ arrClasses }) => {
           >
             Add Classes
           </a>
-          {arrClasses.map((c) => (
+          {arrClasses.map((c, index) => (
             <div
-              key={c.id}
+              key={c._id}
               className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md"
             >
               <p className="text-sm">
-                {c.id} - {c.name} - {c.start_time} - {c.end_time}
-              </p>
+                {index+1} - {c.class_name} - {c.category} - {c.difficulty_level} - {c.is_active}              </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
-                    setShow(`det_c${c.id}`);
+                    setShow(`det_c${c._id}`);
                   }}
                   className="bg-blue-400 px-2 py-1 rounded hover:bg-blue-500 text-white"
                 >
@@ -47,16 +46,16 @@ const UpcomingClasses = ({ arrClasses }) => {
                 </button>
                 <button
                   onClick={() => {
-                    setShow(`del_c${c.id}`);
+                    setShow(`del_c${c._id}`);
                   }}
                   className="bg-red/90 text-white px-2 py-1 rounded hover:bg-red"
                 >
                   Cancel
                 </button>
-                {show === `del_c${c.id}` && (
+                {show === `del_c${c._id}` && (
                   <ConfirmDelete
                     setShow={setShow}
-                    text={c.name}
+                    dbObject={c}
                     setAns={setAns}
                   />
                 )}
