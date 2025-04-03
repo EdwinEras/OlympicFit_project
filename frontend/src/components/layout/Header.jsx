@@ -150,10 +150,15 @@ const Navbar = () => {
           </div>
 
           {/* Language Switch */}
-          <div className="text-white">
+         {/* <div className="text-white">
             <span className="cursor-pointer text-sm font-semibold">EN</span> /
             <span className="cursor-pointer text-sm"> FR</span>
-          </div>
+          </div> */}
+          <div
+            id="google_translate_element"
+            className="text-sm text-white"
+            style={{ display: "inline-block" }}
+          ></div>
         </div>
       </nav>
     </header>
