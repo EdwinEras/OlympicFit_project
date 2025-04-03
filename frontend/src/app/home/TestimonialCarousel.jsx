@@ -49,7 +49,7 @@ const TestimonialCarousel = () => {
             const user = findItemByKey(users, "_id", testimonial.user_id);
             return (
               <SwiperSlide key={index}>
-                <div className="px-12 py-24 flex flex-col items-center">
+                <div className="flex flex-col items-center px-12 py-24">
                   <Quote className="text-brand-200 w-6 h-6" />
                   <p className="text-lg text-brand-200 max-w-4xl italic my-12">
                     {testimonial.feedback || "No feedback provided."}

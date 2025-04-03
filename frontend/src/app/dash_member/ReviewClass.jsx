@@ -1,18 +1,17 @@
 import { X } from "lucide-react";
 import { useState } from "react";
-import { createReview } from "../../routes/reviews"; // Adjust path if needed
+import { createReview } from "../../routes/reviews";
 
 const ReviewClass = ({ setShow, revClass }) => {
   const [formData, setFormData] = useState({
     user_id: "",
     schedule_id: [],
     rating: 5,
-    feedback: ""
+    feedback: "",
   });
 
   const [error, setError] = useState("");
 
-  // Handle change for simple fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -21,13 +20,12 @@ const ReviewClass = ({ setShow, revClass }) => {
     }));
   };
 
-  // Handle comma-separated schedule_ids
   const handleScheduleChange = (e) => {
     const value = e.target.value;
-    const ids = value.split(",").map(id => id.trim());
+    const ids = value.split(",").map((id) => id.trim());
     setFormData((prev) => ({
       ...prev,
-      schedule_id: ids
+      schedule_id: ids,
     }));
   };
 
@@ -44,7 +42,7 @@ const ReviewClass = ({ setShow, revClass }) => {
       const res = await createReview(formData);
       console.log("Review submitted:", res);
       alert("✅ Review submitted successfully!");
-      setShow(""); // Close the modal
+      setShow("");
     } catch (err) {
       console.error(err);
       setError("❌ Failed to submit review.");
@@ -55,7 +53,9 @@ const ReviewClass = ({ setShow, revClass }) => {
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
       <div className="p-2 bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
         <div className="flex justify-between items-center">
-          <h2 className="text-lg sm:text-2xl font-semibold">Submit Review for {revClass.name}</h2>
+          <h2 className="text-lg sm:text-2xl font-semibold">
+            Submit Review for {revClass.name}
+          </h2>
           <button
             onClick={() => setShow("")}
             className="bg-red/90 px-2 py-1 rounded hover:bg-red text-white"
@@ -65,7 +65,6 @@ const ReviewClass = ({ setShow, revClass }) => {
         </div>
 
         <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
-        
           <label>Feedback:</label>
           <textarea
             name="feedback"
