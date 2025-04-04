@@ -7,23 +7,36 @@
     - Keep **page.jsx** as a Server Component.
     - Create a separate **Client Component** inside the same folder and import it.
 ****/
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
 import ClassCard from "../../components/ui/ClassCard";
 import { getClasses } from "../../routes/classes";
 import { getMedias } from "../../routes/media";
 
-export const metadata = {
+const metadata = {
   title: "Olympic Fit - Classes",
 };
 
-export default async function Classes() {
-  const resClasses = await getClasses();
-  const resMedia = await getMedias();
+export default function Classes() {
+  const [classesData, setClassesData] = useState([]);
+  const [mediaData, setMediaData] = useState([]);
 
-  const classesData = await resClasses.data;
-  const mediaData = await resMedia.data;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resClasses = await getClasses();
+        const resMedia = await getMedias();
+        setClassesData(resClasses.data);
+        setMediaData(resMedia.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <main className="min-h-screen">

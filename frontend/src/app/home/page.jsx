@@ -1,13 +1,4 @@
-/**** 
-  IMPORTANT: This page is a Server Component by default. 
-  DO NOT add "use client"; unless necessary.
-  Keep this as a Server Component for better performance.
-
-  Best Practice:
-    - Keep **page.jsx** as a Server Component.
-    - Create a separate **Client Component** inside the same folder and import it.
-****/
-
+"use client";
 import bannerImages from "../../lib/bannerImages";
 import WhyChooseUs from "./WhyChooseUs";
 import Link from "next/link";
@@ -16,18 +7,34 @@ import { getMedias } from "../../routes/media";
 import ClassCard from "../../components/ui/ClassCard";
 import TestimonialCarousel from "./TestimonialCarousel";
 import BMICalculator from "./BMICalculator";
-import HomeBannner from "./HomeBannner";
+import HomeBanner from "../../components/ui/Banner";
+import { useState, useEffect } from "react";
 
-export default async function Home() {
-  const resClasses = await getClasses();
-  const resMedia = await getMedias();
+export default function Home() {
+  const [resClasses, setResClasses] = useState([]);
+  const [resMedia, setResMedia] = useState([]);
 
-  const classesData = await resClasses.data;
-  const mediaData = await resMedia.data;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [classesRes, mediaRes] = await Promise.all([getClasses(), getMedias()]);
+        if (classesRes?.data) {
+          setResClasses(classesRes.data);
+        }
+        if (mediaRes?.data) {
+          setResMedia(mediaRes.data);
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <main className="min-h-screen">
-      <HomeBannner
+      <HomeBanner
         bgImage={bannerImages.home}
         title="Welcome to OlympicFit"
         className="testing"
@@ -49,14 +56,13 @@ export default async function Home() {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full mt-12">
-          {classesData.slice(0, 3).map((classItem) => {
-            const mediaInfo = mediaData.find(
+          {resClasses?.slice(0, 3).map((classItem) => {
+            const mediaInfo = resMedia?.find(
               (media) =>
                 Array.isArray(classItem.media_code) &&
                 classItem.media_code.includes(media.media_code)
             );
 
-            console.log(mediaInfo);
             return (
               <ClassCard
                 key={classItem.class_code}
