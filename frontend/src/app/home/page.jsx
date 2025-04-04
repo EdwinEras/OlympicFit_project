@@ -18,11 +18,11 @@ export default function Home() {
     async function fetchData() {
       try {
         const [classesRes, mediaRes] = await Promise.all([getClasses(), getMedias()]);
-        if (classesRes?.data) {
-          setResClasses(classesRes.data);
+        if (classesRes) {
+          setResClasses(classesRes);
         }
         if (mediaRes?.data) {
-          setResMedia(mediaRes.data);
+          setResMedia(mediaRes);
         }
       } catch (err) {
         console.error("Error fetching data:", err);

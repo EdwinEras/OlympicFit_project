@@ -25,12 +25,12 @@ export default function DashAdmin() {
 
   useEffect(()=>{  
     const user = getFromLocalStorage("user");
-    redirectLoggedUser(user);
+    // redirectLoggedUser(user);
     const loadUsers = async () => {
       const res = await getUsers();
-      setArrUsers(res.data);
+      setArrUsers(res);
       const restt = await getClasses();
-      setArrClasses(restt.data);
+      setArrClasses(restt);
     }
     loadUsers();
   },[]);

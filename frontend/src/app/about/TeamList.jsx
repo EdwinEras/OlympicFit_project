@@ -6,11 +6,20 @@ import { useEffect, useState } from "react";
 
 export default function TeamList() {
   const [arrUsers, setArrUsers] = useState([]);
+
   useEffect(()=>{
     const loadUsers = async () => {
-      const res = await getUsers();
-      console.log(res.data);
-      setArrUsers(res.data); 
+      const res = await getUsers()
+      console.log(res);
+      var arrTeam = [];
+      res.forEach(user => {
+        if(user.employee !== null){
+          if(user.employee.role==="trainer"){
+            arrTeam.push(user);
+          }
+        }
+      });
+      setArrUsers(arrTeam);
     }
     loadUsers();
   },[])

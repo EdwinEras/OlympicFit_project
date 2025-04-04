@@ -27,9 +27,9 @@ export default function ClassDetailsPage() {
     const fetchData = async () => {
       try {
         const [classesData, mediaData, users] = await Promise.all([
-          getClasses().then((res) => res.data),
-          getMedias().then((res) => res.data),
-          getUsers().then((res) => res.data),
+          getClasses().then((res) => res),
+          getMedias().then((res) => res),
+          getUsers().then((res) => res),
         ]);
 
         const classDetails = findItemByKey(

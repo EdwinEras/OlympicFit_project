@@ -22,8 +22,8 @@ export default function DashMember() {
   useEffect(()=>{
     const loadUsers = async () => {
       const res = await getClasses();
-      setUpClass(res.data);
-      setFinClass(res.data);
+      setUpClass(res);
+      setFinClass(res);
     }
     loadUsers();
   },[]);

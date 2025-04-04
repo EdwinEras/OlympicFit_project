@@ -28,8 +28,8 @@ export default function Classes() {
       try {
         const resClasses = await getClasses();
         const resMedia = await getMedias();
-        setClassesData(resClasses.data);
-        setMediaData(resMedia.data);
+        setClassesData(resClasses);
+        setMediaData(resMedia);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

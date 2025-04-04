@@ -11,7 +11,7 @@ export default function GalleryGrid() {
     const fetchImages = async () => {
       try {
         const response = await getMedias(); 
-        const filteredImages = response.data.filter((image) => image.description === "gallery");
+        const filteredImages = response.filter((image) => image.description === "gallery");
         setImages(filteredImages);
       } catch (err) {
         console.error("Error fetching gallery images:", err);

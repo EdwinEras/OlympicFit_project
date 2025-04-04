@@ -14,7 +14,7 @@ export default function MembershipList() {
     const fetchMembershipPlans = async () => {
       try {
         const response = await getMemPlans();
-        setMembershipPlans(response.data);
+        setMembershipPlans(response);
       } catch (error) {
         console.error("Error fetching membership plans:", error);
       }

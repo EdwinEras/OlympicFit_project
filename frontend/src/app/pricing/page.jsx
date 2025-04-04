@@ -12,7 +12,7 @@ import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
 import MembershipList from "./MembershipList";
 
-export const metadata = {
+const metadata = {
   title: 'Olympic Fit - Pricing',
 }
 

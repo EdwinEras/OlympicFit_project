@@ -3,8 +3,8 @@ const route = "http://localhost:3001"
 
 async function getMedias(){
     try{
-        const data = await axios.get(route+"/media");
-        return data;
+        const media = await axios.get(route+"/media");
+        return media.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -12,8 +12,8 @@ async function getMedias(){
 
 async function createMedia(formdata){
     try{
-        const data = await axios.post(route+"/media", formdata);
-        return data;
+        const media = await axios.post(route+"/media", formdata);
+        return media.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -21,8 +21,8 @@ async function createMedia(formdata){
 
 async function getMediaById(id){
     try{
-        const data = await axios.get(route+"/media/"+id);
-        return data;
+        const media = await axios.get(route+"/media/"+id);
+        return media.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -30,8 +30,8 @@ async function getMediaById(id){
 
 async function updateMediaById(id, formdata){
     try{
-        const data = await axios.put(route+"/media/"+id, formdata);
-        return data;
+        const media = await axios.put(route+"/media/"+id, formdata);
+        return media.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -39,8 +39,8 @@ async function updateMediaById(id, formdata){
 
 async function deleteMediaById(id){
     try{
-        const data = await axios.delete(route+"/media/"+id);
-        return data;
+        const media = await axios.delete(route+"/media/"+id);
+        return media.data;
     }catch(err){
         console.log("Error: "+err);
     }
