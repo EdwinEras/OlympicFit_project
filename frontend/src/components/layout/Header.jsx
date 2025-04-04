@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import GoogleTranslate from "../GoogleTranslate";
 import { User, ChevronDown, ChevronUp, Menu, X } from "lucide-react";
+import { redirect } from "next/navigation";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -16,6 +16,11 @@ const Navbar = () => {
     setDropdownOpen(false);
     setMenuOpen(false);
   }, [pathname]);
+
+  const removeFromLocalStorage = (key) => {
+    localStorage.removeItem(key);
+    redirect("/home")
+  };
 
   return (
     <header className="bg-[#232a2c] shadow-md w-full z-50 flex items-center justify-center fixed">
@@ -125,6 +130,7 @@ const Navbar = () => {
                 <Link
                   href="/logout"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                  onClick={removeFromLocalStorage("user")}
                 >
                   Sign Out
                 </Link>

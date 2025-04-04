@@ -1,12 +1,29 @@
 "use client";
 import { useState } from "react";
 import { loginUser } from "../../routes/login"
+import { redirect } from "next/navigation";
 
 export default function LoginForm({ onReset }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const saveToLocalStorage = (key, value) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  };
+
+  const redirectLoggedUser = (user) =>{
+    if(user?.employee?.role === "trainer") {
+      redirect("/dash_trainer");
+    }else if(user?.employee?.role === "admin") {
+      redirect("/dash_admin");
+    }else{
+      redirect("/dash_member");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +36,10 @@ export default function LoginForm({ onReset }) {
     console.log("formData: "+formData);
     const user = await loginUser(formData);
     console.log(user);
+    if(user.data){
+      saveToLocalStorage("user", user);
+      redirectLoggedUser(user);
+    }
   };
 
   return (

@@ -17,12 +17,15 @@ import ManageMembers from "./ManageMembers";
 import { getUsers } from "../../routes/users"
 import { getClasses } from "../../routes/classes"
 import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 
 export default function DashAdmin() {
   const [arrUsers, setArrUsers] = useState([]);
   const [arrClasses, setArrClasses] = useState([]);
 
-  useEffect(()=>{
+  useEffect(()=>{  
+    const user = getFromLocalStorage("user");
+    redirectLoggedUser(user);
     const loadUsers = async () => {
       const res = await getUsers();
       setArrUsers(res.data);
@@ -31,6 +34,19 @@ export default function DashAdmin() {
     }
     loadUsers();
   },[]);
+
+  const getFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  };
+
+  const redirectLoggedUser = (user) =>{
+    if (user?.employee?.role === "admin") {
+      console.log("you are the admin");
+    }else{
+      redirect("/home");
+    }
+  };
 
   return (
     <main className="min-h-screen items-center justify-center">
