@@ -19,11 +19,23 @@ export const metadata = {
 };
 
 export default async function Classes() {
-  const resClasses = await getClasses();
-  const resMedia = await getMedias();
+  const [classesData, setClassesData] = useState([]);
+  const [mediaData, setMediaData] = useState([]);
 
-  const classesData = await resClasses.data;
-  const mediaData = await resMedia.data;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resClasses = await getClasses();
+        const resMedia = await getMedias();
+        setClassesData(resClasses.data);
+        setMediaData(resMedia.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <main className="min-h-screen">
