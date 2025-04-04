@@ -130,7 +130,6 @@ const Navbar = () => {
                 <Link
                   href="/logout"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
-                  onClick={removeFromLocalStorage("user")}
                 >
                   Sign Out
                 </Link>

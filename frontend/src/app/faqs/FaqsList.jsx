@@ -16,7 +16,7 @@ export default function FaqList() {
     const fetchFaqs = async () => {
       try {
         const response = await getFaqs();
-        setFaqs(response.data || []);
+        setFaqs(response || []);
       } catch (error) {
         console.error("Error fetching FAQs:", error);
       }

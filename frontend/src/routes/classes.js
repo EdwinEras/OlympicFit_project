@@ -3,8 +3,8 @@ const route = "http://localhost:3001"
 
 async function getClasses(){
     try{
-        const data = await axios.get(route+"/classes");
-        return data;
+        const classes = await axios.get(route+"/classes");
+        return classes.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -12,8 +12,8 @@ async function getClasses(){
 
 async function createClass(formdata){
     try{
-        const data = await axios.post(route+"/classes", formdata);
-        return data;
+        const classes = await axios.post(route+"/classes", formdata);
+        return classes.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -21,8 +21,8 @@ async function createClass(formdata){
 
 async function getClassById(id){
     try{
-        const data = await axios.get(route+"/classes/"+id);
-        return data;
+        const classes = await axios.get(route+"/classes/"+id);
+        return classes.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -30,8 +30,8 @@ async function getClassById(id){
 
 async function updateClassById(id, formdata){
     try{
-        const data = await axios.put(route+"/classes/"+id, formdata);
-        return data;
+        const classes = await axios.put(route+"/classes/"+id, formdata);
+        return classes.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -39,8 +39,8 @@ async function updateClassById(id, formdata){
 
 async function deleteClassById(id){
     try{
-        const data = await axios.delete(route+"/classes/"+id);
-        return data;
+        const classes = await axios.delete(route+"/classes/"+id);
+        return classes.data;
     }catch(err){
         console.log("Error: "+err);
     }

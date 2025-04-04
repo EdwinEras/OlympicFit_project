@@ -3,8 +3,8 @@ const route = "http://localhost:3001"
 
 async function loginUser(formData){
     try{
-        const data = await axios.post(route+"/login", formData);
-        return data;
+        const user = await axios.post(route+"/login", formData);
+        return user.data;
     }catch(err){
         console.log("Error: "+err);
     }

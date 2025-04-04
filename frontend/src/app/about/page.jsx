@@ -11,7 +11,7 @@ import TeamList from "./TeamList";
 import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
 
-export const metadata = {
+const metadata = {
   title: "Olympic Fit - About",
 };
 

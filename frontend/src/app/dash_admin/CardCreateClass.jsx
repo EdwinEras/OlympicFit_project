@@ -165,7 +165,7 @@ const CardCreateClass = ({ setShow }) => {
               required
             />
           </div> */}
-          {/* <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
             <label className="mr-2">Image URL:</label>
             <input
               className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
@@ -175,7 +175,7 @@ const CardCreateClass = ({ setShow }) => {
               placeholder="URL Image"
               required
             />
-          </div> */}
+          </div>
           <button
             type="submit"
             formAction={handleSubmit}

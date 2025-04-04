@@ -201,7 +201,7 @@ const CardCreateTrainner = ({ setShow }) => {
             <label className="mr-4">Date of Birth: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
-              type="datetime-local"
+              type="date"
               min="1920-01-01T00:00"
               max="2015-01-01T00:00"
               name="dob"

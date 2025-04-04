@@ -3,8 +3,8 @@ const route = "http://localhost:3001"
 
 async function getMemPlans(){
     try{
-        const data = await axios.get(route+"/memplans");
-        return data;
+        const memplan = await axios.get(route+"/memplans");
+        return memplan.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -12,8 +12,8 @@ async function getMemPlans(){
 
 async function createMemPlan(formdata){
     try{
-        const data = await axios.post(route+"/memplans", formdata);
-        return data;
+        const memplan = await axios.post(route+"/memplans", formdata);
+        return memplan.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -21,8 +21,8 @@ async function createMemPlan(formdata){
 
 async function getMemPlanById(id){
     try{
-        const data = await axios.get(route+"/memplans/"+id);
-        return data;
+        const memplan = await axios.get(route+"/memplans/"+id);
+        return memplan.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -30,8 +30,8 @@ async function getMemPlanById(id){
 
 async function updateMemPlanById(id, formdata){
     try{
-        const data = await axios.put(route+"/memplans/"+id, formdata);
-        return data;
+        const memplan = await axios.put(route+"/memplans/"+id, formdata);
+        return memplan.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -39,8 +39,8 @@ async function updateMemPlanById(id, formdata){
 
 async function deleteMemPlanById(id){
     try{
-        const data = await axios.delete(route+"/memplans/"+id);
-        return data;
+        const memplan = await axios.delete(route+"/memplans/"+id);
+        return memplan.data;
     }catch(err){
         console.log("Error: "+err);
     }

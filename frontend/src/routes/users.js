@@ -3,8 +3,8 @@ const route = "http://localhost:3001"
 
 async function getUsers(){
     try{
-        const data = await axios.get(route+"/users");
-        return data;
+        const user = await axios.get(route+"/users");
+        return user.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -12,10 +12,10 @@ async function getUsers(){
 
 async function createUser(formdata){
     try{
-        const data = await axios.post(route+"/users", formdata, {
+        const user = await axios.post(route+"/users", formdata, {
             headers: { "Content-Type": "application/json" }
         });
-        return data;
+        return user.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -23,8 +23,8 @@ async function createUser(formdata){
 
 async function getUserById(id){
     try{
-        const data = await axios.get(route+"/users/"+id);
-        return data;
+        const user = await axios.get(route+"/users/"+id);
+        return user.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -32,8 +32,8 @@ async function getUserById(id){
 
 async function updateUserById(id, formdata){
     try{
-        const data = await axios.put(route+"/users/"+id, formdata);
-        return data;
+        const user = await axios.put(route+"/users/"+id, formdata);
+        return user.data;
     }catch(err){
         console.log("Error: "+err);
     }
@@ -41,8 +41,8 @@ async function updateUserById(id, formdata){
 
 async function deleteUserById(id){
     try{
-        const data = await axios.delete(route+"/users/"+id);
-        return data;
+        const user = await axios.delete(route+"/users/"+id);
+        return user.data;
     }catch(err){
         console.log("Error: "+err);
     }
