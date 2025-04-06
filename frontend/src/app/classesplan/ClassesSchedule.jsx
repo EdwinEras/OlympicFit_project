@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { getClasses } from "../../routes/classes";
-import { getUsers } from "../../routes/users"; 
+import { getUsers } from "../../routes/users";
 
 const dayOrder = [
   "Monday",
@@ -25,8 +25,8 @@ export default function ClassesSchedule() {
           getUsers(),
         ]);
 
-        const classes = classesResponse.data;
-        const fetchedUsers = usersResponse.data;
+        const classes = classesResponse;
+        const fetchedUsers = usersResponse;
 
         const schedule = classes.reduce((acc, classItem) => {
           const trainer = fetchedUsers.find(

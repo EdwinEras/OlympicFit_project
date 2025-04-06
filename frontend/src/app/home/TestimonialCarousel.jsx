@@ -20,12 +20,15 @@ const TestimonialCarousel = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [reviewsRes, usersRes] = await Promise.all([getReviews(), getUsers()]);
-        if (reviewsRes?.data) {
-          setTestimonials(reviewsRes.data);
+        const [reviewsRes, usersRes] = await Promise.all([
+          getReviews(),
+          getUsers(),
+        ]);
+        if (reviewsRes) {
+          setTestimonials(reviewsRes);
         }
-        if (usersRes?.data) {
-          setUsers(usersRes.data);
+        if (usersRes) {
+          setUsers(usersRes);
         }
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -55,7 +58,9 @@ const TestimonialCarousel = () => {
                     {testimonial.feedback || "No feedback provided."}
                   </p>
                   <p className="text-sm text-brand-200 mt-2">
-                    {user ? `${user.first_name} ${user.last_name}` : "Anonymous"}
+                    {user
+                      ? `${user.first_name} ${user.last_name}`
+                      : "Anonymous"}
                   </p>
                 </div>
               </SwiperSlide>
