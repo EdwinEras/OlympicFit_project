@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Banner({ bgImage, title }) {
   return (
-    <div className="relative min-h-screen flex items-center justify-center text-white">
+    <div className="relative h-screen flex items-center justify-center text-white">
       <Image
         src={bgImage}
         alt={title}
@@ -16,7 +16,7 @@ export default function Banner({ bgImage, title }) {
         <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold uppercase mb-6">
           {title}
         </h1>
-        <p className="text-white/70 max-w-md mb-4">
+        <p className="text-white/80 max-w-md mb-10">
           Come and train with us in the heart of Berlin. A great community with
           experienced trainers awaits you. Together we will get the best out of
           you.
