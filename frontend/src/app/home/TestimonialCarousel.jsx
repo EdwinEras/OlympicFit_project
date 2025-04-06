@@ -21,11 +21,11 @@ const TestimonialCarousel = () => {
     async function fetchData() {
       try {
         const [reviewsRes, usersRes] = await Promise.all([getReviews(), getUsers()]);
-        if (reviewsRes?.data) {
-          setTestimonials(reviewsRes.data);
+        if (reviewsRes) {
+          setTestimonials(reviewsRes);
         }
-        if (usersRes?.data) {
-          setUsers(usersRes.data);
+        if (usersRes) {
+          setUsers(usersRes);
         }
       } catch (err) {
         console.error("Error fetching data:", err);
