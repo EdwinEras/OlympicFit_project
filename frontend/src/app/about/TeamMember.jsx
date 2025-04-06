@@ -6,7 +6,7 @@ export default function TeamMember({
 }) {
   return (
     <div className="card w-full h-[560px] perspective">
-      <div className="card__content relative w-full h-full transform-style-preserve-3d transition-transform duration-1000 hover:rotate-y-180">
+      <div className="card__content relative w-full h-full transform-style-preserve-3d transition-transform duration-1000 ease-in-out hover:rotate-y-180">
         <div className="card__front absolute w-full h-full top-0 bottom-0 left-0 right-0 rounded-2xl text-left transform-style-preserve-3d">
           <div className="relative w-full h-full">
             <img

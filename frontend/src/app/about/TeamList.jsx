@@ -20,6 +20,8 @@ export default function TeamList() {
         }
       });
       setArrUsers(arrTeam);
+      console.log("Filtered trainers:", arrTeam);
+
     }
     loadUsers();
   },[])
