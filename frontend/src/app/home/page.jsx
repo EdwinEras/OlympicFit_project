@@ -24,7 +24,7 @@ export default function Home() {
         if (classesRes) {
           setResClasses(classesRes);
         }
-        if (mediaRes?.data) {
+        if (mediaRes) {
           setResMedia(mediaRes);
         }
       } catch (err) {
@@ -37,10 +37,7 @@ export default function Home() {
 
   return (
     <main>
-      <HomeBanner
-        bgImage={bannerImages.home}
-        title="Welcome to OlympicFit"
-      />
+      <HomeBanner bgImage={bannerImages.home} title="Welcome to OlympicFit" />
       <WhyChooseUs />
       <div className="container mx-auto px-10 flex flex-col items-center">
         <div className="text-center max-w-lg">
