@@ -16,7 +16,6 @@ export default function LoginForm({ onReset }) {
   };
 
   const redirectLoggedUser = (user) =>{
-    console.log(user);
     if(user?.employee?.role === "trainer") {
       redirect("/dash_trainer");
     }else if(user?.employee?.role === "admin") {
@@ -34,9 +33,7 @@ export default function LoginForm({ onReset }) {
   };
 
   async function handleSubmit(){
-    console.log("formData: "+formData);
     const user = await loginUser(formData);
-    console.log(user);
     if(user){
       saveToLocalStorage("user", user);
       redirectLoggedUser(user);

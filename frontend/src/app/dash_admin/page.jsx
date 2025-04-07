@@ -21,14 +21,27 @@ import { redirect } from "next/navigation";
 
 export default function DashAdmin() {
   const [arrUsers, setArrUsers] = useState([]);
+  const [arrTrainers, setArrTrainers] = useState([]);
   const [arrClasses, setArrClasses] = useState([]);
 
   useEffect(()=>{  
     const user = getFromLocalStorage("user");
-    // redirectLoggedUser(user);
+    redirectLoggedUser(user);
     const loadUsers = async () => {
       const res = await getUsers();
-      setArrUsers(res);
+      var arrT = [];
+      var arrM = [];
+      res.forEach(user => {
+        if(user.employee !== null){
+          if(user.employee.role==="trainer"){
+            arrT.push(user);
+          }
+        }else{
+          arrM.push(user);
+        }
+      });
+      setArrTrainers(arrT);
+      setArrUsers(arrM);
       const restt = await getClasses();
       setArrClasses(restt);
     }
@@ -52,7 +65,7 @@ export default function DashAdmin() {
     <main className="min-h-screen items-center justify-center">
       <Banner bgImage={bannerImages.dashboard} title="Admin Dashboard" />
         <ManageClass arrClasses={arrClasses} />
-        <ManageTrainner arrTrainers={arrUsers} />
+        <ManageTrainner arrTrainers={arrTrainers} />
         <ManageMembers arrMembers={arrUsers}/>
     </main>
   );

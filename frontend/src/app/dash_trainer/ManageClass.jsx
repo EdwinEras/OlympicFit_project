@@ -30,24 +30,24 @@ const ManageClass = ({ arrClasses }) => {
             Add Class
           </button>
           {show === "create_class" && <CardCreateClass setShow={setShow} />}
-          {arrClasses.map((c) => (
+          {arrClasses.map((c, index) => (
             <div
-              key={c.id}
+              key={c._id}
               className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md"
             >
               <p className="text-sm">
-                {c.id} - {c.name} - {c.start_time} - {c.end_time} - {c.active}
+              {index+1} - {c.class_name} - {c.category} - {c.difficulty_level} - {c.is_active}
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => {
-                    setShow(`edit_c${c.id}`);
+                    setShow(`edit_c${c._id}`);
                   }}
                   className="bg-yellow-400 text-white px-2 py-1 rounded hover:bg-yellow-500"
                 >
                   <Pencil />
                 </button>
-                {show === `edit_c${c.id}` && (
+                {show === `edit_c${c._id}` && (
                   <CardEditClass setShow={setShow} editClass={c} />
                 )}
               </div>

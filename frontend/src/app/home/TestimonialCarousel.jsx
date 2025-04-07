@@ -20,10 +20,7 @@ const TestimonialCarousel = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [reviewsRes, usersRes] = await Promise.all([
-          getReviews(),
-          getUsers(),
-        ]);
+        const [reviewsRes, usersRes] = await Promise.all([getReviews(), getUsers()]);
         if (reviewsRes) {
           setTestimonials(reviewsRes);
         }
