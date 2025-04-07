@@ -7,7 +7,7 @@ import { getMedias } from "../../routes/media";
 import ClassCard from "../../components/ui/ClassCard";
 import TestimonialCarousel from "./TestimonialCarousel";
 import BMICalculator from "./BMICalculator";
-import HomeBanner from "../../components/ui/Banner";
+import HomeBanner from "../home/HomeBanner";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -17,7 +17,10 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [classesRes, mediaRes] = await Promise.all([getClasses(), getMedias()]);
+        const [classesRes, mediaRes] = await Promise.all([
+          getClasses(),
+          getMedias(),
+        ]);
         if (classesRes) {
           setResClasses(classesRes);
         }
@@ -33,11 +36,10 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen">
+    <main>
       <HomeBanner
         bgImage={bannerImages.home}
         title="Welcome to OlympicFit"
-        className="testing"
       />
       <WhyChooseUs />
       <div className="container mx-auto px-10 flex flex-col items-center">

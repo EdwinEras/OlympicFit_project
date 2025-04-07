@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { getClasses } from "../../routes/classes";
-import { getUsers } from "../../routes/users"; 
+import { getUsers } from "../../routes/users";
 
 const dayOrder = [
   "Monday",

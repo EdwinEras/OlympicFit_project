@@ -55,7 +55,9 @@ const TestimonialCarousel = () => {
                     {testimonial.feedback || "No feedback provided."}
                   </p>
                   <p className="text-sm text-brand-200 mt-2">
-                    {user ? `${user.first_name} ${user.last_name}` : "Anonymous"}
+                    {user
+                      ? `${user.first_name} ${user.last_name}`
+                      : "Anonymous"}
                   </p>
                 </div>
               </SwiperSlide>

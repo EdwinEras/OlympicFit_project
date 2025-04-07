@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { User, ChevronDown, ChevronUp, Menu, X } from "lucide-react";
-import { redirect } from "next/navigation";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -17,9 +16,8 @@ const Navbar = () => {
     setMenuOpen(false);
   }, [pathname]);
 
-  const removeFromLocalStorage = (key) => {
-    localStorage.removeItem(key);
-    redirect("/home")
+  const removeFromLocalStorage = () => {
+    localStorage.removeItem("user");
   };
 
   return (
@@ -98,9 +96,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* User Dropdown & Language Switch */}
         <div className="flex items-center md:space-x-6 space-x-4">
-          {/* Login Dropdown */}
           <div className="relative">
             <button
               className="flex items-center space-x-2 text-white"
@@ -128,8 +124,9 @@ const Navbar = () => {
                   Sign In
                 </Link>
                 <Link
-                  href="/logout"
+                  href="/home"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                  onClick={removeFromLocalStorage}
                 >
                   Sign Out
                 </Link>
@@ -154,17 +151,6 @@ const Navbar = () => {
               </div>
             )}
           </div>
-
-          {/* Language Switch */}
-         {/* <div className="text-white">
-            <span className="cursor-pointer text-sm font-semibold">EN</span> /
-            <span className="cursor-pointer text-sm"> FR</span>
-          </div> */}
-          <div
-            id="google_translate_element"
-            className="text-sm text-white"
-            style={{ display: "inline-block" }}
-          ></div>
         </div>
       </nav>
     </header>

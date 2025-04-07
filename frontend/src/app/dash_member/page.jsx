@@ -14,6 +14,8 @@ import FinisedClasses from "./FinishedClasses";
 import UpcomingClasses from "./UpcomingClasses";
 import { getClasses } from "../../routes/classes"
 import { useState, useEffect } from "react";
+import { redirect } from "next/navigation";
+
 
 export default function DashMember() {
   const [upClass, setUpClass] = useState([]);
@@ -21,12 +23,27 @@ export default function DashMember() {
 
   useEffect(()=>{
     const loadUsers = async () => {
+      const user = getFromLocalStorage("user");
+      redirectLoggedUser(user);
       const res = await getClasses();
       setUpClass(res);
       setFinClass(res);
     }
     loadUsers();
   },[]);
+
+  const getFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  };
+
+  const redirectLoggedUser = (user) =>{
+    if (user?.employee === null) {
+      console.log("you are the admin");
+    }else{
+      redirect("/home");
+    }
+  };
 
   const arrClasses = [
     { id: 1, name: "Yoga 1", description: "This is the description for Yoga 1", active: "yes", start_time: "2025-05-01T00:00", end_time: "2025-08-01T00:00", category:"Regular", capacity:10, location:"In person", media:"http://example.com"},

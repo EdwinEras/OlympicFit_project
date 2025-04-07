@@ -10,7 +10,6 @@ export default function TeamList() {
   useEffect(()=>{
     const loadUsers = async () => {
       const res = await getUsers()
-      console.log(res);
       var arrTeam = [];
       res.forEach(user => {
         if(user.employee !== null){

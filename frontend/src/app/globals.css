@@ -45,6 +45,7 @@ nav a:hover:after {
 
 .card__content {
   transform-style: preserve-3d;
+  transition: transform 1s ease-in-out;
 }
 
 .card__front,

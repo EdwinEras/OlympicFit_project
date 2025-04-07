@@ -26,7 +26,7 @@ export default function Footer() {
         </div>
 
         {/* Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center w-full mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center w-full mb-12">
           {/* Address */}
           <div>
             <h3 className="font-bold mb-4">ADDRESS</h3>
@@ -65,6 +65,15 @@ export default function Footer() {
             >
               olympicfit@outlook.com
             </a>
+          </div>
+          {/* Language Translator */}
+          <div>
+            <h3 className="font-bold mb-4">Language Switch</h3>
+            <div
+              id="google_translate_element"
+              className="text-sm text-white"
+              style={{ display: "inline-block" }}
+            ></div>
           </div>
         </div>
 
