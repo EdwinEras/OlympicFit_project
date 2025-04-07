@@ -1,5 +1,5 @@
 import axios from "axios";
-const route = "http://localhost:3001"
+const route = "https://olympic-fit-project-g7l5.vercel.app"
 
 async function getFaqs(){
     try{
