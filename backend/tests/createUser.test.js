@@ -17,7 +17,7 @@ const userData = {
   first_name: "Teddy123",
   last_name: "Nwabuisi123",
   email: "tedi.nwabusi45@example.com",
-  username: `user_${Date.now()}`, // Generate a unique username
+  username: `user_${Date.now()}`,
   media: [],
   promotions: []
 };

@@ -16,8 +16,8 @@ const { createUser, deleteUser } = require('../users');
 const userData = {
   first_name: "Teddy123",
   last_name: "Nwabuisi123",
-  email: `tedi.nwabusi${Date.now()}@example.com`, // Generate a unique email
-  username: `user_${Date.now()}`, // Generate a unique username
+  email: `tedi.nwabusi${Date.now()}@example.com`, 
+  username: `user_${Date.now()}`,
   media: [],
   promotions: []
 };

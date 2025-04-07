@@ -1,45 +1,51 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, User } from "lucide-react";
 
 const BMICalculator = () => {
-  const [height, setHeight] = useState(() =>
-    typeof window !== "undefined" ? "" : null
-  );
+  const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [bmi, setBMI] = useState(null);
   const [status, setStatus] = useState("");
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setBMI(null);
+    setStatus("");
+    setError("");
+  }, [height, weight, age, gender]);
 
   const calculateBMI = () => {
-    
     setError("");
 
-   
     if (!height || !weight || !age || !gender) {
-      setError("All fields are required. Please fill in all fields.");
+      setError("All fields are required.");
       return;
     }
 
-    
-    if (height <= 0 || weight <= 0) {
-      setError("Please enter valid positive values for height and weight.");
+    const heightNum = parseFloat(height);
+    const weightNum = parseFloat(weight);
+    const ageNum = parseInt(age);
+
+    if (heightNum <= 0 || weightNum <= 0 || ageNum <= 0) {
+      setError("Enter valid values greater than 0.");
       return;
     }
 
-    const heightInMeters = height / 100;
-    const calculatedBMI = (weight / (heightInMeters * heightInMeters)).toFixed(1);
-
+    const heightInMeters = heightNum / 100;
+    const calculatedBMI = (
+      weightNum /
+      (heightInMeters * heightInMeters)
+    ).toFixed(1);
     setBMI(calculatedBMI);
 
-    
     if (calculatedBMI < 18.5) {
       setStatus("Underweight");
-    } else if (calculatedBMI >= 18.5 && calculatedBMI <= 24.9) {
+    } else if (calculatedBMI < 25) {
       setStatus("Healthy");
-    } else if (calculatedBMI >= 25 && calculatedBMI <= 29.9) {
+    } else if (calculatedBMI < 30) {
       setStatus("Overweight");
     } else {
       setStatus("Obese");
@@ -50,9 +56,8 @@ const BMICalculator = () => {
     <div className="container mx-auto mb-28 px-8 md:px-24 text-center flex flex-col items-center">
       <h2 className="text-2xl sm:text-4xl font-semibold mb-6">What Is BMI</h2>
       <p className="text-base mb-6 max-w-xl">
-        Body mass index (BMI) is a calculation that estimates body fat
-        percentage based on height and weight. It's a useful tool for assessing
-        weight and health risk.
+        Body mass index (BMI) estimates body fat percentage based on height and
+        weight. It's a useful tool for assessing weight and health risk.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-16 items-start w-full">
@@ -60,6 +65,7 @@ const BMICalculator = () => {
           <div className="grid grid-cols-2 gap-4">
             <input
               type="number"
+              min="1"
               placeholder="Height / cm"
               className="p-2 border rounded-md w-full outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               value={height}
@@ -67,6 +73,7 @@ const BMICalculator = () => {
             />
             <input
               type="number"
+              min="1"
               placeholder="Weight / kg"
               className="p-2 border rounded-md w-full outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               value={weight}
@@ -76,6 +83,7 @@ const BMICalculator = () => {
           <div className="grid grid-cols-2 gap-4">
             <input
               type="number"
+              min="1"
               placeholder="Age"
               className="p-2 border rounded-md w-full outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               value={age}
@@ -127,9 +135,6 @@ const BMICalculator = () => {
               </tr>
             </tbody>
           </table>
-          <p className="text-xs text-midnights mt-4">
-            <strong>BMR:</strong> Metabolic Rate / BMI Body Mass Index
-          </p>
         </div>
       </div>
 
@@ -141,13 +146,13 @@ const BMICalculator = () => {
 
       {bmi && !error && (
         <div
-          className={`mt-6 flex w-full p-3 text-white/80 ${
-            status === "Healthy" ? "bg-[#378c56]" : "bg-red"
+          className={`mt-6 flex w-full p-3 text-white rounded-md ${
+            status === "Healthy" ? "bg-green-600" : "bg-red-500"
           }`}
         >
-          <User className="mr-2 text-lg" />
-          <p className="font-semibold text-white/80">
-            YOU ARE! <span className="uppercase mr-4">{status}</span>Your BMI is{" "}
+          <User className="mr-2" />
+          <p className="font-semibold">
+            YOU ARE <span className="uppercase">{status}</span>. Your BMI is{" "}
             {bmi}.
           </p>
         </div>
