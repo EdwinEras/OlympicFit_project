@@ -2,7 +2,7 @@
   "name": "oplimpicfit_backend",
   "version": "1.0.0",
   "description": "olimpic fit backend",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
