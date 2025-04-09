@@ -28,6 +28,8 @@ const UpcomingClasses = ({ arrClasses }) => {
     return trainers.find((trainer) => trainer._id === trainerId);
   };
 
+  console.log(arrClasses);
+  
   return (
     <div className="relative my-12 mx-auto w-[85%] bg-[#9fadb3] p-6 rounded-lg">
       <div className="flex justify-between items-center">
