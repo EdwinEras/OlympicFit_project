@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { deleteUserById } from "../../routes/users";
 import { deleteClassById } from "../../routes/classes";
+import { deleteMediaById } from "../../routes/media";
 
 export default function ConfirmDelete({ setShow, dbObject, setAns }) {
   const [objName, setObjName] = useState();
@@ -11,6 +12,8 @@ export default function ConfirmDelete({ setShow, dbObject, setAns }) {
     }
     if(dbObject.class_name){
       setObjName("class"); 
+    }if(dbObject.media_code){
+      setObjName("media");
     }
   }, [])
 
@@ -21,6 +24,9 @@ export default function ConfirmDelete({ setShow, dbObject, setAns }) {
     }
     if(objName==="class"){
       res = await deleteClassById(dbObject._id)  
+    }
+    if(objName==="media"){
+      res = await deleteMediaById(dbObject._id)  
     }
     console.log(res.data);
     setShow("");
@@ -33,9 +39,13 @@ export default function ConfirmDelete({ setShow, dbObject, setAns }) {
           <h2 className="text-lg sm:text-2xl font-semibold mb-4">Confirm Delete</h2>
         <p>
           Are you sure you want to delete 
-          {objName==="user"? <strong>"{dbObject.first_name} {dbObject.last_name}"</strong>: 
-          <strong>"{dbObject.class_name}"</strong>}
-          ?
+          {objName === "user" ? (
+            <strong> {dbObject.first_name} {dbObject.last_name}</strong>
+          ) : objName === "class" ? (
+            <strong> {dbObject.class_name}</strong>
+          ) : objName === "media" ? (
+            <strong> {dbObject.media_code}</strong>
+          ) : null}
         </p>
         <div className="flex justify-between items-center mt-2">
           <button

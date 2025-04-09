@@ -18,11 +18,14 @@ import { getUsers } from "../../routes/users"
 import { getClasses } from "../../routes/classes"
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
+import { getMedias } from "../../routes/media";
+import ManageMedia from "./ManageMedia";
 
 export default function DashAdmin() {
   const [arrUsers, setArrUsers] = useState([]);
   const [arrTrainers, setArrTrainers] = useState([]);
   const [arrClasses, setArrClasses] = useState([]);
+  const [arrMedias, setArrMedias] = useState([]);
 
   useEffect(()=>{  
     const user = getFromLocalStorage("user");
@@ -44,6 +47,8 @@ export default function DashAdmin() {
       setArrUsers(arrM);
       const restt = await getClasses();
       setArrClasses(restt);
+      const resttt = await getMedias();
+      setArrMedias(resttt);
     }
     loadUsers();
   },[]);
@@ -64,6 +69,7 @@ export default function DashAdmin() {
   return (
     <main className="min-h-screen items-center justify-center">
       <Banner bgImage={bannerImages.dashboard} title="Admin Dashboard" />
+        <ManageMedia arrMedias={arrMedias}/>
         <ManageClass arrClasses={arrClasses} />
         <ManageTrainner arrTrainers={arrTrainers} />
         <ManageMembers arrMembers={arrUsers}/>
