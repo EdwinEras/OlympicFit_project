@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { getClasses } from "../../routes/classes";
 import { getUsers } from "../../routes/users";
+import { calculateDuration } from "../../lib/utils";
 
 const dayOrder = [
   "Monday",
@@ -33,13 +34,12 @@ export default function ClassesSchedule() {
             (user) => user._id === classItem.trainer_id
           );
 
-          console.log(trainer);
           classItem.schedule?.forEach(
             ({ day = "Unknown", start_time, end_time, location }) => {
               const classEntry = {
                 name: classItem.class_name,
                 class_code: classItem.class_code,
-                duration: 60,
+                duration: calculateDuration(start_time, end_time),
                 start_time,
                 end_time,
                 location,
@@ -75,7 +75,7 @@ export default function ClassesSchedule() {
   return (
     <div className="container mx-auto p-6 lg:p-12">
       <div className="overflow-x-auto">
-        <table className="min-w-full shadow-md rounded-lg hidden sm:table">
+        <table className="min-w-full shadow-md rounded-lg hidden lg:table">
           <thead>
             <tr className="bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black text-white">
               {scheduleData.map((day, index) => (
@@ -131,7 +131,7 @@ export default function ClassesSchedule() {
           </tbody>
         </table>
 
-        <div className="sm:hidden space-y-4">
+        <div className="lg:hidden space-y-4">
           {scheduleData.map((day, index) => (
             <div
               key={index}

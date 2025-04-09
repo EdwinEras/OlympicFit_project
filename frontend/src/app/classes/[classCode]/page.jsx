@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { getClasses } from "../../../routes/classes";
 import { getMedias } from "../../../routes/media";
 import { getUsers } from "../../../routes/users";
+import { calculateDuration } from "../../../lib/utils";
 
 const findItemByKey = (array, key, value) => {
   return array.find((item) => item[key] === value);
@@ -61,6 +61,10 @@ export default function ClassDetailsPage() {
     return <div className="p-6 text-red-500">Class not found!</div>;
 
   const imagePath = mediaInfo ? mediaInfo.media_path : "/images/default.jpg";
+  const duration =
+    scheduleData?.start_time && scheduleData?.end_time
+      ? calculateDuration(scheduleData.start_time, scheduleData.end_time)
+      : null;
 
   return (
     <main className="min-h-screen">
@@ -122,7 +126,7 @@ export default function ClassDetailsPage() {
                 Class Information
               </h2>
               <div className="bg-old-black py-6 px-4">
-                <ul className="space-y-2 text-off-white">
+                <ul className="space-y-4 text-off-white">
                   <li>
                     <strong>Class Name:</strong> {classDetails.class_name}
                   </li>
@@ -134,7 +138,7 @@ export default function ClassDetailsPage() {
                   </li>
                   <li>
                     {scheduleData && (
-                      <ul className="space-y-2 text-off-white">
+                      <ul className="space-y-4 text-off-white">
                         <li>
                           <strong>Time:</strong> {scheduleData.start_time} -{" "}
                           {scheduleData.end_time}
@@ -147,19 +151,31 @@ export default function ClassDetailsPage() {
                           <strong>Day:</strong>{" "}
                           {scheduleData.day || "Not available"}
                         </li>
+                        <li>
+                          <strong>Duration:</strong>{" "}
+                          {duration || "Not available"} min
+                        </li>
                       </ul>
                     )}
                   </li>
-                  <li>
-                    <strong>Duration:</strong> 60min
-                  </li>
                 </ul>
-                <Link
-                  href="/login"
-                  className="py-2.5 px-4 mt-4 justify-self-center flex text-white rounded uppercase bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black"
-                >
-                  Book Now
-                </Link>
+                <div className="flex gap-4 justify-center align-center mt-8">
+                  {!scheduleData ? (
+                    <Link
+                      href="/classesplan"
+                      className="py-2.5 px-4 justify-self-center flex text-white rounded uppercase bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black"
+                    >
+                      See Schedule
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/login"
+                      className="py-2.5 px-4 justify-self-center flex text-white rounded uppercase bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black"
+                    >
+                      Book Now
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>
