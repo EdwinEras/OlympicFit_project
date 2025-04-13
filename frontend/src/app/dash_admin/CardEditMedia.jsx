@@ -16,9 +16,7 @@ const CardEditMedia = ({ setShow, editMedia }) => {
         description:desc,
         uploaded_at:date
     };
-    console.log("formData: "+formData);
     const medias = await updateMediaById(formData);
-    console.log(medias);
     setShow("");
   }
 
