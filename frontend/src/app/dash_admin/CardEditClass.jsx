@@ -3,37 +3,59 @@ import { useState, useEffect } from "react";
 import { updateClassById } from "../../routes/classes";
 
 const CardEditClass = ({ setShow, editClass }) => {
-  const [minDate, setMinDate] = useState(""); 
-  const [formData, setFormData] = useState({
-    class_name: editClass.class_name,
-    category: editClass.category,
-    capacity: editClass.capacity,
-    difficulty_level: editClass.description,
-    description: editClass.description,
-    end_time: editClass.end_time,
-    start_time: editClass.start_time,
-    is_active: editClass.is_active
-  });
+  const minDate = new Date().toISOString().slice(0, 16); // for datetime-local min
+  const [className, setClassName] = useState(editClass.class_name);
+  const [code, setCode] = useState(editClass.class_code);
+  const [category, setCategory] = useState(editClass.category);
+  const [capacity, setCapacity] = useState(editClass.capacity);
+  const [difficultyLevel, setDifficultyLevel] = useState(editClass.difficulty_level);
+  const [description, setDescription] = useState(editClass.description);
+  const [isActive, setIsActive] = useState(editClass.is_active); // yes or no
+  const [startTime, setStartTime] = useState(editClass.schedule.start_time);
+  const [endTime, setEndTime] = useState(editClass.schedule.end_time);
+  const [classDay, setClassDay] = useState(editClass.schedule.day);
+  const [mediaClass, setMediaClass] = useState(editClass);
+  const [location, setLocation] = useState(editClass);
+  const [user, setUser] = useState();
 
-  useEffect(() => {
-    const currentDate = new Date().toISOString().slice(0, 16);
-    setMinDate(currentDate);
-  }, []);
+  useEffect(()=>{
+    const user = getFromLocalStorage("user");
+    setUser(user)
+  },[])
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  const getFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
   };
 
-  async function handleSubmit(){
-    console.log("formData: "+formData);
+  const handleSubmit = async () => {
+    const formData = {
+      class_name: className,
+      class_code: code,
+      category: category,
+      capacity: capacity,
+      difficulty_level: difficultyLevel,
+      description: description,
+      is_active: isActive,
+      schedule:[
+        {
+          day: classDay,
+          start_time: startTime,
+          end_time: endTime,
+          location: location,
+          status:"scheduled"
+        }
+      ],
+      media_code: [
+        mediaClass
+      ],
+      trainer_id: user._id
+    };
+    console.log("Submitted data:", formData);
     const classes = await updateClassById(editClass._id, formData);
     console.log(classes);
     setShow("");
-  }
+  };
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
@@ -49,15 +71,26 @@ const CardEditClass = ({ setShow, editClass }) => {
             <X />
           </button>
         </div>
-        <form className="flex flex-col" action="#">
-        <div className="flex items-center">
-          <label className="mr-4">Name:</label>
+        <form className="flex flex-col">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          <label className="mr-4">Class Name:</label>
           <input
-            className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
-            type="name"
+            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+            type="text"
             name="class_name"
             placeholder="name"
-            value={formData.class_name} onChange={handleChange}
+            value={className} onChange={(e) => setClassName(e.target.value)}            
+            required
+          />
+          </div>
+          <div className="flex items-center">
+          <label className="mr-4">Class code:</label>
+          <input
+            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+            type="text"
+            name="class_code"
+            placeholder="code"
+            value={code} onChange={(e) => setCode(e.target.value)}            
             required
           />
           </div>
@@ -68,7 +101,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="text"
               name="category"
               placeholder="category"
-              value={formData.category} onChange={handleChange}
+              value={category} onChange={(e) => setCategory(e.target.value)}
               required
             />
             <label className="ml-0 mr-4 sm:ml-8">Capacity: </label>
@@ -79,7 +112,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               max={15}
               name="capacity"
               placeholder="#"
-              value={formData.capacity} onChange={handleChange}
+              value={capacity} onChange={(e) => setCapacity(e.target.value)}
               required
             />
           </div>
@@ -89,7 +122,7 @@ const CardEditClass = ({ setShow, editClass }) => {
             </label>
             <select
               name="difficulty_level"
-              value={formData.difficulty_level} onChange={handleChange}
+              value={difficultyLevel} onChange={(e) => setDifficultyLevel(e.target.value)}
               className="rounded bg-gray-300 p-2 text-midnights outline-none"
             >
               <option value="regular">Regular</option>
@@ -104,7 +137,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="text"
               name="description"
               placeholder="description"
-              value={formData.description} onChange={handleChange}
+              value={description} onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
@@ -114,7 +147,8 @@ const CardEditClass = ({ setShow, editClass }) => {
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="is_active"
-              defaultValue="yes"
+              defaultValue="true"
+              checked={isActive === true} onChange={(e) => setIsActive(true)}
             />
             <label>Yes</label>
             <input
@@ -122,7 +156,8 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="radio"
               name="is_active"
               id="active_no"
-              defaultValue="no"
+              defaultValue="false"
+              checked={isActive === false} onChange={(e) => setIsActive(false)}
             />
             <label>No</label>
           </div>
@@ -135,7 +170,7 @@ const CardEditClass = ({ setShow, editClass }) => {
               max="2029-12-31T00:00"
               name="start_time"
               placeholder="start time"
-              value={formData.start_time} onChange={handleChange}
+              value={startTime} onChange={(e) => setStartTime(e.target.value)}
               required
             />
             <label className="mr-4">End date: </label>
@@ -146,34 +181,43 @@ const CardEditClass = ({ setShow, editClass }) => {
               max="2029-12-31T00:00"
               name="end_time_class"
               placeholder="end_time"
-              value={formData.end_time} onChange={handleChange}
+              value={endTime} onChange={(e) => setEndTime(e.target.value)}
               required
             />
           </div>
-          {/* <div className="flex items-center">
-            <label className="mr-4">Location:</label>
-            <input
-              className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
-              type="location"
-              name="location_class"
-              id="location_class"
-              placeholder="location"
-              defaultValue={editClass.location}
-              required
-            />
-          </div> */}
-          {/* <div className="flex items-center">
-            <label className="mr-4">Image URL:</label>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Class day:</label>
             <input
               className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
               type="text"
-              name="media_class"
-              id="media_class"
-              placeholder="URL Image"
-              defaultValue={editClass.media}
+              name="class_day"
+              placeholder="Monday"
+              value={classDay} onChange={(e) => setClassDay(e.target.value)}
               required
             />
-          </div> */}
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-2">URL image:</label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="media"
+              placeholder="URL image"
+              value={mediaClass} onChange={(e) => setMediaClass(e.target.value)}
+              required
+            />
+          </div>
+          <div className="flex items-center">
+          <label className="mr-4">Class location:</label>
+          <input
+            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+            type="text"
+            name="location"
+            placeholder="location"
+            value={location} onChange={(e) => setLocation(e.target.value)}            
+            required
+          />
+          </div>
           <button
             type="submit"
             formAction={handleSubmit}
