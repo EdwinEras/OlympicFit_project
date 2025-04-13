@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getClasses } from "../../../routes/classes";
 import { getMedias } from "../../../routes/media";
 import { getUsers } from "../../../routes/users";
+import { getReviews } from "../../../routes/reviews";
 import { calculateDuration } from "../../../lib/utils";
 
 const findItemByKey = (array, key, value) => {
@@ -22,33 +23,52 @@ export default function ClassDetailsPage() {
   const [classDetails, setClassDetails] = useState(null);
   const [mediaInfo, setMediaInfo] = useState(null);
   const [trainer, setTrainer] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [classesData, mediaData, users] = await Promise.all([
-          getClasses().then((res) => res),
-          getMedias().then((res) => res),
-          getUsers().then((res) => res),
-        ]);
+        const [classesData, mediaData, usersData, reviewsData] =
+          await Promise.all([
+            getClasses(),
+            getMedias(),
+            getUsers(),
+            getReviews(),
+          ]);
 
         const classDetails = findItemByKey(
           classesData,
           "class_code",
           classCode
         );
-
         if (!classDetails) return;
 
         const mediaInfo = classDetails.media_code?.length
           ? findItemByKey(mediaData, "media_code", classDetails.media_code[0])
           : null;
 
-        const trainer = findItemByKey(users, "_id", classDetails.trainer_id);
+        const trainer = findItemByKey(
+          usersData,
+          "_id",
+          classDetails.trainer_id
+        );
+
+        const filteredReviews = reviewsData.filter((review) => {
+          console.log("Review schedule_id:", review.schedule_id);
+          console.log("ScheduleData._id:", scheduleData?._id);
+          return scheduleData && review.schedule_id.includes(scheduleData._id);
+        });
+               
+
+        console.log("All reviews:", reviewsData);
+        console.log("Filtered reviews for this class:", filteredReviews);
 
         setClassDetails(classDetails);
         setMediaInfo(mediaInfo);
         setTrainer(trainer);
+        setUsers(usersData);
+        setReviews(filteredReviews);
       } catch (error) {
         console.error("Error fetching class details:", error);
       }
@@ -88,13 +108,30 @@ export default function ClassDetailsPage() {
 
             <div className="rounded-lg shadow">
               <h2 className="text-lg font-bold p-4 uppercase">Comments</h2>
-              <p className="text-brand-200 text-sm bg-old-black px-4 py-6">
-                You must be logged in to{" "}
-                <Link href="/login" className="underline">
-                  log in
-                </Link>{" "}
-                to post a comment.
-              </p>
+              <div>
+                {reviews.length === 0 ? (
+                  <p className="bg-old-black py-6 px-4 text-off-white text-left text-sm">
+                    No reviews yet.
+                  </p>
+                ) : (
+                  reviews.map((review) => {
+                    const user = users.find((u) => u._id === review.user_id);
+                    return (
+                      <div
+                        key={review._id}
+                        className="border-b border-gray-700 pb-4"
+                      >
+                        <p className="font-semibold text-off-white">
+                          {user
+                            ? `${user.first_name} ${user.last_name}`
+                            : "Anonymous"}
+                        </p>
+                        <p className="mt-1">{review.comment}</p>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
             </div>
           </div>
 
