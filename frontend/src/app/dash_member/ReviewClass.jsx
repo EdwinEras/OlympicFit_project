@@ -5,7 +5,7 @@ import { createReview } from "../../routes/reviews";
 const ReviewClass = ({ setShow, revClass }) => {
   const [formData, setFormData] = useState({
     user_id: "",
-    schedule_id: [],
+    schedule_id: [revClass._id],
     rating: 5,
     feedback: "",
   });
