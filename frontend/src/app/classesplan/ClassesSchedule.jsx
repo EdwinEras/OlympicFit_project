@@ -35,7 +35,7 @@ export default function ClassesSchedule() {
           );
 
           classItem.schedule?.forEach(
-            ({ day = "Unknown", start_time, end_time, location }) => {
+            ({ day = "Unknown", start_time, end_time, location, _id }) => {
               const classEntry = {
                 name: classItem.class_name,
                 class_code: classItem.class_code,
@@ -48,6 +48,7 @@ export default function ClassesSchedule() {
                 trainer: trainer
                   ? `${trainer.first_name} ${trainer.last_name}`
                   : "Unknown",
+                schedule_id: _id,
               };
 
               const dayEntry = acc.find((d) => d.day === day);
@@ -100,12 +101,7 @@ export default function ClassesSchedule() {
                           href={{
                             pathname: `/classes/${cls.class_code}`,
                             query: {
-                              schedule: JSON.stringify({
-                                start_time: cls.start_time,
-                                end_time: cls.end_time,
-                                day: cls.day,
-                                location: cls.location,
-                              }),
+                              schedule_id: cls.schedule_id,
                             },
                           }}
                           className="block"
@@ -130,52 +126,6 @@ export default function ClassesSchedule() {
             </tr>
           </tbody>
         </table>
-
-        <div className="lg:hidden space-y-4">
-          {scheduleData.map((day, index) => (
-            <div
-              key={index}
-              className="bg-midnights text-white rounded-lg p-4 shadow-md"
-            >
-              <h3 className="text-lg font-semibold border-b border-gray-700 pb-2">
-                {day.day}
-              </h3>
-              <div className="mt-2">
-                {day.classes.length > 0 ? (
-                  day.classes.map((cls, idx) => (
-                    <Link
-                      key={idx}
-                      href={{
-                        pathname: `/classes/${cls.class_code}`,
-                        query: {
-                          schedule: JSON.stringify({
-                            start_time: cls.start_time,
-                            end_time: cls.end_time,
-                            day: cls.day,
-                            location: cls.location,
-                          }),
-                        },
-                      }}
-                      className="block"
-                    >
-                      <div className="bg-gradient-to-b from-silver-slate border border-silver-slate to-midnights text-white p-3 rounded-md shadow-sm my-4">
-                        <p className="font-semibold text-brand-200 text-sm">
-                          {cls.name} <br />({cls.duration} min)
-                        </p>
-                        <p className="text-sm text-gray-400">{cls.time}</p>
-                        <p className="text-xs text-gray-400">
-                          With: <br /> {cls.trainer}
-                        </p>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <p className="text-gray-400">No classes</p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

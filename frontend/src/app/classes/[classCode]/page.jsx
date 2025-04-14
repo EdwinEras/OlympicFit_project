@@ -16,10 +16,8 @@ const findItemByKey = (array, key, value) => {
 export default function ClassDetailsPage() {
   const { classCode } = useParams();
   const searchParams = useSearchParams();
-  const scheduleData = searchParams.get("schedule")
-    ? JSON.parse(searchParams.get("schedule"))
-    : null;
-
+  const scheduleId = searchParams.get("schedule_id");
+  const [scheduleData, setScheduleData] = useState(null);
   const [classDetails, setClassDetails] = useState(null);
   const [mediaInfo, setMediaInfo] = useState(null);
   const [trainer, setTrainer] = useState(null);
@@ -54,17 +52,19 @@ export default function ClassDetailsPage() {
           classDetails.trainer_id
         );
 
-        const filteredReviews = reviewsData.filter((review) => {
-          console.log("Review schedule_id:", review.schedule_id);
-          console.log("ScheduleData._id:", scheduleData?._id);
-          return scheduleData && review.schedule_id.includes(scheduleData._id);
-        });
-               
+        let schedule = null;
+        if (scheduleId && classDetails?.schedule?.length) {
+          schedule = classDetails.schedule.find((s) => s._id === scheduleId);
+        }
 
-        console.log("All reviews:", reviewsData);
-        console.log("Filtered reviews for this class:", filteredReviews);
+        const filteredReviews = reviewsData.filter((review) => {
+          return schedule && review.schedule_id.includes(schedule._id);
+        });
 
         setClassDetails(classDetails);
+        setScheduleData(schedule);
+        console.log("Schedule Data:", scheduleData);
+
         setMediaInfo(mediaInfo);
         setTrainer(trainer);
         setUsers(usersData);
@@ -75,7 +75,7 @@ export default function ClassDetailsPage() {
     };
 
     fetchData();
-  }, [classCode]);
+  }, [classCode, scheduleId]);
 
   if (!classDetails)
     return <div className="p-6 text-red-500">Class not found!</div>;

@@ -28,10 +28,8 @@ const UpcomingClasses = ({ arrClasses = [] }) => {
     return trainer ? `${trainer.first_name} ${trainer.last_name}` : "Unknown";
   };
 
-  const getDetailsLink = (classCode, schedule) =>
-    `/classes/${classCode}?schedule=${encodeURIComponent(
-      JSON.stringify(schedule)
-    )}`;
+  const getDetailsLink = (classCode, scheduleId) =>
+    `/classes/${classCode}?schedule_id=${scheduleId}`;
 
   return (
     <div className="relative my-12 mx-auto w-[85%] bg-[#9fadb3] p-6 rounded-lg">
@@ -72,7 +70,7 @@ const UpcomingClasses = ({ arrClasses = [] }) => {
                     </p>
                     <div className="flex gap-2">
                       <Link
-                        href={getDetailsLink(c.class_code, schedule)}
+                        href={getDetailsLink(c.class_code, schedule._id)}
                         className="bg-blue-400 px-2 py-1 rounded hover:bg-blue-500 text-white"
                       >
                         Details
