@@ -44,6 +44,7 @@ const CardCreateTrainner = ({ setShow }) => {
         hourly_rate: hourlyRate,
         monthly_salary: monthlySalary,
         role: "trainer",
+        _id: editTrainer._id
       }
     }
     console.log("formData: "+formData);

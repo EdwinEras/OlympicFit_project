@@ -3,59 +3,48 @@ import { useState } from "react";
 import { updateUserById } from "../../routes/users";
 
 const CardCreateTrainner = ({ setShow, editTrainer }) => {
-  const [gender, setGender] = useState();
-  const [formData, setFormData] = useState({
-    first_name: editTrainer.first_name,
-    last_name: editTrainer.last_name,
-    email: editTrainer.email,
-    phone_number: editTrainer.phone_number,
-    gender: editTrainer.gender,
-    address: editTrainer.address,
-    membership: null,
-    promotions: [],
-    dob: editTrainer.dob,
-    media: editTrainer.media,
-    employee: {
-      years_experience: 6,
-      specialization: "Cycling Instructor",
-      type: "full-time",
-      employment_status: "active",
-      description: "Teddy helps clients enhance endurance and cardiovascular health through cycling.",
-      hourly_rate: 50,
-      monthly_salary: 4000,
-      role: "trainer",
-    }
-  });
+  const startTime = new Date().toISOString().slice(0, 16);
+  const [firstName, setFirstName] = useState(editTrainer.first_name);
+  const [lastName, setLastName] = useState(editTrainer.last_name);
+  const [email, setEmail] = useState(editTrainer.email);
+  const [phoneNumber, setPhoneNumber] = useState(editTrainer.phone_number);
+  const [gender, setGender] = useState(editTrainer.gender);
+  const [dob, setDob] = useState(editTrainer);
+  const [address, setAddress] = useState(editTrainer.address);
+  const [media, setMedia] = useState(editTrainer.media);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "gender") setGender(value);
-    if(name==="hourly_rate"){
-      setFormData((prevData) => ({
-        ...prevData,
-        employee: {
-          ...prevData.employee,
-          [name]: Number(value),
-        },
-      }));
-    }
-    if(name==="monthly_salary"){
-      setFormData((prevData) => ({
-        ...prevData,
-        employee: {
-          ...prevData.employee,
-          [name]: Number(value),
-        },
-      }));
-    }else{
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
-  };
+  const [yearsExperience, setYearsExperience] = useState(editTrainer.employee.years_experience);
+  const [specialization, setSpecialization] = useState(editTrainer).employee.specialization;
+  const [status, setStatus] = useState(editTrainer.employee.employment_status);
+  const [description, setDescription] = useState(editTrainer.employee.description);
+  const [assignedClasses, setAssignedClasses] = useState(editTrainer.employee.assigned_class);
+  const [hourlyRate, setHourlyRate] = useState(editTrainer.employee.hourly_rate);
+  const [monthlySalary, setMonthlySalary] = useState(editTrainer.employee.monthly_salary);
 
   async function handleSubmit(){
+    const formData = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone_number: phoneNumber,
+      gender: gender,
+      address: address,
+      membership: null,
+      dob: dob,
+      media: media,
+      employee: {
+        years_experience: yearsExperience,
+        specialization: specialization,
+        type: "full-time",
+        employment_status: status,
+        description: description,
+        assigned_classes: assignedClasses,
+        hourly_rate: hourlyRate,
+        monthly_salary: monthlySalary,
+        role: "trainer",
+        _id: editTrainer._id
+      }
+    }
     console.log("formData: "+formData);
     const user = await updateUserById(editTrainer._id, formData);
     console.log(user);
@@ -83,7 +72,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="first_name"
-            value={formData.first_name} onChange={handleChange}
+            value={firstName} onChange={(e) => setFirstName(e.target.value)}
             placeholder="First name"
             required
           />
@@ -94,7 +83,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="last_name"
-            value={formData.last_name} onChange={handleChange}
+            value={lastName} onChange={(e) => setLastName(e.target.value)}
             placeholder="Last name"
             required
           />
@@ -105,7 +94,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="email"
             name="email"
-            value={formData.email} onChange={handleChange}
+            value={email} onChange={(e) => setEmail(e.target.value)}
             placeholder="email@hotmail.com"
             required
           />
@@ -116,7 +105,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="tel"
             name="phone_number"
-            value={formData.phone_number} onChange={handleChange}
+            value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="123 456 7890"
             required
           />
@@ -127,7 +116,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
               name="monthly_salary"
-              value={formData.monthly_salary} onChange={handleChange}
+              value={monthlySalary} onChange={(e) => setMonthlySalary(Number(e.target.value))}
               placeholder="1000.00"
               required
             />
@@ -136,7 +125,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="number"
               name="hourly_rate"
-              value={formData.hourly_rate} onChange={handleChange}
+              value={hourlyRate} onChange={(e) => setHourlyRate(Number(e.target.value))}
               placeholder="8.5"
               required
             />
@@ -146,9 +135,8 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               Select Gender:
             </label>
             <select
-              id="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
+              name="gender"
+              value={gender} onChange={(e) => setGender(e.target.value)}
               className="rounded bg-gray-300 p-2 text-midnights"
             >
               <option value="Male">Male</option>
@@ -163,16 +151,16 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="employment_status"
-              onChange={handleChange}
-              value="active"
+              value="active" onChange={(e) => setStatus(e.target.value)}
+              checked={status === "active"} 
             />
             <label>Yes</label>
             <input
               className="bg-[#9fadb3] rounded p-1 m-2"
               type="radio"
               name="employment_status"
-              onChange={handleChange}
-              value="inactive"
+              value="inactive" onChange={(e) => setStatus(e.target.value)}
+              checked={status === "inactive"} 
             />
             <label>No</label>
           </div>
@@ -184,7 +172,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
               min="1920-01-01T00:00"
               max="2015-01-01T00:00"
               name="dob"
-              value={formData.dob} onChange={handleChange}
+              value={dob} onChange={(e) => setDob(e.target.value)}
               required
             />
           </div>
@@ -194,7 +182,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-full rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="address"
-            value={formData.address} onChange={handleChange}
+            value={address} onChange={(e) => setAddress(e.target.value)}
             placeholder="123 address Ave"
             required
           />
@@ -205,10 +193,53 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="url"
             name="media"
-            value={formData.media} onChange={handleChange}
+            value={media} onChange={(e) => setMedia(e.target.value)}
             placeholder="URL Image"
             required
           />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          <label className="mr-4">Description: </label>
+          <textarea
+            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+            type="text"
+            name="description"
+            value={description} onChange={(e) => setDescription(e.target.value)}
+            placeholder="Write the description here"
+            required
+          />
+          </div>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          <label className="mr-4">Assigned Classes: </label>
+          <input
+            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+            type="text"
+            name="assigned_classes"
+            value={assignedClasses.join(", ")} 
+            onChange={(e) => setAssignedClasses(e.target.value.split(",").map(str => str.trim()))}
+            placeholder="class1, class2, ..."
+            required
+          />
+          </div>
+          <div>
+            <label className="mr-4">Years Experience: </label>
+            <input
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="exprience"
+              value={yearsExperience} onChange={(e) => setYearsExperience(Number(e.target.value))}
+              placeholder="3"
+              required
+            />
+            <label className="m-4">Especialization: </label>
+            <input
+              className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="especialization"
+              value={specialization} onChange={(e) => setSpecialization(e.target.value)}
+              placeholder="Kickboxing"
+              required
+            />
           </div>
           <button
             type="submit"

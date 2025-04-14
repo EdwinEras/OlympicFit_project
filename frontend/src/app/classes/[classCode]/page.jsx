@@ -75,6 +75,10 @@ export default function ClassDetailsPage() {
     fetchData();
   }, [classCode, scheduleId]);
 
+  async function bookScheduleUser(){
+    
+  }
+
   if (!classDetails)
     return <div className="p-6 text-red-500">Class not found!</div>;
 
