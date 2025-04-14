@@ -4,8 +4,8 @@ import { createReview } from "../../routes/reviews";
 
 const ReviewClass = ({ setShow, revClass }) => {
   const [formData, setFormData] = useState({
-    user: { id: "" },
-    schedule: [{ id: revClass._id }],
+    user_id: "",
+    schedule_id: [revClass._id],
     rating: 5,
     feedback: "",
   });
@@ -22,7 +22,7 @@ const ReviewClass = ({ setShow, revClass }) => {
     if (user?._id) {
       setFormData((prev) => ({
         ...prev,
-        user: { id: user._id },
+        user_id: user._id,
       }));
     }
   }, []);
@@ -59,7 +59,9 @@ const ReviewClass = ({ setShow, revClass }) => {
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
       <div className="p-2 bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
         <div className="flex justify-between items-center">
-          <h2 className="text-lg sm:text-2xl font-semibold">{revClass.class_name}</h2>
+          <h2 className="text-lg sm:text-2xl font-semibold">
+            {revClass.class_name}
+          </h2>
           <button
             onClick={() => setShow("")}
             className="bg-red/90 px-2 py-1 rounded hover:bg-red text-white"
