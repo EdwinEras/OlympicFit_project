@@ -58,7 +58,10 @@ export default function ClassDetailsPage() {
         }
 
         const filteredReviews = reviewsData.filter((review) => {
-          return review.schedule_id.some((id) => id === classDetails._id);
+          return (
+            Array.isArray(review.schedule_id) &&
+            review.schedule_id.some((id) => id === classDetails._id)
+          );
         });
 
         setClassDetails(classDetails);
@@ -115,16 +118,15 @@ export default function ClassDetailsPage() {
                   reviews.map((review) => {
                     const user = users.find((u) => u._id === review.user_id);
                     return (
-                      <div
-                        key={review._id}
-                        className="text-left"
-                      >
+                      <div key={review._id} className="text-left">
                         <p className="text-brand-200 text-sm mb-4">
                           {user
                             ? `${user.first_name} ${user.last_name}`
                             : "Anonymous"}
                         </p>
-                        <p className="text-brand-200 text-sm">{review.feedback}</p>
+                        <p className="text-brand-200 text-sm">
+                          {review.feedback}
+                        </p>
                       </div>
                     );
                   })
