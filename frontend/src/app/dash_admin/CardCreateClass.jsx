@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { createClass } from "../../routes/classes";
 
 const CardCreateClass = ({ setShow }) => {
-  const minDate = new Date().toISOString().slice(0, 16); // for datetime-local min
+  const minDate = new Date().toISOString().slice(0, 16);
   const [className, setClassName] = useState("");
   const [code, setCode] = useState("");
   const [category, setCategory] = useState("");

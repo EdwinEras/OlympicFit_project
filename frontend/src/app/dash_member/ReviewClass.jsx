@@ -1,31 +1,37 @@
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createReview } from "../../routes/reviews";
 
 const ReviewClass = ({ setShow, revClass }) => {
   const [formData, setFormData] = useState({
-    user_id: "",
-    schedule_id: [revClass._id],
+    user: { id: "" },
+    schedule: [{ id: revClass._id }],
     rating: 5,
     feedback: "",
   });
 
   const [error, setError] = useState("");
 
+  const getFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  };
+
+  useEffect(() => {
+    const user = getFromLocalStorage("user");
+    if (user?._id) {
+      setFormData((prev) => ({
+        ...prev,
+        user: { id: user._id },
+      }));
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: name === "rating" ? Number(value) : value,
-    }));
-  };
-
-  const handleScheduleChange = (e) => {
-    const value = e.target.value;
-    const ids = value.split(",").map((id) => id.trim());
-    setFormData((prev) => ({
-      ...prev,
-      schedule_id: ids,
     }));
   };
 
