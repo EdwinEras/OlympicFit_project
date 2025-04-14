@@ -8,16 +8,16 @@ const loginUser = async (email, password) => {
 
   const user = await collection.findOne({ email });
 
-  if (!user) return { success: false, message: "User not found" };
+  if (!user) return { message: "User not found" };
 
   const isMatch = await bcrypt.compare(password, user.password_hash);
 
-  if (!isMatch) return { success: false, message: "Invalid credentials" };
+  if (!isMatch) return { message: "Invalid credentials" };
 
   // Remove password before returning user
   const { password: _, ...safeUser } = user;
 
-  return { success: true, user: safeUser };
+  return safeUser;
 };
 
 module.exports = { loginUser };
