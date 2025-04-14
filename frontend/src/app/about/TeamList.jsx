@@ -1,27 +1,20 @@
 "use client";
 
 import TeamMember from "./TeamMember";
-import { getUsers } from "../../routes/users"
+import { getUsers } from "../../routes/users";
 import { useEffect, useState } from "react";
 
 export default function TeamList() {
   const [arrUsers, setArrUsers] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const loadUsers = async () => {
-      const res = await getUsers()
-      var arrTeam = [];
-      res.forEach(user => {
-        if(user.employee !== null){
-          if(user.employee.role==="trainer"){
-            arrTeam.push(user);
-          }
-        }
-      });
+      const res = await getUsers();
+      const arrTeam = res.filter((user) => user.employee?.role === "trainer");
       setArrUsers(arrTeam);
-    }
+    };
     loadUsers();
-  },[])
+  }, []);
 
   return (
     <section className="container py-20 md:py-28 mx-auto w-[85%] flex flex-col items-center">
