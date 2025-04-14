@@ -57,38 +57,52 @@ const ReviewClass = ({ setShow, revClass }) => {
 
   return (
     <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
-      <div className="p-2 bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg sm:text-2xl font-semibold">
-            {revClass.class_name}
-          </h2>
+      <div className="p-4 w-10/12 sm:w-2/3 md:w-1/2 bg-white rounded-lg shadow-lg">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Leave a Review</h2>
           <button
             onClick={() => setShow("")}
-            className="bg-red/90 px-2 py-1 rounded hover:bg-red text-white"
+            className="text-red-600 hover:text-red-800"
           >
             <X />
           </button>
         </div>
+        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <label>
+            Rating:
+            <select
+              name="rating"
+              value={formData.rating}
+              onChange={handleChange}
+              className="ml-2 p-2 bg-gray-200 rounded"
+            >
+              {[1, 2, 3, 4, 5].map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
-          <label>Feedback:</label>
-          <textarea
-            name="feedback"
-            value={formData.feedback}
-            onChange={handleChange}
-            className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
-            placeholder="Write your feedback..."
-            required
-          />
+          <label>
+            Feedback:
+            <textarea
+              name="feedback"
+              value={formData.feedback}
+              onChange={handleChange}
+              placeholder="Your thoughts..."
+              className="w-full p-2 bg-gray-200 rounded"
+              required
+            />
+          </label>
 
           <button
             type="submit"
-            className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white"
+            className="self-end bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
-            Submit Review
+            Submit
           </button>
-
-          {error && <p className="text-red-500 mt-2">{error}</p>}
         </form>
       </div>
     </div>
