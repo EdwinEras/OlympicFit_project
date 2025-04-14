@@ -17,14 +17,14 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 
-app.use(cors({
-  origin: ['http://localhost:3000','https://olympic-fit-project.vercel.app/'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+// app.use(cors({
+//   origin: ['http://localhost:3000','https://olympic-fit-project.vercel.app/'],
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   credentials: true,
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// }));
 
-// app.use(express.json());
+app.use(express.json());
 
 app.listen(PORT, async () => {
   await run();

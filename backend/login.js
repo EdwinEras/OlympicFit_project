@@ -10,7 +10,7 @@ const loginUser = async (email, password) => {
 
   if (!user) return { success: false, message: "User not found" };
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await bcrypt.compare(password, user.password_hash);
 
   if (!isMatch) return { success: false, message: "Invalid credentials" };
 
