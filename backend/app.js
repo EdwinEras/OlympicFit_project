@@ -15,11 +15,12 @@ const { body, validationResult } = require('express-validator');
 
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: 'http://localhost:3000',
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// }));
 app.use(express.json());
 
 app.listen(PORT, async () => {
