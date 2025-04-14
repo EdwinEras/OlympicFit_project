@@ -58,13 +58,11 @@ export default function ClassDetailsPage() {
         }
 
         const filteredReviews = reviewsData.filter((review) => {
-          return schedule && review.schedule_id.includes(schedule._id);
+          return review.schedule_id.some((id) => id === classDetails._id);
         });
 
         setClassDetails(classDetails);
         setScheduleData(schedule);
-        console.log("Schedule Data:", scheduleData);
-
         setMediaInfo(mediaInfo);
         setTrainer(trainer);
         setUsers(usersData);
@@ -107,11 +105,11 @@ export default function ClassDetailsPage() {
             </div>
 
             <div className="rounded-lg shadow">
-              <h2 className="text-lg font-bold p-4 uppercase">Comments</h2>
-              <div>
+              <h2 className="text-lg font-bold p-4 uppercase">Reviews</h2>
+              <div className="bg-old-black py-6 px-4">
                 {reviews.length === 0 ? (
                   <p className="bg-old-black py-6 px-4 text-off-white text-left text-sm">
-                    No reviews yet.
+                    There are no reviews yet.
                   </p>
                 ) : (
                   reviews.map((review) => {
@@ -119,14 +117,14 @@ export default function ClassDetailsPage() {
                     return (
                       <div
                         key={review._id}
-                        className="border-b border-gray-700 pb-4"
+                        className="text-left"
                       >
-                        <p className="font-semibold text-off-white">
+                        <p className="text-brand-200 text-sm mb-4">
                           {user
                             ? `${user.first_name} ${user.last_name}`
                             : "Anonymous"}
                         </p>
-                        <p className="mt-1">{review.comment}</p>
+                        <p className="text-brand-200 text-sm">{review.feedback}</p>
                       </div>
                     );
                   })
