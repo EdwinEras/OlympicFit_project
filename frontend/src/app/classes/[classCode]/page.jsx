@@ -8,6 +8,10 @@ import { getMedias } from "../../../routes/media";
 import { getUsers } from "../../../routes/users";
 import { getReviews } from "../../../routes/reviews";
 import { calculateDuration } from "../../../lib/utils";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import { User } from "lucide-react";
+import "swiper/css";
 
 const findItemByKey = (array, key, value) => {
   return array.find((item) => item[key] === value);
@@ -111,25 +115,36 @@ export default function ClassDetailsPage() {
               <h2 className="text-lg font-bold p-4 uppercase">Reviews</h2>
               <div className="bg-old-black py-6 px-4">
                 {reviews.length === 0 ? (
-                  <p className="bg-old-black py-6 px-4 text-off-white text-left text-sm">
+                  <p className="text-off-white text-left text-sm">
                     There are no reviews yet.
                   </p>
                 ) : (
-                  reviews.map((review) => {
-                    const user = users.find((u) => u._id === review.user_id);
-                    return (
-                      <div key={review._id} className="text-left">
-                        <p className="text-brand-200 text-sm mb-4">
-                          {user
-                            ? `${user.first_name} ${user.last_name}`
-                            : "Anonymous"}
-                        </p>
-                        <p className="text-brand-200 text-sm">
-                          {review.feedback}
-                        </p>
-                      </div>
-                    );
-                  })
+                  <Swiper
+                    modules={[Pagination, Autoplay]}
+                    autoplay={{ delay: 4000, disableOnInteraction: false }}
+                    loop={true}
+                    slidesPerView={1}
+                    className="text-left flex overflow-hidden"
+                  >
+                    {reviews.map((review) => {
+                      const user = users.find((u) => u._id === review.user_id);
+                      return (
+                        <SwiperSlide key={review._id}>
+                          <div>
+                            <p className="text-brand-200 text-sm mb-4 flex items-center gap-2">
+                              <User size={16} />
+                              {user
+                                ? `${user.first_name} ${user.last_name}`
+                                : "Anonymous"}
+                            </p>
+                            <p className="text-brand-200 text-sm">
+                              {review.feedback}
+                            </p>
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
                 )}
               </div>
             </div>

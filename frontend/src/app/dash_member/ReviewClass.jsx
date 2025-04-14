@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createReview } from "../../routes/reviews";
 
 const ReviewClass = ({ setShow, revClass }) => {
@@ -40,68 +40,66 @@ const ReviewClass = ({ setShow, revClass }) => {
     setError("");
 
     if (!formData.feedback) {
-      setError("All fields are required.");
+      setError("Please fill in all fields");
       return;
     }
 
     try {
       const res = await createReview(formData);
-      console.log("Review submitted:", res);
-      alert("✅ Review submitted successfully!");
+      alert("Review submitted successfully!");
       setShow("");
     } catch (err) {
-      console.error(err);
-      setError("❌ Failed to submit review.");
+      console.log(err);
+      setError("Something went wrong. Please try again.");
     }
   };
 
   return (
-    <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
-      <div className="p-4 w-10/12 sm:w-2/3 md:w-1/2 bg-white rounded-lg shadow-lg">
+    <div className="fixed inset-0 z-20 bg-black bg-opacity-20 backdrop-blur-sm flex justify-center items-center px-4">
+      <div className="w-full max-w-md bg-white rounded-md shadow-md p-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Leave a Review</h2>
-          <button
-            onClick={() => setShow("")}
-            className="text-red-600 hover:text-red-800"
-          >
-            <X />
+          <h3 className="text-lg font-medium">Review this Class</h3>
+          <button onClick={() => setShow("")}>
+            <X className="w-5 h-5 text-gray-500" />
           </button>
         </div>
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <label>
-            Rating:
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-1">
+            <label className="text-sm font-medium">Rating</label>
             <select
               name="rating"
               value={formData.rating}
               onChange={handleChange}
-              className="ml-2 p-2 bg-gray-200 rounded"
+              className="w-full border border-gray-300 rounded px-3 py-2"
             >
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>
-                  {n}
+              {[1, 2, 3, 4, 5].map((val) => (
+                <option key={val} value={val}>
+                  {val}
                 </option>
               ))}
             </select>
-          </label>
+          </div>
 
-          <label>
-            Feedback:
+          <div className="space-y-1">
+            <label className="text-sm font-medium">Feedback</label>
             <textarea
               name="feedback"
               value={formData.feedback}
               onChange={handleChange}
-              placeholder="Your thoughts..."
-              className="w-full p-2 bg-gray-200 rounded"
-              required
+              className="w-full border border-gray-300 rounded px-3 py-2"
+              rows={4}
+              placeholder="Write your feedback here..."
             />
-          </label>
+          </div>
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button
             type="submit"
-            className="self-end bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded"
           >
-            Submit
+            Submit Review
           </button>
         </form>
       </div>
