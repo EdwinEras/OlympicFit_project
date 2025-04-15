@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+const route = "https://olympic-fit-project-g7l5.vercel.app"
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ export default function ContactForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/contact", {
+      const response = await fetch(route+"/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

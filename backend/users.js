@@ -4,12 +4,9 @@ const bcrypt = require('bcrypt');
 require("dotenv").config();
 
 const createUser = async (data) => {
-  data._id = new ObjectId();
-
-  if (data.password) {
+  if (data.password_hash) {
     const saltRounds = 10;
-    data.password_hash = await bcrypt.hash(data.password, saltRounds);
-    delete data.password; // clean plain password
+    data.password_hash = await bcrypt.hash(data.password_hash, saltRounds);
   }
 
   const db = client.db(process.env.DBNAME);

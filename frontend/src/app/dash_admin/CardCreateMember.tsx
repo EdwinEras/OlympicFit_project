@@ -38,7 +38,9 @@ const CardCreateMember = ({setShow}) => {
             },
             dob: dob,
             media: media,
-            employee: null
+            employee: null,
+            booked_classes: [],
+            last_booked_classes: []
         };
         console.log("formData: "+formData);
         const user = await createUser(formData);

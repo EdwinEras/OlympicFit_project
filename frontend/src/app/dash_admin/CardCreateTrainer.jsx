@@ -45,7 +45,9 @@ const CardCreateTrainner = ({ setShow }) => {
         monthly_salary: monthlySalary,
         role: "trainer",
         _id: editTrainer._id
-      }
+      },
+      booked_classes: [],
+      last_booked_classes: []
     }
     console.log("formData: "+formData);
     const user = await createUser(formData);

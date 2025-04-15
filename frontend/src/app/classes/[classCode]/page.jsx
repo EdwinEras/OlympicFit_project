@@ -27,6 +27,7 @@ export default function ClassDetailsPage() {
   const [trainer, setTrainer] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [users, setUsers] = useState([]);
+  const [logUser, setLogUser] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,8 +84,15 @@ export default function ClassDetailsPage() {
   }, [classCode, scheduleId]);
 
   async function bookScheduleUser(){
+    const usr = getFromLocalStorage("user");
+    setLogUser(usr);
     
   }
+
+  const getFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  };
 
   if (!classDetails)
     return <div className="p-6 text-red-500">Class not found!</div>;
@@ -92,8 +100,8 @@ export default function ClassDetailsPage() {
   const imagePath = mediaInfo ? mediaInfo.media_path : "/images/default.jpg";
   const duration =
     scheduleData?.start_time && scheduleData?.end_time
-      ? calculateDuration(scheduleData.start_time, scheduleData.end_time)
-      : null;
+    ? calculateDuration(scheduleData.start_time, scheduleData.end_time)
+    : null;
 
   return (
     <main className="min-h-screen">
