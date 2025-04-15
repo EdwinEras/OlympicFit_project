@@ -5,19 +5,21 @@ import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { getClasses } from "../../../routes/classes";
 import { getMedias } from "../../../routes/media";
-import { getUsers } from "../../../routes/users";
+import { getUsers, updateUserById } from "../../../routes/users";
 import { getReviews } from "../../../routes/reviews";
 import { calculateDuration } from "../../../lib/utils";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { User } from "lucide-react";
 import "swiper/css";
+import { redirect } from "next/navigation";
 
 const findItemByKey = (array, key, value) => {
   return array.find((item) => item[key] === value);
 };
 
 export default function ClassDetailsPage() {
+  const minDate = new Date().toISOString().slice(0, 16);
   const { classCode } = useParams();
   const searchParams = useSearchParams();
   const scheduleId = searchParams.get("schedule_id");
@@ -30,6 +32,9 @@ export default function ClassDetailsPage() {
   const [logUser, setLogUser] = useState();
 
   useEffect(() => {
+    const usr = getFromLocalStorage("user");
+    setLogUser(usr);
+    
     const fetchData = async () => {
       try {
         const [classesData, mediaData, usersData, reviewsData] =
@@ -39,7 +44,6 @@ export default function ClassDetailsPage() {
             getUsers(),
             getReviews(),
           ]);
-
         const classDetails = findItemByKey(
           classesData,
           "class_code",
@@ -84,14 +88,33 @@ export default function ClassDetailsPage() {
   }, [classCode, scheduleId]);
 
   async function bookScheduleUser(){
-    const usr = getFromLocalStorage("user");
-    setLogUser(usr);
-    
+    var formData = {
+      class_id: classDetails._id,
+      schedule_id: scheduleId,
+      booked_on: minDate
+    };
+    if (!logUser.booked_classes) {
+      logUser.booked_classes = [];
+    }
+    logUser.booked_classes.push(formData);
+    formData = logUser;
+    console.log(logUser);
+    const res = await updateUserById(logUser._id, formData);
+    console.log(res);
+    if(res.acknowledged){
+      saveToLocalStorage("user", logUser)
+    }
   }
 
   const getFromLocalStorage = (key) => {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
+  };
+
+  const saveToLocalStorage = (key, value) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   };
 
   if (!classDetails)
@@ -232,12 +255,12 @@ export default function ClassDetailsPage() {
                       See Schedule
                     </Link>
                   ) : (
-                    <Link
-                      href="/login"
+                    <button
+                      onClick={bookScheduleUser}
                       className="py-2.5 px-4 justify-self-center flex text-white rounded uppercase bg-gradient-to-b from-silver-slate border border-silver-slate to-old-black"
                     >
                       Book Now
-                    </Link>
+                    </button>
                   )}
                 </div>
               </div>

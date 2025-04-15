@@ -1,5 +1,6 @@
 import axios from "axios";
 const route = "https://olympic-fit-project-g7l5.vercel.app"
+const route2 = "http://localhost:3001"
 
 async function getUsers(){
     try{
@@ -32,7 +33,7 @@ async function getUserById(id){
 
 async function updateUserById(id, formdata){
     try{
-        const user = await axios.put(route+"/users/"+id, formdata);
+        const user = await axios.put(route2+"/users/"+id, formdata);
         return user.data;
     }catch(err){
         console.log("Error: "+err);

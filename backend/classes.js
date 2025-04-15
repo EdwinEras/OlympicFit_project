@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const createClass = async ( data ) => {
   data._id = new ObjectId();
+  data.schedule._id = new ObjectId();
   const db = client.db(process.env.DBNAME);
   const collection = db.collection('classes');
   const classes = await collection.insertOne(data)

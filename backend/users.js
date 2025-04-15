@@ -48,6 +48,10 @@ const getUserById = async (id) => {
 };
 
 const updateUser = async (id, data) => {
+  if ('_id' in data) {
+    delete data._id;
+  }
+  console.log(data);
   if (!ObjectId.isValid(id)) return { message: "Invalid request" };
 
   const db = client.db(process.env.DBNAME);
