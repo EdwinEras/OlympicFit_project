@@ -147,21 +147,21 @@ const Navbar = () => {
                   href="/dash_member"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
-                  Dash Member
+                  My dashboard
                 </Link>: null }
                 {logUser?.employee?.role==="admin"?
                 <Link
                   href="/dash_admin"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
-                  Dash Admin
+                  My dashboard
                 </Link>: null}
                 {logUser?.employee?.role==="trainer"?
                 <Link
                   href="/dash_trainer"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
-                  Dash Trainer
+                  My dashboard
                 </Link>: null}
               </div>
             )}
