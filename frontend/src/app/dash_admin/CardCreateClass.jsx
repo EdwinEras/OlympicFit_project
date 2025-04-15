@@ -29,6 +29,10 @@ const CardCreateClass = ({ setShow }) => {
   };
 
   const handleSubmit = async () => {
+    let trainer_id = user._id;
+    if(user.employee.role==="admin"){
+      trainer_id = "67fdbaad3f34e299eb4bdd15"
+    }
     const formData = {
       class_name: className,
       class_code: code,
@@ -49,7 +53,7 @@ const CardCreateClass = ({ setShow }) => {
       media_code: [
         mediaClass
       ],
-      trainer_id: user._id
+      trainer_id: trainer_id
     };
     console.log("Submitted data:", formData);
     const classes = await createClass(formData);
