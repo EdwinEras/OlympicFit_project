@@ -6,7 +6,7 @@ const ReviewClass = ({ setShow, revClass }) => {
   const [formData, setFormData] = useState({
     user_id: "",
     schedule_id: [revClass._id],
-    rating: 5,
+    rating: 5, // Kept for compatibility, but not shown in UI
     feedback: "",
   });
 
@@ -31,7 +31,7 @@ const ReviewClass = ({ setShow, revClass }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "rating" ? Number(value) : value,
+      [name]: value,
     }));
   };
 
@@ -40,7 +40,7 @@ const ReviewClass = ({ setShow, revClass }) => {
     setError("");
 
     if (!formData.feedback) {
-      setError("Please fill in all fields");
+      setError("All fields are required.");
       return;
     }
 
@@ -49,58 +49,45 @@ const ReviewClass = ({ setShow, revClass }) => {
       alert("Review submitted successfully!");
       setShow("");
     } catch (err) {
-      console.log(err);
-      setError("Something went wrong. Please try again.");
+      console.error(err);
+      setError("Failed to submit review.");
     }
   };
 
   return (
-    <div className="fixed inset-0 z-20 bg-black bg-opacity-20 backdrop-blur-sm flex justify-center items-center px-4">
-      <div className="w-full max-w-md bg-white rounded-md shadow-md p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-medium">Review this Class</h3>
-          <button onClick={() => setShow("")}>
-            <X className="w-5 h-5 text-gray-500" />
+    <div className="fixed z-50 inset-0 bg-black flex justify-center items-center bg-opacity-20 backdrop-blur-sm">
+      <div className="p-2 bg-white w-10/12 md:w-2/3 lg:2/3 shadow-inner border-e-emerald-600 rounded-lg p-8">
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg sm:text-2xl font-semibold">
+            {revClass.class_name}
+          </h2>
+          <button
+            onClick={() => setShow("")}
+            className="bg-red/90 px-2 py-1 rounded hover:bg-red text-white"
+          >
+            <X />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <label className="text-sm font-medium">Rating</label>
-            <select
-              name="rating"
-              value={formData.rating}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
-            >
-              {[1, 2, 3, 4, 5].map((val) => (
-                <option key={val} value={val}>
-                  {val}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-sm font-medium">Feedback</label>
-            <textarea
-              name="feedback"
-              value={formData.feedback}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
-              rows={4}
-              placeholder="Write your feedback here..."
-            />
-          </div>
-
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+        <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
+          <label className="text-sm font-medium mb-1">Feedback:</label>
+          <textarea
+            name="feedback"
+            value={formData.feedback}
+            onChange={handleChange}
+            className="bg-gray-300 rounded p-2 mb-2 text-midnights outline-none"
+            placeholder="Write your feedback..."
+            required
+          />
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded"
+            className="bg-ocean-blue/70 px-4 py-2 mt-2 rounded text-white"
           >
             Submit Review
           </button>
+
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </form>
       </div>
     </div>
