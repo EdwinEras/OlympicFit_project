@@ -15,12 +15,15 @@ const { createClass, deleteClass } = require('../classes');
 // Sample class data used for testing
 const data = {
     "class_name":"Zumba 2",
-    "class_code":`ZUMBA405${Date.now()}`,
+    "class_code":`ZUMBA404${Date.now()}`,
     "category":"Cardio 2",
     "capacity":20,
     "difficulty_level":"Intermediate 2",
     "description":"Fun dance workout 2",
-    "is_active":true
+    "is_active":true,
+    "schedule":{
+        "_id":""
+    }
 }
   
 test('create class test', async ()=>{
@@ -29,4 +32,3 @@ test('create class test', async ()=>{
     expect(newClass.insertedId).toBeDefined();
     await deleteClass(newClass.insertedId);
 })
- 

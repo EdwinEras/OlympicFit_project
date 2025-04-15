@@ -9,6 +9,8 @@
  * 
  **/
 
+
+
 const { createClass, deleteClass } = require('../classes');
 // Sample class data used for testing
 const data = {
@@ -18,7 +20,10 @@ const data = {
     "capacity":20,
     "difficulty_level":"Intermediate 2",
     "description":"Fun dance workout 2",
-    "is_active":true
+    "is_active":true,
+    "schedule":{
+        "_id":""
+    }
 }
 
 
