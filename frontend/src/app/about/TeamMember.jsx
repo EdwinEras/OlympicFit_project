@@ -16,11 +16,11 @@ export default function TeamMember({ first_name, last_name, employee, media }) {
         </div>
 
         <div className="card__back absolute w-full h-full top-0 left-0 text-white bg-[#2c2b2a] p-4 rounded-2xl">
-          <div className="w-full h-full flex flex-col items-start justify-center">
+          <div className="w-full h-full flex flex-col items-start justify-start">
             <img
               src={media}
               alt={`${first_name} ${last_name}`}
-              className="w-full h-full object-cover mb-4 rounded-2xl"
+              className="w-full object-cover mb-4 rounded-2xl max-h-[380px]"
             />
             <h2 className="text-2xl font-bold uppercase">
               {first_name} {last_name}

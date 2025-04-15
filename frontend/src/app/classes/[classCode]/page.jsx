@@ -31,6 +31,9 @@ export default function ClassDetailsPage() {
   const [users, setUsers] = useState([]);
   const [logUser, setLogUser] = useState();
 
+  const [fullDateTime, setFullDateTime] = useState("");
+  const [timeOnly, setTimeOnly] = useState("");
+
   useEffect(() => {
     const usr = getFromLocalStorage("user");
     setLogUser(usr);
@@ -239,8 +242,8 @@ export default function ClassDetailsPage() {
                     {scheduleData && (
                       <ul className="space-y-4 text-off-white">
                         <li>
-                          <strong>Time:</strong> {scheduleData.start_time} -{" "}
-                          {scheduleData.end_time}
+                          <strong>Time:</strong>
+                          {scheduleData.start_time} -{scheduleData.end_time}
                         </li>
                         <li>
                           <strong>Location:</strong>{" "}

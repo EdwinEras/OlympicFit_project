@@ -18,20 +18,24 @@ const CardCreateClass = ({ setShow }) => {
   const [location, setLocation] = useState("");
   const [user, setUser] = useState();
 
-  useEffect(()=>{
-    const user = getFromLocalStorage("user");
-    setUser(user)
-  },[])
-
   const getFromLocalStorage = (key) => {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
   };
 
+  useEffect(() => {
+    const user = getFromLocalStorage("user");
+    setUser(user);
+  }, []);
+
   const handleSubmit = async () => {
     let trainer_id = user._id;
     if(user.employee.role==="admin"){
       trainer_id = "67fdbaad3f34e299eb4bdd15"
+    }
+    if (startTime >= endTime) {
+      alert("Start time must be earlier than end time.");
+      return;
     }
     const formData = {
       class_name: className,
@@ -41,14 +45,14 @@ const CardCreateClass = ({ setShow }) => {
       difficulty_level: difficultyLevel,
       description: description,
       is_active: isActive,
-      schedule:[
+      schedule: [
         {
           day: classDay,
           start_time: startTime,
           end_time: endTime,
           location: location,
-          status:"scheduled"
-        }
+          status: "scheduled",
+        },
       ],
       media_code: [
         mediaClass
@@ -76,36 +80,39 @@ const CardCreateClass = ({ setShow }) => {
           </button>
         </div>
         <form className="flex flex-col">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center">
-          <label className="mr-4">Class name: </label>
-          <input
-            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="class_name"
-            placeholder="name"
-            value={className} onChange={(e) => setClassName(e.target.value)}
-            required
-          />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Class name: </label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="class_name"
+              placeholder="name"
+              value={className}
+              onChange={(e) => setClassName(e.target.value)}
+              required
+            />
           </div>
           <div className="flex items-center">
-          <label className="mr-4">Class code:</label>
-          <input
-            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="class_code"
-            placeholder="code"
-            value={code} onChange={(e) => setCode(e.target.value)}            
-            required
-          />
+            <label className="mr-4">Class code:</label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="class_code"
+              placeholder="code"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              required
+            />
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
-          <label className="mr-4">Category: </label>
+            <label className="mr-4">Category: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 text-midnights outline-none"
               type="text"
               name="category"
               placeholder="category"
-              value={category} onChange={(e) => setCategory(e.target.value)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               required
             />
             <label className="ml-0 mr-4 sm:ml-8">Capacity: </label>
@@ -116,19 +123,20 @@ const CardCreateClass = ({ setShow }) => {
               max={15}
               name="capacity"
               placeholder="#"
-              value={capacity} onChange={(e) => setCapacity(e.target.value)}
+              value={capacity}
+              onChange={(e) => setCapacity(e.target.value)}
               required
             />
           </div>
           <div className="flex items-center">
-
             <label htmlFor="difficulty" className="mr-2">
               Select Difficulty:
             </label>
             <select
               id="difficulty_level"
               name="difficulty_level"
-              value={difficultyLevel} onChange={(e) => setDifficultyLevel(e.target.value)}
+              value={difficultyLevel}
+              onChange={(e) => setDifficultyLevel(e.target.value)}
               className="rounded bg-gray-300 p-2 outline-none text-midnights"
             >
               <option value="regular">Regular</option>
@@ -143,7 +151,8 @@ const CardCreateClass = ({ setShow }) => {
               type="text"
               name="description"
               placeholder="description"
-              value={description} onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
@@ -154,7 +163,8 @@ const CardCreateClass = ({ setShow }) => {
               type="radio"
               name="is_active"
               value="yes"
-              checked={isActive === true} onChange={(e)=>setIsActive(true)}
+              checked={isActive === true}
+              onChange={(e) => setIsActive(true)}
             />
             <label>Yes</label>
             <input
@@ -162,31 +172,34 @@ const CardCreateClass = ({ setShow }) => {
               type="radio"
               name="is_active"
               value="no"
-              checked={isActive === false} onChange={(e)=>setIsActive(false)}
+              checked={isActive === false}
+              onChange={(e) => setIsActive(false)}
             />
             <label>No</label>
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
-            <label className="mr-4">Start date: </label>
+            <label className="mr-4">Start time: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
-              type="datetime-local"
+              type="time"
               min={minDate}
               max="2029-12-31T00:00"
               name="start_time"
               placeholder="start time"
-              value={startTime} onChange={(e) => setStartTime(e.target.value)}
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
               required
             />
-            <label className="mr-4">End date: </label>
+            <label className="mr-4">End time: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
-              type="datetime-local"
+              type="time"
               min={minDate}
               max="2029-12-31T00:00"
               name="end_time"
               placeholder="end_time"
-              value={endTime} onChange={(e) => setEndTime(e.target.value)}
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
               required
             />
           </div>
@@ -197,7 +210,8 @@ const CardCreateClass = ({ setShow }) => {
               type="text"
               name="class_day"
               placeholder="Monday"
-              value={classDay} onChange={(e) => setClassDay(e.target.value)}
+              value={classDay}
+              onChange={(e) => setClassDay(e.target.value)}
               required
             />
           </div>
@@ -208,20 +222,22 @@ const CardCreateClass = ({ setShow }) => {
               type="text"
               name="media_code"
               placeholder="Media Code"
-              value={mediaClass} onChange={(e) => setMediaClass(e.target.value)}
+              value={mediaClass}
+              onChange={(e) => setMediaClass(e.target.value)}
               required
             />
           </div>
           <div className="flex items-center">
-          <label className="mr-4">Class location:</label>
-          <input
-            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="location"
-            placeholder="location"
-            value={location} onChange={(e) => setLocation(e.target.value)}            
-            required
-          />
+            <label className="mr-4">Class location:</label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="location"
+              placeholder="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
           </div>
           <button
             type="submit"
