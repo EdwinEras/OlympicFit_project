@@ -188,7 +188,7 @@ const CardCreateMember = ({setShow}) => {
                     name="media" 
                     placeholder="URL image"
                     value={media} onChange={(e) => setMedia(e.target.value)}
-                    required />
+                    />
                 </div>
                 <button 
                     type="submit"
