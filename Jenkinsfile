@@ -66,11 +66,11 @@ pipeline {
 
     post {
         success {
-            echo "✅ Build and Tests Passed!"
+            echo "Build and Tests Passed!"
         }
 
         failure {
-            echo "❌ Build or Tests FAILED!"
+            echo "Build or Tests FAILED!"
         }
     }
 }

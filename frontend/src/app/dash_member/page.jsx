@@ -19,6 +19,8 @@ import { redirect } from "next/navigation";
 export default function DashMember() {
   const [upClass, setUpClass] = useState([]);
   const [finClass, setFinClass] = useState([]);
+  const [upSch, setUpSch] = useState([]);
+  const [finSch, setFinSch] = useState([]);
 
   useEffect(() => {
     const loadUsers = async () => {
