@@ -9,20 +9,23 @@ import { User, ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [logUser, setLogUser] = useState();
+  const [logUser, setLogUser] = useState(null);
   const pathname = usePathname();
 
   useEffect(() => {
     setDropdownOpen(false);
     setMenuOpen(false);
     const user = getFromLocalStorage("user");
-    if(user){
+    if (user) {
       setLogUser(user);
+    } else {
+      setLogUser(null);
     }
   }, [pathname]);
 
   const removeFromLocalStorage = () => {
     localStorage.removeItem("user");
+    setLogUser(null);
   };
 
   const getFromLocalStorage = (key) => {
@@ -127,42 +130,46 @@ const Navbar = () => {
             {/* Dropdown Menu */}
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-50">
-                {logUser ? 
-                <Link
-                  href="/home"
-                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
-                  onClick={removeFromLocalStorage}
-                >
-                  Sign Out
-                </Link> :
-                <Link
-                  href="/login"
-                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
-                >
-                  Sign In
-                </Link>
-                }
-                {logUser?.employee===null? 
-                <Link
-                  href="/dash_member"
-                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
-                >
-                  My dashboard
-                </Link>: null }
-                {logUser?.employee?.role==="admin"?
-                <Link
-                  href="/dash_admin"
-                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
-                >
-                  My dashboard
-                </Link>: null}
-                {logUser?.employee?.role==="trainer"?
-                <Link
-                  href="/dash_trainer"
-                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
-                >
-                  My dashboard
-                </Link>: null}
+                {logUser ? (
+                  <Link
+                    href="/home"
+                    className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                    onClick={removeFromLocalStorage}
+                  >
+                    Sign Out
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                  >
+                    Sign In
+                  </Link>
+                )}
+                {logUser?.employee === null ? (
+                  <Link
+                    href="/dash_member"
+                    className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                  >
+                    My dashboard
+                  </Link>
+                ) : null}
+                {logUser?.employee?.role === "admin" ? (
+                  <Link
+                    href="/dash_admin"
+                    className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                  >
+                    My dashboard
+                  </Link>
+                ) : null}
+                {logUser?.employee?.role === "trainer" ? (
+                  <Link
+                    href="/dash_trainer"
+                    className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                  >
+                    My dashboard
+                  </Link>
+                ) : null}
               </div>
             )}
           </div>
