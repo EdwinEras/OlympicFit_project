@@ -133,7 +133,7 @@ export default function ClassDetailsPage() {
                 ) : (
                   <Swiper
                     modules={[Pagination, Autoplay]}
-                    autoplay={{ delay: 4000, disableOnInteraction: false }}
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
                     loop={true}
                     slidesPerView={1}
                     className="text-left flex overflow-hidden"
