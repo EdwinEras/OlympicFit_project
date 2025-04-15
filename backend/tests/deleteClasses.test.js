@@ -9,8 +9,6 @@
  * 
  **/
 
-
-
 const { createClass, deleteClass } = require('../classes');
 // Sample class data used for testing
 const data = {
