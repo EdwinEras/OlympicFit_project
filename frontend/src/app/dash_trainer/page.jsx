@@ -7,44 +7,46 @@
     - Keep **page.jsx** as a Server Component.
     - Create a separate **Client Component** inside the same folder and import it.
 ****/
-"use client"
+"use client";
 import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
 import ManageClass from "./ManageClass";
-import { getClasses } from "../../routes/classes"
+import { getClasses } from "../../routes/classes";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 
 export default function DashTrainer() {
   const [arrClasses, setArrClasses] = useState([]);
+  const [trainerId, setTrainerId] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     const loadClasses = async () => {
       const user = getFromLocalStorage("user");
       redirectLoggedUser(user);
+      setTrainerId(user?._id);
       const res = await getClasses();
       setArrClasses(res);
-    }
+    };
     loadClasses();
-  },[]);
+  }, []);
 
   const getFromLocalStorage = (key) => {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
   };
 
-  const redirectLoggedUser = (user) =>{
+  const redirectLoggedUser = (user) => {
     if (user?.employee?.role === "trainer") {
       console.log("you are the trainer");
-    }else{
+    } else {
       redirect("/home");
     }
   };
 
   return (
     <main className="min-h-screen">
-      <Banner bgImage={bannerImages.dashboard} title="Trainer Dashboard"/>
-      <ManageClass arrClasses={arrClasses}/>
+      <Banner bgImage={bannerImages.dashboard} title="Trainer Dashboard" />
+      <ManageClass arrClasses={arrClasses} trainerId={trainerId} />
     </main>
   );
 }
