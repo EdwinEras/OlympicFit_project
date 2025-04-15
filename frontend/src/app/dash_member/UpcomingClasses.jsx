@@ -5,7 +5,7 @@ import ConfirmDelete from "../../components/ui/ConfirmDelete";
 import { useState, useEffect } from "react";
 import { getUsers } from "../../routes/users";
 
-const UpcomingClasses = ({ arrClasses = [] }) => {
+const UpcomingClasses = ({ arrClasses, arrSc }) => {
   const [classUp, setClassUp] = useState(true);
   const [show, setShow] = useState();
   const [ans, setAns] = useState();

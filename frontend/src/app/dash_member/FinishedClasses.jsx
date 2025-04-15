@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import ReviewClass from "./ReviewClass";
 import { getUsers } from "../../routes/users";
 
-const FinisedClasses = ({ arrClasses }) => {
+const FinisedClasses = ({ arrClasses, arrSc }) => {
   const [classUp, setClassUp] = useState(false);
   const [show, setShow] = useState();
   const [trainers, setTrainers] = useState([]);
