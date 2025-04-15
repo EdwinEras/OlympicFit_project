@@ -4,13 +4,18 @@ import React, { useState, useEffect } from "react";
 import MembershipCard from "./MembershipCard";
 import { X } from "lucide-react";
 import { getMemPlans } from "../../routes/memplans";
+import { useRouter } from "next/navigation";
 
 export default function MembershipList() {
   const [membershipPlans, setMembershipPlans] = useState([]);
+  const [user, setUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [email, setEmail] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
+    const savedUser = getFromLocalStorage("user");
+    setUser(savedUser);
+
     const fetchMembershipPlans = async () => {
       try {
         const response = await getMemPlans();
@@ -23,9 +28,23 @@ export default function MembershipList() {
     fetchMembershipPlans();
   }, []);
 
+  const getFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  };
+
   const handleSubscribe = () => {
-    console.log("User subscribed with email:", email);
-    setIsModalOpen(false);
+    if (user) {
+      alert(
+        "Congratulations! You subscribed to a new membership. Go to your dashboard to see the subscribe membership."
+      );
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleLoginRedirect = () => {
+    router.push("/login");
   };
 
   return (
@@ -47,12 +66,12 @@ export default function MembershipList() {
           <MembershipCard
             key={plan._id}
             {...plan}
-            openModal={() => setIsModalOpen(true)}
+            openModal={handleSubscribe}
           />
         ))}
       </div>
 
-      {isModalOpen && (
+      {isModalOpen && !user && (
         <div className="fixed inset-0 bg-black px-10 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
             <button
@@ -63,22 +82,14 @@ export default function MembershipList() {
             </button>
 
             <p className="text-gray-600 text-center py-2">
-              Enter your email to subscribe to our membership plans.
+              Please log in to subscribe to a membership plan.
             </p>
 
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-4 py-2 my-2 outline-none border rounded-md"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
             <button
-              className="w-full mt-4 bg-red/90 text-white px-4 py-2 rounded hover:bg-red"
-              onClick={handleSubscribe}
+              className="w-full mt-4 bg-midnights text-white px-4 py-2 rounded"
+              onClick={handleLoginRedirect}
             >
-              Subscribe
+              Go to Login
             </button>
           </div>
         </div>
