@@ -60,7 +60,7 @@ const UpcomingClasses = ({ arrClasses, arrSc }) => {
                 const trainerName = findTrainerById(c.trainer_id);
                 return (
                   <div
-                    key={`${c._id}_${scheduleIndex}`}
+                    key={`${c._id}_${schedule._id}`}
                     className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md"
                   >
                     <p className="text-sm">
