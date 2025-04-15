@@ -6,7 +6,7 @@ const ReviewClass = ({ setShow, revClass }) => {
   const [formData, setFormData] = useState({
     user_id: "",
     schedule_id: [revClass._id],
-    rating: 5, // Kept for compatibility, but not shown in UI
+    rating: 5, 
     feedback: "",
   });
 

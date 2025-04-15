@@ -34,12 +34,10 @@ export default function GalleryGrid() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((image, index) => (
           <div key={image.id || index} className="relative w-full h-64 rounded-lg overflow-hidden group">
-            {/* Image */}
             <img
               src={image.media_path}
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105"
             />
-            {/* Hover Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300"></div>
           </div>
         ))}

@@ -35,7 +35,7 @@ export default function ContactForm() {
       const result = await response.json();
 
       if (response.ok) {
-        alert("✅ Message sent successfully!");
+        alert("Message sent successfully!");
         setFormData({
           fullName: "",
           email: "",
@@ -43,11 +43,11 @@ export default function ContactForm() {
           message: "",
         });
       } else {
-        alert(`❌ ${result.error || result.errors?.[0]?.msg || "Something went wrong."}`);
+        alert(`${result.error || result.errors?.[0]?.msg || "Something went wrong."}`);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("❌ There was a problem sending your message. Try again later.");
+      alert("There was a problem sending your message. Try again later.");
     }
   };
 

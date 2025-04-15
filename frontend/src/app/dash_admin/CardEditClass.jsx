@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { updateClassById } from "../../routes/classes";
 
 const CardEditClass = ({ setShow, editClass }) => {
-  const minDate = new Date().toISOString().slice(0, 16); // for datetime-local min
+  const minDate = new Date().toISOString().slice(0, 16); 
   const [className, setClassName] = useState(editClass.class_name);
   const [code, setCode] = useState(editClass.class_code);
   const [category, setCategory] = useState(editClass.category);
   const [capacity, setCapacity] = useState(editClass.capacity);
   const [difficultyLevel, setDifficultyLevel] = useState(editClass.difficulty_level);
   const [description, setDescription] = useState(editClass.description);
-  const [isActive, setIsActive] = useState(editClass.is_active); // yes or no
+  const [isActive, setIsActive] = useState(editClass.is_active); 
   const [startTime, setStartTime] = useState(editClass.schedule.start_time);
   const [endTime, setEndTime] = useState(editClass.schedule.end_time);
   const [classDay, setClassDay] = useState(editClass.schedule.day);

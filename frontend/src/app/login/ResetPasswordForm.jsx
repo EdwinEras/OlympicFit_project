@@ -11,9 +11,8 @@ export default function ResetPasswordForm({ onBack }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
-    // Validation check
     if (!email) {
       setError("Email is required.");
       return;
@@ -22,9 +21,8 @@ export default function ResetPasswordForm({ onBack }) {
       return;
     }
 
-    // Clear error and simulate sending reset link
     setError("");
-    alert("✅ Reset link sent to " + email);
+    alert("Reset link sent to " + email);
   };
 
   return (
