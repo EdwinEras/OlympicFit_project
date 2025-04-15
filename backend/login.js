@@ -14,7 +14,6 @@ const loginUser = async (email, password) => {
 
   if (!isMatch) return { message: "Invalid credentials" };
 
-  // Remove password before returning user
   const { password: _, ...safeUser } = user;
 
   return safeUser;

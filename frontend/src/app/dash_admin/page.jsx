@@ -36,7 +36,7 @@ export default function DashAdmin() {
       var arrM = [];
       res.forEach(user => {
         if(user.employee !== null){
-          if(user.employee.role==="trainer"){
+          if(user?.employee?.role==="trainer"){
             arrT.push(user);
           }
         }else{
