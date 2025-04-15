@@ -88,7 +88,7 @@ export default function ClassDetailsPage() {
   }, [classCode, scheduleId]);
 
   async function bookScheduleUser(){
-    const formData = {
+    var formData = {
       class_id: classDetails._id,
       schedule_id: scheduleId,
       booked_on: minDate
@@ -97,8 +97,9 @@ export default function ClassDetailsPage() {
       logUser.booked_classes = [];
     }
     logUser.booked_classes.push(formData);
+    formData = logUser;
     console.log(logUser);
-    const res = await updateUserById(logUser._id, logUser);
+    const res = await updateUserById(logUser._id, formData);
     console.log(res);
     if(res.acknowledged){
       saveToLocalStorage("user", logUser)
