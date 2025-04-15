@@ -15,10 +15,10 @@ const CardCreateTrainner = ({ setShow }) => {
   const [media, setMedia] = useState("");
 
   const [yearsExperience, setYearsExperience] = useState(1);
-  const [specialization, setSpecialization] = useState();
+  const [specialization, setSpecialization] = useState("");
   const [status, setStatus] = useState("");
-  const [description, setDescription] = useState();
-  const [assignedClasses, setAssignedClasses] = useState([]);
+  const [description, setDescription] = useState("");
+  // const [assignedClasses, setAssignedClasses] = useState([]);
   const [hourlyRate, setHourlyRate] = useState(8);
   const [monthlySalary, setMonthlySalary] = useState(2000);
 
@@ -40,11 +40,9 @@ const CardCreateTrainner = ({ setShow }) => {
         type: "full-time",
         employment_status: status,
         description: description,
-        assigned_classes: assignedClasses,
         hourly_rate: hourlyRate,
         monthly_salary: monthlySalary,
         role: "trainer",
-        _id: editTrainer._id
       },
       booked_classes: [],
       last_booked_classes: []
@@ -115,7 +113,7 @@ const CardCreateTrainner = ({ setShow }) => {
           />
           </div>
           <div>
-            <label className="mr-4">Salary: </label>
+            <label className="mr-4">Monthly salary: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
@@ -210,7 +208,6 @@ const CardCreateTrainner = ({ setShow }) => {
             name="media"
             value={media} onChange={(e) => setMedia(e.target.value)}
             placeholder="URL Image"
-            required
           />
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
@@ -224,7 +221,7 @@ const CardCreateTrainner = ({ setShow }) => {
             required
           />
           </div>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          {/* <div className="flex flex-col sm:flex-row items-start sm:items-center">
           <label className="mr-4">Assigned Classes: </label>
           <input
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
@@ -235,7 +232,7 @@ const CardCreateTrainner = ({ setShow }) => {
             placeholder="class1, class2, ..."
             required
           />
-          </div>
+          </div> */}
           <div>
             <label className="mr-4">Years Experience: </label>
             <input

@@ -14,10 +14,10 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
   const [media, setMedia] = useState(editTrainer.media);
 
   const [yearsExperience, setYearsExperience] = useState(editTrainer.employee.years_experience);
-  const [specialization, setSpecialization] = useState(editTrainer).employee.specialization;
+  const [specialization, setSpecialization] = useState(editTrainer.employee.specialization);
   const [status, setStatus] = useState(editTrainer.employee.employment_status);
   const [description, setDescription] = useState(editTrainer.employee.description);
-  const [assignedClasses, setAssignedClasses] = useState(editTrainer.employee.assigned_class);
+  // const [assignedClasses, setAssignedClasses] = useState(editTrainer.employee.assigned_class);
   const [hourlyRate, setHourlyRate] = useState(editTrainer.employee.hourly_rate);
   const [monthlySalary, setMonthlySalary] = useState(editTrainer.employee.monthly_salary);
 
@@ -38,7 +38,6 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
         type: "full-time",
         employment_status: status,
         description: description,
-        assigned_classes: assignedClasses,
         hourly_rate: hourlyRate,
         monthly_salary: monthlySalary,
         role: "trainer",
@@ -111,7 +110,7 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
           />
           </div>
           <div>
-            <label className="mr-4">Salary: </label>
+            <label className="mr-4">Monthly salary: </label>
             <input
               className="bg-gray-300 rounded p-2 my-2 mr-4 text-midnights outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               type="number"
@@ -191,11 +190,10 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
           <label className="mr-4">Image URL: </label>
           <input
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
-            type="url"
+            type="text"
             name="media"
             value={media} onChange={(e) => setMedia(e.target.value)}
             placeholder="URL Image"
-            required
           />
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
@@ -209,18 +207,18 @@ const CardCreateTrainner = ({ setShow, editTrainer }) => {
             required
           />
           </div>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+          {/* <div className="flex flex-col sm:flex-row items-start sm:items-center">
           <label className="mr-4">Assigned Classes: </label>
           <input
             className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
             type="text"
             name="assigned_classes"
-            value={assignedClasses.join(", ")} 
+            value={Array.isArray(assignedClasses) ? assignedClasses.join(", ") : ""} 
             onChange={(e) => setAssignedClasses(e.target.value.split(",").map(str => str.trim()))}
             placeholder="class1, class2, ..."
             required
           />
-          </div>
+          </div> */}
           <div>
             <label className="mr-4">Years Experience: </label>
             <input
