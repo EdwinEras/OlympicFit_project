@@ -12,7 +12,7 @@ import Banner from "../../components/ui/Banner";
 import bannerImages from "../../lib/bannerImages";
 import FinisedClasses from "./FinishedClasses";
 import UpcomingClasses from "./UpcomingClasses";
-import { getClassById, getClasses } from "../../routes/classes";
+import { getClassById } from "../../routes/classes";
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 
