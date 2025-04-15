@@ -3,14 +3,16 @@ import { useState, useEffect } from "react";
 import { updateClassById } from "../../routes/classes";
 
 const CardEditClass = ({ setShow, editClass }) => {
-  const minDate = new Date().toISOString().slice(0, 16); 
+  const minDate = new Date().toISOString().slice(0, 16);
   const [className, setClassName] = useState(editClass.class_name);
   const [code, setCode] = useState(editClass.class_code);
   const [category, setCategory] = useState(editClass.category);
   const [capacity, setCapacity] = useState(editClass.capacity);
-  const [difficultyLevel, setDifficultyLevel] = useState(editClass.difficulty_level);
+  const [difficultyLevel, setDifficultyLevel] = useState(
+    editClass.difficulty_level
+  );
   const [description, setDescription] = useState(editClass.description);
-  const [isActive, setIsActive] = useState(editClass.is_active); 
+  const [isActive, setIsActive] = useState(editClass.is_active);
   const [startTime, setStartTime] = useState(editClass.schedule.start_time);
   const [endTime, setEndTime] = useState(editClass.schedule.end_time);
   const [classDay, setClassDay] = useState(editClass.schedule.day);
@@ -18,10 +20,10 @@ const CardEditClass = ({ setShow, editClass }) => {
   const [location, setLocation] = useState(editClass);
   const [user, setUser] = useState();
 
-  useEffect(()=>{
+  useEffect(() => {
     const user = getFromLocalStorage("user");
-    setUser(user)
-  },[])
+    setUser(user);
+  }, []);
 
   const getFromLocalStorage = (key) => {
     const item = localStorage.getItem(key);
@@ -29,6 +31,10 @@ const CardEditClass = ({ setShow, editClass }) => {
   };
 
   const handleSubmit = async () => {
+    if (startTime >= endTime) {
+      alert("Start time must be earlier than end time.");
+      return;
+    }
     const formData = {
       class_name: className,
       class_code: code,
@@ -37,19 +43,17 @@ const CardEditClass = ({ setShow, editClass }) => {
       difficulty_level: difficultyLevel,
       description: description,
       is_active: isActive,
-      schedule:[
+      schedule: [
         {
           day: classDay,
           start_time: startTime,
           end_time: endTime,
           location: location,
-          status:"scheduled"
-        }
+          status: "scheduled",
+        },
       ],
-      media_code: [
-        mediaClass
-      ],
-      trainer_id: user._id
+      media_code: [mediaClass],
+      trainer_id: user._id,
     };
     console.log("Submitted data:", formData);
     const classes = await updateClassById(editClass._id, formData);
@@ -72,27 +76,29 @@ const CardEditClass = ({ setShow, editClass }) => {
           </button>
         </div>
         <form className="flex flex-col">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center">
-          <label className="mr-4">Class Name:</label>
-          <input
-            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="class_name"
-            placeholder="name"
-            value={className} onChange={(e) => setClassName(e.target.value)}            
-            required
-          />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center">
+            <label className="mr-4">Class Name:</label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="class_name"
+              placeholder="name"
+              value={className}
+              onChange={(e) => setClassName(e.target.value)}
+              required
+            />
           </div>
           <div className="flex items-center">
-          <label className="mr-4">Class code:</label>
-          <input
-            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="class_code"
-            placeholder="code"
-            value={code} onChange={(e) => setCode(e.target.value)}            
-            required
-          />
+            <label className="mr-4">Class code:</label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="class_code"
+              placeholder="code"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              required
+            />
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
             <label className="mr-4">Category:</label>
@@ -101,7 +107,8 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="text"
               name="category"
               placeholder="category"
-              value={category} onChange={(e) => setCategory(e.target.value)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               required
             />
             <label className="ml-0 mr-4 sm:ml-8">Capacity: </label>
@@ -112,7 +119,8 @@ const CardEditClass = ({ setShow, editClass }) => {
               max={15}
               name="capacity"
               placeholder="#"
-              value={capacity} onChange={(e) => setCapacity(e.target.value)}
+              value={capacity}
+              onChange={(e) => setCapacity(e.target.value)}
               required
             />
           </div>
@@ -122,7 +130,8 @@ const CardEditClass = ({ setShow, editClass }) => {
             </label>
             <select
               name="difficulty_level"
-              value={difficultyLevel} onChange={(e) => setDifficultyLevel(e.target.value)}
+              value={difficultyLevel}
+              onChange={(e) => setDifficultyLevel(e.target.value)}
               className="rounded bg-gray-300 p-2 text-midnights outline-none"
             >
               <option value="regular">Regular</option>
@@ -137,7 +146,8 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="text"
               name="description"
               placeholder="description"
-              value={description} onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
@@ -148,7 +158,8 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="radio"
               name="is_active"
               defaultValue="true"
-              checked={isActive === true} onChange={(e) => setIsActive(true)}
+              checked={isActive === true}
+              onChange={(e) => setIsActive(true)}
             />
             <label>Yes</label>
             <input
@@ -157,31 +168,34 @@ const CardEditClass = ({ setShow, editClass }) => {
               name="is_active"
               id="active_no"
               defaultValue="false"
-              checked={isActive === false} onChange={(e) => setIsActive(false)}
+              checked={isActive === false}
+              onChange={(e) => setIsActive(false)}
             />
             <label>No</label>
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center">
-            <label className="mr-4">Start date: </label>
+            <label className="mr-4">Start time: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
-              type="datetime-local"
+              type="time"
               min={minDate}
               max="2029-12-31T00:00"
               name="start_time"
               placeholder="start time"
-              value={startTime} onChange={(e) => setStartTime(e.target.value)}
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
               required
             />
-            <label className="mr-4">End date: </label>
+            <label className="mr-4">End time: </label>
             <input
               className="bg-gray-300 text-midnights rounded p-2 my-2 mr-8 outline-none"
-              type="datetime-local"
+              type="time"
               min={minDate}
               max="2029-12-31T00:00"
               name="end_time_class"
               placeholder="end_time"
-              value={endTime} onChange={(e) => setEndTime(e.target.value)}
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
               required
             />
           </div>
@@ -192,7 +206,8 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="text"
               name="class_day"
               placeholder="Monday"
-              value={classDay} onChange={(e) => setClassDay(e.target.value)}
+              value={classDay}
+              onChange={(e) => setClassDay(e.target.value)}
               required
             />
           </div>
@@ -203,20 +218,22 @@ const CardEditClass = ({ setShow, editClass }) => {
               type="text"
               name="media"
               placeholder="URL image"
-              value={mediaClass} onChange={(e) => setMediaClass(e.target.value)}
+              value={mediaClass}
+              onChange={(e) => setMediaClass(e.target.value)}
               required
             />
           </div>
           <div className="flex items-center">
-          <label className="mr-4">Class location:</label>
-          <input
-            className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
-            type="text"
-            name="location"
-            placeholder="location"
-            value={location} onChange={(e) => setLocation(e.target.value)}            
-            required
-          />
+            <label className="mr-4">Class location:</label>
+            <input
+              className="bg-gray-300 w-[85%] rounded p-2 my-2 text-midnights outline-none"
+              type="text"
+              name="location"
+              placeholder="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
           </div>
           <button
             type="submit"

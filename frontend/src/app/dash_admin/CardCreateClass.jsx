@@ -29,6 +29,10 @@ const CardCreateClass = ({ setShow }) => {
   }, []);
 
   const handleSubmit = async () => {
+    if (startTime >= endTime) {
+      alert("Start time must be earlier than end time.");
+      return;
+    }
     const formData = {
       class_name: className,
       class_code: code,
