@@ -9,15 +9,25 @@ import { User, ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logUser, setLogUser] = useState();
   const pathname = usePathname();
 
   useEffect(() => {
     setDropdownOpen(false);
     setMenuOpen(false);
+    const user = getFromLocalStorage("user");
+    if(user){
+      setLogUser(user);
+    }
   }, [pathname]);
 
   const removeFromLocalStorage = () => {
     localStorage.removeItem("user");
+  };
+
+  const getFromLocalStorage = (key) => {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
   };
 
   return (
@@ -117,37 +127,42 @@ const Navbar = () => {
             {/* Dropdown Menu */}
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-md z-50">
-                <Link
-                  href="/login"
-                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
-                >
-                  Sign In
-                </Link>
+                {logUser ? 
                 <Link
                   href="/home"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                   onClick={removeFromLocalStorage}
                 >
                   Sign Out
-                </Link>
+                </Link> :
                 <Link
-                  href="/dash_admin"
+                  href="/login"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
-                  Dash Admin
+                  Sign In
                 </Link>
+                }
+                {logUser?.employee===null? 
                 <Link
                   href="/dash_member"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
                   Dash Member
-                </Link>
+                </Link>: null }
+                {logUser?.employee?.role==="admin"?
+                <Link
+                  href="/dash_admin"
+                  className="block px-4 py-2 hover:bg-gray-200 transition-all"
+                >
+                  Dash Admin
+                </Link>: null}
+                {logUser?.employee?.role==="trainer"?
                 <Link
                   href="/dash_trainer"
                   className="block px-4 py-2 hover:bg-gray-200 transition-all"
                 >
                   Dash Trainer
-                </Link>
+                </Link>: null}
               </div>
             )}
           </div>
