@@ -59,11 +59,11 @@ export default function LoginForm({ onReset }) {
           className="w-full border p-2 rounded mt-1" />
         </div>
 
-        <div className="flex justify-between items-center text-sm">
+        {/* <div className="flex justify-between items-center text-sm">
           <button type="button" onClick={onReset} className="text-silver-slate  hover:underline">
             Reset Password
           </button>
-        </div>
+        </div> */}
 
         <button 
           formAction={handleSubmit}
