@@ -243,8 +243,7 @@ export default function ClassDetailsPage() {
                       <ul className="space-y-4 text-off-white">
                         <li>
                           <strong>Time:</strong>
-                          {scheduleData?.start_time?.split("T")[1] || "N/A"} -
-                          {scheduleData?.end_time?.split("T")[1] || "N/A"}
+                          {scheduleData.start_time} -{scheduleData.end_time}
                         </li>
                         <li>
                           <strong>Location:</strong>{" "}
