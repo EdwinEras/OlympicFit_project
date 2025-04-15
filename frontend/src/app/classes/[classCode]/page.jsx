@@ -34,7 +34,7 @@ export default function ClassDetailsPage() {
   useEffect(() => {
     const usr = getFromLocalStorage("user");
     setLogUser(usr);
-    
+
     const fetchData = async () => {
       try {
         const [classesData, mediaData, usersData, reviewsData] =
@@ -87,11 +87,22 @@ export default function ClassDetailsPage() {
     fetchData();
   }, [classCode, scheduleId]);
 
-  async function bookScheduleUser(){
+  async function bookScheduleUser() {
+    const isClassAlreadyBooked = logUser.booked_classes?.some(
+      (booking) =>
+        booking.class_id === classDetails._id &&
+        booking.schedule_id === scheduleId
+    );
+
+    if (isClassAlreadyBooked) {
+      alert("You have already booked this class. Please check your dashboard.");
+      return;
+    }
+
     var formData = {
       class_id: classDetails._id,
       schedule_id: scheduleId,
-      booked_on: minDate
+      booked_on: minDate,
     };
     if (!logUser.booked_classes) {
       logUser.booked_classes = [];
@@ -101,8 +112,9 @@ export default function ClassDetailsPage() {
     console.log(logUser);
     const res = await updateUserById(logUser._id, formData);
     console.log(res);
-    if(res.acknowledged){
-      saveToLocalStorage("user", logUser)
+    if (res.acknowledged) {
+      saveToLocalStorage("user", logUser);
+      alert("Class successfully booked! Check your dashboard for details.");
     }
   }
 
@@ -123,8 +135,8 @@ export default function ClassDetailsPage() {
   const imagePath = mediaInfo ? mediaInfo.media_path : "/images/default.jpg";
   const duration =
     scheduleData?.start_time && scheduleData?.end_time
-    ? calculateDuration(scheduleData.start_time, scheduleData.end_time)
-    : null;
+      ? calculateDuration(scheduleData.start_time, scheduleData.end_time)
+      : null;
 
   return (
     <main className="min-h-screen">

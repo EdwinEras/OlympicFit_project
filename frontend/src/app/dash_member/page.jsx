@@ -33,26 +33,31 @@ export default function DashMember() {
     loadUsers();
   }, []);
 
-  const clasifyClasses = async (array, type) =>{ 
-    if(array.length > 0){
-      let arrClass=[];
-      for(let i=0; i<array.length; i++){
-        let idC = array[i].class_id
+  const clasifyClasses = async (array, type) => {
+    if (array.length > 0) {
+      let arrClass = [];
+      for (let i = 0; i < array.length; i++) {
+        let idC = array[i].class_id;
         let objC = await getClassById(idC);
-        for(let j=0; j<objC.schedule.length; j++){
-          if(objC.schedule[j]._id===array[i].schedule_id){
-            arrClass.push(objC);
-          }
+        const filteredSchedule = objC.schedule.find(
+          (schedule) => schedule._id === array[i].schedule_id
+        );
+
+        if (filteredSchedule) {
+          arrClass.push({
+            ...objC,
+            schedule: [filteredSchedule],
+          });
         }
       }
-      console.log(arrClass)
-      if(type){
-        setUpClass(arrClass)
-      }else{
-        setFinClass(arrClass)
+      console.log(arrClass);
+      if (type) {
+        setUpClass(arrClass);
+      } else {
+        setFinClass(arrClass);
       }
     }
-  } 
+  };
 
   const getFromLocalStorage = (key) => {
     const item = localStorage.getItem(key);
