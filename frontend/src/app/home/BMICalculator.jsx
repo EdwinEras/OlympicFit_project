@@ -35,20 +35,32 @@ const BMICalculator = () => {
     }
 
     const heightInMeters = heightNum / 100;
-    const calculatedBMI = (
-      weightNum /
-      (heightInMeters * heightInMeters)
-    ).toFixed(1);
-    setBMI(calculatedBMI);
+    const calculatedBMI = weightNum / (heightInMeters * heightInMeters);
+    setBMI(calculatedBMI.toFixed(1));
 
     if (calculatedBMI < 18.5) {
-      setStatus("Underweight");
+      setStatus("underweight");
     } else if (calculatedBMI < 25) {
-      setStatus("Healthy");
+      setStatus("healthy");
     } else if (calculatedBMI < 30) {
-      setStatus("Overweight");
+      setStatus("overweight");
     } else {
-      setStatus("Obese");
+      setStatus("obese");
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "healthy":
+        return "bg-green-600";
+      case "underweight":
+        return "bg-yellow-500";
+      case "overweight":
+        return "bg-orange-500";
+      case "obese":
+        return "bg-red-700";
+      default:
+        return "bg-gray-500";
     }
   };
 
@@ -146,14 +158,14 @@ const BMICalculator = () => {
 
       {bmi && !error && (
         <div
-          className={`mt-6 flex w-full p-3 text-white rounded-md ${
-            status === "Healthy" ? "bg-green-600" : "bg-red-500"
-          }`}
+          className={`mt-6 flex w-full p-3 rounded-md ${getStatusColor(
+            status
+          )}`}
         >
           <User className="mr-2" />
           <p className="font-semibold">
-            YOU ARE <span className="uppercase">{status}</span>. Your BMI is{" "}
-            {bmi}.
+            YOU ARE <span className="uppercase">{status.toUpperCase()}</span>{" "}
+            Your BMI is {bmi}.
           </p>
         </div>
       )}
