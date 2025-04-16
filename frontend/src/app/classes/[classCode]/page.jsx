@@ -12,13 +12,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { User } from "lucide-react";
 import "swiper/css";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const findItemByKey = (array, key, value) => {
   return array.find((item) => item[key] === value);
 };
 
 export default function ClassDetailsPage() {
+  const router = useRouter();
   const minDate = new Date().toISOString().slice(0, 16);
   const { classCode } = useParams();
   const searchParams = useSearchParams();
@@ -30,9 +31,6 @@ export default function ClassDetailsPage() {
   const [reviews, setReviews] = useState([]);
   const [users, setUsers] = useState([]);
   const [logUser, setLogUser] = useState();
-
-  const [fullDateTime, setFullDateTime] = useState("");
-  const [timeOnly, setTimeOnly] = useState("");
 
   useEffect(() => {
     const usr = getFromLocalStorage("user");
@@ -91,6 +89,10 @@ export default function ClassDetailsPage() {
   }, [classCode, scheduleId]);
 
   async function bookScheduleUser() {
+    if (!logUser) {
+      router.push("/login");
+      return;
+    }
     const isClassAlreadyBooked = logUser.booked_classes?.some(
       (booking) =>
         booking.class_id === classDetails._id &&
